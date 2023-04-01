@@ -3,21 +3,29 @@ package plumber;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Drain extends PlumbingProduct {
 
-    private Drain(ArrayList<Direction> ends, Cell cell){
+    private Drain(Set<Direction> ends, Cell cell){
         super(ends, cell);
 
         if(ends.size() != 1){
             throw new IllegalArgumentException("illegal exception");
         }
 
-        ArrayList<Direction> directions = new ArrayList<>(Arrays.asList(ends.get(0)));
+    }
+
+    @Override
+    public Direction getSuspendedDirection() {
+        return null;
     }
 
     public Drain(Direction end, Cell cell){
-        this(new ArrayList<>(Arrays.asList(end)), cell);
+        this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 
 
