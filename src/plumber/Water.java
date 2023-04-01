@@ -5,6 +5,10 @@ public class Water {
 
     private PlumbingProduct lastFillingPlumbingProduct;
 
+    public PlumbingProduct getLastFillingPlumbingProduct(){
+        return lastFillingPlumbingProduct;
+    }
+
     public void flow(){
 
     }

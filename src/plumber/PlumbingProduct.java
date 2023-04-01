@@ -27,8 +27,8 @@ public abstract class PlumbingProduct {
     // --------------------- взаимодействие с водой ----------------------------------
 
     private Water water = null;
-    public void  fill(){
-
+    public void  fill(Water water){
+        this.water = water;
     }
 
     public  boolean isFilled(){
@@ -55,5 +55,7 @@ public abstract class PlumbingProduct {
     }
 
 
+
+    //------------------------ Системные ----------------------------
 
 }

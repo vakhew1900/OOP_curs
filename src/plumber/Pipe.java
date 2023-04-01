@@ -19,8 +19,8 @@ public class Pipe extends PlumbingProduct{
     }
 
     @Override
-    public void fill() {
-        super.fill();
+    public void fill(Water water) {
+        super.fill(water);
     }
 
     @Override
