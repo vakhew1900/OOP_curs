@@ -20,6 +20,59 @@ public class PlumbingProductTest {
         cell = new Cell(1, 1);
     }
 
+
+//---------------------- поиск соседа ------------------------------------------------
+
+    @Test
+    public void neighbor_TypeTest(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(1, 2);
+
+        cell1.setNeighbor(Direction.east(), cell2);
+
+        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+        PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Assertions.assertEquals(plumbingProduct2 ,plumbingProduct1.neighbor(Direction.east()));
+        Assertions.assertEquals(plumbingProduct1 ,plumbingProduct2.neighbor(Direction.west()));
+    }
+
+    @Test
+    public void neighbor_TypeTest2(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(2, 1);
+
+        cell1.setNeighbor(Direction.north(), cell2);
+
+        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+        PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Assertions.assertEquals(plumbingProduct2 ,plumbingProduct1.neighbor(Direction.north()));
+        Assertions.assertEquals(plumbingProduct1 ,plumbingProduct2.neighbor(Direction.south()));
+    }
+
+    @Test
+    public void neighbor_CellIsClear(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(2, 1);
+
+        cell1.setNeighbor(Direction.north(), cell2);
+
+        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+       // PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Assertions.assertNull(plumbingProduct1.neighbor(Direction.north()));
+    }
+
 //------------------------ тестирование соединения  ---------------------------------------------
     @Test
     public  void isConnected_TypeTest(){
@@ -44,7 +97,7 @@ public class PlumbingProductTest {
         Cell cell1 = new Cell(1, 1);
         Cell cell2 = new Cell(2, 1);
 
-        cell1.setNeighbor(Direction.east(), cell2);
+        cell1.setNeighbor(Direction.north(), cell2);
 
         Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.north(), Direction.west()}));
         Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
@@ -135,6 +188,7 @@ public class PlumbingProductTest {
         Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
         Assertions.assertFalse(plumbingProduct2.isConnected(plumbingProduct1));
     }
+
 
     // Проверить можно ли заполнить трубу
 

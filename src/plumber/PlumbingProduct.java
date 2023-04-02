@@ -59,13 +59,14 @@ public abstract class PlumbingProduct {
         return ends.contains(direction);
     }
 
-    private PlumbingProduct neighbor(Direction direction){
+    public PlumbingProduct neighbor(Direction direction){
 
         Cell neighborCell = cell.neighbor(direction);
 
         if (neighborCell != null){
             return neighborCell.getContent();
         }
+
         return  null;
     }
 

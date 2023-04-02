@@ -24,6 +24,23 @@ public class Water {
         this.lastFillingPlumbingProduct = plumbingProduct;
     }
 
+    private void nextConnection(@NotNull Direction direction){
+
+        if(getLastFillingPlumbingProduct() == null)
+            return;
+
+        PlumbingProduct neighbor =  getLastFillingPlumbingProduct().neighbor(direction);
+
+        if(neighbor!= null){
+
+            boolean flag = getLastFillingPlumbingProduct().isCanFilled(neighbor);
+
+            if(flag){
+                nextPlumbingProduct(neighbor);
+            }
+        }
+    }
+
     private void stop(){
 
     }
