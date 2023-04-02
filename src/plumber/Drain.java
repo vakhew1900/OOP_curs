@@ -17,6 +17,10 @@ public class Drain extends PlumbingProduct {
             throw new IllegalArgumentException("illegal exception");
         }
 
+        if(ends.contains(null)){
+            throw new IllegalArgumentException("illegal exception");
+        }
+
     }
 
     @Override

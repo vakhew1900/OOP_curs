@@ -28,7 +28,13 @@ public abstract class PlumbingProduct {
 
     private Water water = null;
     public void  fill(Water water){
-        this.water = water;
+
+        if(isFilled() == false) {
+            this.water = water;
+            if (water.getLastFillingPlumbingProduct() == null || water.getLastFillingPlumbingProduct().equals(this) == false) {
+                water.nextPlumbingProduct(this);
+            }
+        }
     }
 
     public  boolean isFilled(){

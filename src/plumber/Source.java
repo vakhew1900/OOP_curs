@@ -15,6 +15,10 @@ public class Source extends PlumbingProduct{
             throw new IllegalArgumentException("illegal exception");
         }
 
+        if(ends.contains(null)){
+            throw new IllegalArgumentException("illegal exception");
+        }
+
     }
 
     @Override

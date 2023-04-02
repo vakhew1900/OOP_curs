@@ -4,6 +4,7 @@ public class Water {
 
 
     private PlumbingProduct lastFillingPlumbingProduct;
+    private Direction waterDirection;
 
     public PlumbingProduct getLastFillingPlumbingProduct(){
         return lastFillingPlumbingProduct;
@@ -13,8 +14,12 @@ public class Water {
 
     }
 
-    private void nextPlumbingProduct(PlumbingProduct plumbingProduct){
+     void nextPlumbingProduct(PlumbingProduct plumbingProduct){
 
+        if(plumbingProduct.isFilled() == false) {
+            plumbingProduct.fill(this);
+        }
+        this.lastFillingPlumbingProduct = plumbingProduct;
     }
 
     private void stop(){
