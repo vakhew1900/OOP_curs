@@ -15,6 +15,8 @@ public abstract class PlumbingProduct {
 
     public PlumbingProduct(Set<Direction> ends, Cell cell){
 
+
+
         if (cell == null || ends.size() == 0){
             throw new IllegalArgumentException("Illegal argument for PlumbingProduct");
         }

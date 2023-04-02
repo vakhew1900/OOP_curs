@@ -70,9 +70,9 @@ public class Cell {
         return null;
     }
 
-//    public Map<Direction, Cell> neighbors() {
-//        return Collections.unmodifiableMap(_neighbors);
-//    }
+    public Map<Direction, Cell> neighbors() {
+        return Collections.unmodifiableMap(_neighbors);
+    }
 
     public void setNeighbor(Direction direct, Cell neighbor) {
         if (neighbor != this && !isNeighbor(neighbor) && this.neighbor(direct) == null) {
