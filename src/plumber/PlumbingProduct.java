@@ -1,5 +1,7 @@
 package plumber;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,12 +14,19 @@ public abstract class PlumbingProduct {
 
     // ------------------ Конструктор ----------------------------------------------
 
+    public Set<Direction> getEnds(){
+        return ends;
+    }
 
-    public PlumbingProduct(Set<Direction> ends, Cell cell){
+    protected void setEnds(@NotNull Set<Direction> ends){
+        this.ends = ends;
+    }
+
+    public PlumbingProduct(@NotNull Set<Direction> ends, Cell cell){
 
 
 
-        if (cell == null || ends.size() == 0){
+        if (cell == null || ends == null || ends.size() == 0){
             throw new IllegalArgumentException("Illegal argument for PlumbingProduct");
         }
 
@@ -30,7 +39,7 @@ public abstract class PlumbingProduct {
     // --------------------- взаимодействие с водой ----------------------------------
 
     private Water water = null;
-    public void  fill(Water water){
+    public void  fill(@NotNull Water water){
 
         if(isFilled() == false) {
             this.water = water;

@@ -1,5 +1,7 @@
 package plumber;
 
+import org.jetbrains.annotations.NotNull;
+
 public class Water {
 
 
@@ -14,7 +16,7 @@ public class Water {
 
     }
 
-     void nextPlumbingProduct(PlumbingProduct plumbingProduct){
+     void nextPlumbingProduct(@NotNull PlumbingProduct plumbingProduct){
 
         if(plumbingProduct.isFilled() == false) {
             plumbingProduct.fill(this);

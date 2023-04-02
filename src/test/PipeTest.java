@@ -37,4 +37,32 @@ public class PipeTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Pipe(null, cell));
     }
 
+
+    //---------------------------rotate ------------------------------------------
+
+    @Test
+    public void rotate_TypeTest(){
+
+        Set<Direction> ends = new HashSet(List.of(new Direction[]{Direction.south(), Direction.west()}));
+        Pipe pipe = new Pipe(ends, cell);
+
+        pipe.rotate();
+
+        Assertions.assertTrue(pipe.hasEnd(Direction.west()));
+        Assertions.assertTrue(pipe.hasEnd(Direction.north()));
+
+    }
+
+    @Test
+    public void rotate_TypeTest2(){
+
+        Set<Direction> ends = new HashSet(List.of(new Direction[]{Direction.south(), Direction.north()}));
+        Pipe pipe = new Pipe(ends, cell);
+
+        pipe.rotate();
+
+        Assertions.assertTrue(pipe.hasEnd(Direction.west()));
+        Assertions.assertTrue(pipe.hasEnd(Direction.east()));
+
+    }
 }

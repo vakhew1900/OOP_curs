@@ -1,5 +1,6 @@
 package plumber;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,14 @@ public class Pipe extends PlumbingProduct{
     }
 
     public void rotate(){
+
+        Set<Direction> newEnds = new HashSet<>();
+
+        for(Direction end : getEnds()){
+            newEnds.add(end.clockwise());
+        }
+
+        setEnds(newEnds);
 
     }
 

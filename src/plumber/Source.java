@@ -1,5 +1,7 @@
 package plumber;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Source extends PlumbingProduct{
     }
 
 
-    public Source(Direction end, Cell cell){
+    public Source(@NotNull  Direction end, Cell cell){
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 }
