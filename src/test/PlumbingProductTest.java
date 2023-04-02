@@ -61,15 +61,15 @@ public class PlumbingProductTest {
         Cell cell1 = new Cell(1, 1);
         Cell cell2 = new Cell(2, 1);
 
-        cell1.setNeighbor(Direction.east(), cell2);
+        cell1.setNeighbor(Direction.north(), cell2);
 
         Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
         Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.north(), Direction.west()}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
-        Assertions.assertTrue(plumbingProduct1.isConnected(plumbingProduct2));
-        Assertions.assertTrue(plumbingProduct2.isConnected(plumbingProduct1));
+        Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
+        Assertions.assertFalse(plumbingProduct2.isConnected(plumbingProduct1));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class PlumbingProductTest {
         Cell cell1 = new Cell(1, 1);
         Cell cell2 = new Cell(2, 1);
 
-        cell1.setNeighbor(Direction.east(), cell2);
+        cell1.setNeighbor(Direction.north(), cell2);
 
         Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
         PlumbingProduct plumbingProduct1 = new Drain(Direction.north(), cell1);
@@ -100,8 +100,8 @@ public class PlumbingProductTest {
         PlumbingProduct plumbingProduct1 = new Drain(Direction.west(), cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
-        Assertions.assertTrue(plumbingProduct1.isConnected(plumbingProduct2));
-        Assertions.assertTrue(plumbingProduct2.isConnected(plumbingProduct1));
+        Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
+        Assertions.assertFalse(plumbingProduct2.isConnected(plumbingProduct1));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class PlumbingProductTest {
         Cell cell1 = new Cell(1, 1);
         Cell cell2 = new Cell(2, 1);
 
-        cell1.setNeighbor(Direction.east(), cell2);
+        cell1.setNeighbor(Direction.north(), cell2);
 
         Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
         PlumbingProduct plumbingProduct1 = new Drain(Direction.north(), cell1);
@@ -126,14 +126,14 @@ public class PlumbingProductTest {
         Cell cell1 = new Cell(1, 1);
         Cell cell2 = new Cell(2, 1);
 
-        cell1.setNeighbor(Direction.east(), cell2);
+        cell1.setNeighbor(Direction.north(), cell2);
 
         Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
         PlumbingProduct plumbingProduct1 = new Source(Direction.west(), cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
-        Assertions.assertTrue(plumbingProduct1.isConnected(plumbingProduct2));
-        Assertions.assertTrue(plumbingProduct2.isConnected(plumbingProduct1));
+        Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
+        Assertions.assertFalse(plumbingProduct2.isConnected(plumbingProduct1));
     }
 
     // Проверить можно ли заполнить трубу
@@ -167,8 +167,8 @@ public class PlumbingProductTest {
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
-        Assertions.assertTrue(plumbingProduct1.isCanFilled(plumbingProduct2));
-        Assertions.assertTrue(plumbingProduct2.isCanFilled(plumbingProduct1));
+        Assertions.assertFalse(plumbingProduct1.isCanFilled(plumbingProduct2));
+        Assertions.assertFalse(plumbingProduct2.isCanFilled(plumbingProduct1));
     }
 
     @Test
@@ -178,8 +178,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.south()}));
+        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.south()}));
+        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 

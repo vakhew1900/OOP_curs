@@ -40,13 +40,13 @@ public class Cell {
 
     private PlumbingProduct plumbingProduct;
 
-    boolean fill() {
+    void fill(PlumbingProduct plumbingProduct) {
 
-        return true;
+        this.plumbingProduct = plumbingProduct;
     }
 
     void clear() {
-
+        this.plumbingProduct = null;
     }
 
     public boolean isFilled() {

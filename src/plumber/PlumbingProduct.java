@@ -21,6 +21,7 @@ public abstract class PlumbingProduct {
 
         this.ends = new HashSet<Direction>(ends);
         this.cell = cell;
+        cell.fill(this);
     }
 
 
@@ -50,14 +51,37 @@ public abstract class PlumbingProduct {
         return ends.contains(direction);
     }
 
+    private PlumbingProduct neighbor(Direction direction){
+
+        Cell neighborCell = cell.neighbor(direction);
+
+        if (neighborCell != null){
+            return neighborCell.getContent();
+        }
+        return  null;
+    }
+
     // ----------------------------- взаимодействие с трубой -----------------------------
 
     public boolean isCanFilled(PlumbingProduct other){
-        return true;
+        return other != null && other.isFilled() == false && isConnected(other);
     }
 
     public boolean isConnected(PlumbingProduct other){
-        return true;
+
+        if(other == null)
+            return false;
+
+        Direction direction = null;
+
+        for(Direction elem : ends){
+
+            if(neighbor(elem) != null && neighbor(elem).equals(other) ){
+                direction = elem;
+            }
+        }
+
+        return direction != null && other.hasEnd(direction.opposite());
     }
 
 

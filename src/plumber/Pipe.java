@@ -9,7 +9,8 @@ public class Pipe extends PlumbingProduct{
 
         super(ends, cell);
 
-        if (ends.size() > 2){
+        if (ends.size() != 2){
+            cell.clear();
             throw new IllegalArgumentException("illegal argument for pipe");
         }
     }
