@@ -23,11 +23,6 @@ public class Drain extends PlumbingProduct {
 
     }
 
-    @Override
-    public Direction getSuspendedDirection() {
-        return null;
-    }
-
     public Drain(Direction end, Cell cell){
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }

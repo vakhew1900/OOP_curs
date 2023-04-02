@@ -21,10 +21,6 @@ public class Source extends PlumbingProduct{
 
     }
 
-    @Override
-    public Direction getSuspendedDirection() {
-        return null;
-    }
 
     public Source(Direction end, Cell cell){
         this(Stream.of(end).collect(Collectors.toSet()), cell);

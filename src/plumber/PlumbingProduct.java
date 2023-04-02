@@ -44,9 +44,6 @@ public abstract class PlumbingProduct {
 
     // --------------------------- работа с  концами ------------------------------------
 
-    public abstract Direction  getSuspendedDirection();
-
-
     public boolean hasEnd(Direction direction){
         return ends.contains(direction);
     }

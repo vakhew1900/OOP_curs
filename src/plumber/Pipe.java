@@ -24,8 +24,4 @@ public class Pipe extends PlumbingProduct{
         super.fill(water);
     }
 
-    @Override
-    public Direction getSuspendedDirection() {
-        return null;
-    }
 }
