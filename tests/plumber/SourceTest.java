@@ -1,12 +1,8 @@
-package test;
+package plumber;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import plumber.Cell;
-import plumber.Direction;
-import plumber.Source;
-import plumber.PlumbingProduct;
 
 public class SourceTest {
 

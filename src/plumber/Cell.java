@@ -1,5 +1,7 @@
 package plumber;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,17 +15,17 @@ public class Cell {
 
     //------------------------------- Конструктор ---------------------------------------
 
-    public int getRow() {
+    public int row() {
         return row;
     }
 
-    public int getCol() {
+    public int col() {
         return col;
     }
 
     public Cell(int row, int col) {
 
-        if (row < 0 || col <= 0) {
+        if (row < 0 || col < 0) {
             throw new IllegalArgumentException("illegal x or y");
         }
 
@@ -74,7 +76,7 @@ public class Cell {
         return Collections.unmodifiableMap(_neighbors);
     }
 
-    public void setNeighbor(Direction direct, Cell neighbor) {
+    public void setNeighbor(@NotNull Direction direct, @NotNull  Cell neighbor) {
         if (neighbor != this && !isNeighbor(neighbor) && this.neighbor(direct) == null) {
             _neighbors.put(direct, neighbor);
             neighbor.setNeighbor(direct.opposite(), this);

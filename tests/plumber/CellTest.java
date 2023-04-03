@@ -1,8 +1,7 @@
-package test;
+package plumber;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import plumber.*;
 
 public class CellTest {
 
@@ -11,8 +10,8 @@ public class CellTest {
     public void constructorTypeTest(){
 
         Cell cell = new Cell(4, 7);
-        Assertions.assertEquals(7, cell.getCol());
-        Assertions.assertEquals(4, cell.getRow());
+        Assertions.assertEquals(7, cell.col());
+        Assertions.assertEquals(4, cell.row());
     }
 
     @Test
