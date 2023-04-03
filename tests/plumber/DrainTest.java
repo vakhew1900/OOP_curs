@@ -3,6 +3,8 @@ package plumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import plumber.plumber_product.Drain;
+import plumber.plumber_product.PlumbingProduct;
 
 public class DrainTest {
 

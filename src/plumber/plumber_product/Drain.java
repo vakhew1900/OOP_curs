@@ -1,10 +1,10 @@
-package plumber;
+package plumber.plumber_product;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import plumber.Cell;
+import plumber.Direction;
+import plumber.plumber_product.PlumbingProduct;
+
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

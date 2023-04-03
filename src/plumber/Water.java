@@ -1,34 +1,75 @@
 package plumber;
 
 import org.jetbrains.annotations.NotNull;
+import plumber.plumber_product.PlumbingProduct;
 
-public class Water {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+
+public class Water  implements ActionListener {
 
 
     private PlumbingProduct lastFillingPlumbingProduct;
     private Direction waterDirection;
+    private Timer timer;
+    private int timeout = 2000;
+    private boolean isStopped = false;
+
+    public Water(){
+        this(2000);
+    }
+
+
+    public Water(int timeout){
+        if (timeout < 1)
+            throw  new IllegalArgumentException("Illegal timeoutargument");
+
+        this.timeout = timeout;
+        timer = new Timer(timeout, this);
+    }
 
     public PlumbingProduct getLastFillingPlumbingProduct(){
         return lastFillingPlumbingProduct;
     }
 
-    public void flow(){
+    private void flow(){
 
+        if(timer.isRunning() == false && isStopped == false){
+            timer.start();
+        }
+
+        boolean result = false;
+        for(Direction direction :  getLastFillingPlumbingProduct().getEnds()){
+            result = nextConnection(direction);
+
+            if(result == true){
+                break;
+            }
+        }
+
+        isStopped = !result || isStopped;
     }
 
-     void nextPlumbingProduct(@NotNull PlumbingProduct plumbingProduct){
+     public void nextPlumbingProduct(@NotNull PlumbingProduct plumbingProduct){
+
 
         if(plumbingProduct.isFilled() == false) {
             plumbingProduct.fill(this);
         }
-        this.lastFillingPlumbingProduct = plumbingProduct;
+
+        if (this.equals(plumbingProduct.water()))
+            this.lastFillingPlumbingProduct = plumbingProduct;
+
     }
 
-    private void nextConnection(@NotNull Direction direction){
+    private boolean nextConnection(@NotNull Direction direction){
 
         if(getLastFillingPlumbingProduct() == null)
-            return;
+            return false;
 
+        boolean result = true;
         PlumbingProduct neighbor =  getLastFillingPlumbingProduct().neighbor(direction);
 
         if(neighbor!= null){
@@ -38,14 +79,34 @@ public class Water {
             if(flag){
                 nextPlumbingProduct(neighbor);
             }
+            else{
+                result = false;
+            }
         }
+        else{
+            result = false;
+        }
+
+        return result;
     }
 
     private void stop(){
-
+        timer.stop();
     }
 
-    private void timer(){
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(isStopped){
+            stop();
+        }
+        else {
+            flow();
+        }
     }
+
+    // ---------------------- геттеры -------------------
+    public int timeout(){
+        return timeout;
+    }
+
 }

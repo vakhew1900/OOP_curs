@@ -1,10 +1,14 @@
-package plumber;
+package plumber.plumber_product;
+
+import plumber.Cell;
+import plumber.Direction;
+import plumber.Water;
+import plumber.plumber_product.PlumbingProduct;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class Pipe extends PlumbingProduct{
+public class Pipe extends PlumbingProduct {
 
     public Pipe(Set<Direction> ends, Cell cell) {
 

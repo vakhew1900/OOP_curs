@@ -110,5 +110,4 @@ public class CellTest {
         Assertions.assertEquals(cell2, cell1.neighbor(Direction.south()));
     }
 
-
 }

@@ -3,6 +3,10 @@ package plumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import plumber.plumber_product.Drain;
+import plumber.plumber_product.Pipe;
+import plumber.plumber_product.PlumbingProduct;
+import plumber.plumber_product.Source;
 
 import java.util.HashSet;
 import java.util.List;
@@ -259,5 +263,46 @@ public class PlumbingProductTest {
 
         Assertions.assertFalse(plumbingProduct1.isCanFilled(plumbingProduct2));
         Assertions.assertFalse(plumbingProduct2.isCanFilled(plumbingProduct1));
+    }
+
+    //----------------------fill тест ---------------------------------
+
+    @Test
+    public void fill_PlumbingProductIsFilledTwiceAnotherWater(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(2, 1);
+
+        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+        PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Water water = new Water(1);
+        Water water2 = new Water(1);
+
+        plumbingProduct2.fill(water);
+        plumbingProduct2.fill(water2);
+        Assertions.assertEquals(plumbingProduct2, water.getLastFillingPlumbingProduct());
+        Assertions.assertNull(water2.getLastFillingPlumbingProduct());
+    }
+
+    @Test
+    public void fill_PlumbingProductIsFilledTwiceSameWater(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(2, 1);
+
+        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+        PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Water water = new Water(1);
+        Water water2 = new Water(1);
+
+        plumbingProduct2.fill(water);
+        plumbingProduct2.fill(water);
+        Assertions.assertEquals(plumbingProduct2, water.getLastFillingPlumbingProduct());
     }
 }

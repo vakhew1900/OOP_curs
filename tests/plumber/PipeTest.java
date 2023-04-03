@@ -3,6 +3,8 @@ package plumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import plumber.plumber_product.Pipe;
+import plumber.plumber_product.PlumbingProduct;
 
 import java.util.HashSet;
 import java.util.List;

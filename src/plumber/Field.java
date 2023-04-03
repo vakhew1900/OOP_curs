@@ -76,7 +76,7 @@ public class Field {
     public Cell cell(int row, int col){
 
         int index = row * width() + col;
-        System.out.println("row :"+ row + " col:" + col + "index:" + index);
+        // System.out.println("row :"+ row + " col:" + col + "index:" + index);
         return  cellList.get(row * width() + col);
     }
 

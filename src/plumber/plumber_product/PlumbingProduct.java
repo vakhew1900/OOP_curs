@@ -1,10 +1,11 @@
-package plumber;
+package plumber.plumber_product;
 
 import org.jetbrains.annotations.NotNull;
+import plumber.Cell;
+import plumber.Direction;
+import plumber.Water;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public abstract class PlumbingProduct {
@@ -41,6 +42,7 @@ public abstract class PlumbingProduct {
     private Water water = null;
     public void  fill(@NotNull Water water){
 
+
         if(isFilled() == false) {
             this.water = water;
             if (water.getLastFillingPlumbingProduct() == null || water.getLastFillingPlumbingProduct().equals(this) == false) {
@@ -51,6 +53,10 @@ public abstract class PlumbingProduct {
 
     public  boolean isFilled(){
         return  water != null;
+    }
+
+    public Water water() {
+        return water;
     }
 
     // --------------------------- работа с  концами ------------------------------------

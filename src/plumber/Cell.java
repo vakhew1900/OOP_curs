@@ -1,6 +1,7 @@
 package plumber;
 
 import org.jetbrains.annotations.NotNull;
+import plumber.plumber_product.PlumbingProduct;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,12 +43,12 @@ public class Cell {
 
     private PlumbingProduct plumbingProduct;
 
-    void fill(PlumbingProduct plumbingProduct) {
+    public void fill(PlumbingProduct plumbingProduct) {
 
         this.plumbingProduct = plumbingProduct;
     }
 
-    void clear() {
+    public  void clear() {
         this.plumbingProduct = null;
     }
 
