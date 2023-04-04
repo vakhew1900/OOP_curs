@@ -84,9 +84,38 @@ public class Cell {
         }
     }
 
+
+
     public boolean isNeighbor(Cell other) {
         return _neighbors.containsValue(other);
     }
 
+    public Direction neighborDirection(@NotNull Cell neighbor){
 
+        Direction direction = null;
+        for(Map.Entry<Direction, Cell> entry : this.neighbors().entrySet()){
+
+            if (neighbor.equals(entry.getValue()))
+                direction = entry.getKey();
+        }
+
+        return direction;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other instanceof Cell) {
+            // “ипы совместимы, можно провести преобразование
+            Cell otherCell = (Cell) other;
+            // ¬озвращаем результат сравнени¤ углов
+            return this.row == otherCell.row && this.col == otherCell.col;
+        }
+
+        return false;
+    }
+    @Override
+    public int hashCode() {
+        return row() * 1000 + col();
+    }
 }

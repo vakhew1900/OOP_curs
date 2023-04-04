@@ -34,7 +34,7 @@ public class Water  implements ActionListener {
         return lastFillingPlumbingProduct;
     }
 
-    private void flow(){
+    public void flow(){
 
         if(timer.isRunning() == false && isStopped == false){
             timer.start();
