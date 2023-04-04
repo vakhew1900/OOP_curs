@@ -2,8 +2,12 @@ package plumber.plumber_product;
 
 import plumber.Cell;
 import plumber.Direction;
+import plumber.events.FlowActionEvent;
+import plumber.events.FlowActionListener;
 import plumber.plumber_product.PlumbingProduct;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,4 +32,28 @@ public class Drain extends PlumbingProduct {
     }
 
 
+
+    //------  Работа со слушателями------------------------
+
+    //TODO    !!!
+    List<FlowActionListener> FlowActionListeners = new ArrayList<>();
+
+    // присоединяет слушателя
+    public void addFlowActionListener(FlowActionListener l) {
+        FlowActionListeners.add(l);
+    }
+
+    // отсоединяет слушателя
+    public void removeFlowActionListener(FlowActionListener l) {
+        if (FlowActionListeners.contains(l)) {
+            FlowActionListeners.remove(l);
+        }
+    }
+
+    // оповещает слушателей о событии
+    protected void fireFlowAction() {
+        for (FlowActionListener FlowActionListener : FlowActionListeners) {
+            FlowActionListener.flowStopped(new FlowActionEvent(this));
+        }
+    }
 }

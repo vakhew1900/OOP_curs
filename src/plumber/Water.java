@@ -1,12 +1,16 @@
 package plumber;
 
 import org.jetbrains.annotations.NotNull;
+import plumber.events.FlowActionEvent;
+import plumber.events.FlowActionListener;
 import plumber.plumber_product.PlumbingProduct;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Water  implements ActionListener {
 
@@ -108,5 +112,30 @@ public class Water  implements ActionListener {
     public int timeout(){
         return timeout;
     }
+    
+    
 
+    //------  Работа со слушателями------------------------
+
+    //TODO    !!!
+    List<FlowActionListener> FlowActionListeners = new ArrayList<>();
+
+    // присоединяет слушателя
+    public void addFlowActionListener(FlowActionListener l) {
+        FlowActionListeners.add(l);
+    }
+
+    // отсоединяет слушателя
+    public void removeFlowActionListener(FlowActionListener l) {
+        if (FlowActionListeners.contains(l)) {
+            FlowActionListeners.remove(l);
+        }
+    }
+
+    // оповещает слушателей о событии
+    protected void fireFlowAction() {
+        for (FlowActionListener FlowActionListener : FlowActionListeners) {
+            FlowActionListener.flowStopped(new FlowActionEvent(this));
+        }
+    }
 }
