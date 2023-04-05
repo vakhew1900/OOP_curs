@@ -73,8 +73,11 @@ public class GameField {
 
     public Cell cell(int row, int col){
 
+        if(row >= height() || col >= width() || row < 0 || col < 0){
+            throw new IllegalArgumentException("Illegal arguments");
+        }
+
         int index = row * width() + col;
-        // System.out.println("row :"+ row + " col:" + col + "index:" + index);
         return  cellList.get(row * width() + col);
     }
 

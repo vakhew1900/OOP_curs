@@ -118,4 +118,9 @@ public class Cell {
     public int hashCode() {
         return row() * 1000 + col();
     }
+
+    @Override
+    public String toString() {
+        return "(" + this.row + ";" + this.col + ")";
+    }
 }

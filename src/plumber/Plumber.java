@@ -22,10 +22,10 @@ public class Plumber {
     public void configure(){
 
 
-        Cell startCell = new Cell(random(gameField.height()), 0);
-        Cell finishCell = new Cell(random(gameField.height()), 0);
+        Cell startCell = gameField.cell(random(gameField.height()), 0);
+        Cell finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
 
-        List<Cell> cellPath = cellPath(startCell, finishCell);
+        List<Cell> cellPath = createCellPath(startCell, finishCell);
         List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
 
         PlumbingProduct source = new Source(directionList.get(0), cellPath.get(0));
@@ -46,28 +46,30 @@ public class Plumber {
 
 
 
-    private List<Cell> cellPath(@NotNull Cell startCell, @NotNull Cell finishCell) {
+    private List<Cell> createCellPath(@NotNull Cell startCell, @NotNull Cell finishCell) {
 
         Queue<Cell> queue = new LinkedList<>();
         queue.add(startCell);
 
         Map<Cell, Cell> preCell = new HashMap<>();
 
-        /// bfs
+
+       // System.out.println("ffff");
         while (!queue.isEmpty()) {
 
             Cell currentCell = queue.remove();
-
             List<Cell>  neighborList = new ArrayList<>(currentCell.neighbors().values());
             Collections.shuffle(neighborList);
-
             for (Cell neighbor : neighborList) {
-                if (preCell.get(neighbor) == null) {
+                if (preCell.get(neighbor) == null && neighbor.equals(startCell) == false) {
                     preCell.put(neighbor, currentCell);
                     queue.add(neighbor);
                 }
+
             }
         }
+
+        //System.out.println("-----------------------");
 
         if (preCell.get(finishCell) == null) {
             return null;
@@ -77,6 +79,11 @@ public class Plumber {
 
         Cell cell = finishCell;
 
+        for(Map.Entry<Cell, Cell>  entry: preCell.entrySet()){
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+        }
+
+
         while (cell != null) {
             cellPath.add(cell);
             cell = preCell.get(cell);
@@ -84,10 +91,16 @@ public class Plumber {
 
         Collections.reverse(cellPath);
 
+        System.out.println(cellPath.size());
+
+        for(Cell cell1 : cellPath){
+            System.out.println(cell1.row() + " " + cell1.col());
+        }
+
         return cellPath;
     }
 
-    private List<Direction> convertCellPathToDirectionPath(List<Cell> cellPath){
+    private List<Direction> convertCellPathToDirectionPath(@NotNull List<Cell> cellPath){
 
         List<Direction> directionList = new ArrayList<>();
 
@@ -95,7 +108,7 @@ public class Plumber {
             Direction direction = cellPath.get(i - 1).neighborDirection(cellPath.get(i));
 
             if (direction == null){
-                throw  new IllegalArgumentException("Illegal cellPath");
+                throw  new IllegalArgumentException("Illegal createCellPath");
             }
 
             directionList.add(direction);
@@ -116,6 +129,33 @@ public class Plumber {
         }
 
         return pipeList;
+    }
+
+
+    private List<Cell> createRequiredCells(int size, @NotNull Cell startCell, @NotNull Cell finishCell){
+
+        if(size < 2){
+            throw new IllegalArgumentException("Illegal size");
+        }
+
+        List<Cell> requiredCells = new ArrayList<>();
+        requiredCells.add(startCell);
+
+        while (requiredCells.size() + 1 != size){
+
+            int randomRow = random(gameField.height());
+            int randomCol = random(gameField.width());
+
+            Cell cell = gameField.cell(randomRow, randomCol);
+
+            if(requiredCells.contains(cell) == false && cell.equals(finishCell) == false){
+                requiredCells.add(cell);
+            }
+        }
+
+        requiredCells.add(finishCell);
+
+        return requiredCells;
     }
 
 

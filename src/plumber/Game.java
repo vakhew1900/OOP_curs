@@ -54,7 +54,7 @@ public class Game implements FlowActionListener {
     private Drain drain() {
         for (int i = 0; i < gameField.height(); i++) {
 
-            PlumbingProduct plumbingProduct = gameField.cell(i, 0).getContent();
+            PlumbingProduct plumbingProduct = gameField.cell(i, gameField.width() - 1).getContent();
             if (plumbingProduct instanceof Drain) {
                 return (Drain) plumbingProduct;
             }
