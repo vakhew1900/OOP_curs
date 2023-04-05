@@ -21,21 +21,47 @@ public class Plumber {
 
     public void configure(){
 
+        try {
 
-        Cell startCell = gameField.cell(random(gameField.height()), 0);
-        Cell finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
+            Cell startCell = gameField.cell(random(gameField.height()), 0);
+            Cell finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
 
-        List<Cell> cellPath = createCellPath(startCell, finishCell);
-        List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
+            List<Cell> cellPath = new ArrayList<>();
+            List<Cell> requiredCells = createRequiredCells(3, startCell, finishCell);
 
-        PlumbingProduct source = new Source(directionList.get(0), cellPath.get(0));
-        PlumbingProduct drain = new Drain(directionList.get(directionList.size() - 1).opposite(),
-                                            cellPath.get(cellPath.size() -1));
+            System.out.println("Required:");
+            for (Cell cell : requiredCells) {
+                System.out.println(cell);
+            }
+            System.out.println("____");
 
-        List<Pipe> pipeList = createPipePath(startCell, directionList);
+            for (int i = 0; i < requiredCells.size() - 1; i++) {
 
-        source.fill(new Water());
+                List<Cell> tmpList = createCellPath(requiredCells.get(i), requiredCells.get(i + 1), cellPath, requiredCells);
+                cellPath.addAll(tmpList);
 
+                cellPath.remove(requiredCells.get(i + 1));
+            }
+
+            cellPath.add(finishCell);
+
+            System.out.println("--------------2---------------");
+            for (Cell cell : cellPath) {
+                System.out.println(cell.row() + " " + cell.col());
+            }
+
+            List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
+            PlumbingProduct source = new Source(directionList.get(0), cellPath.get(0));
+            PlumbingProduct drain = new Drain(directionList.get(directionList.size() - 1).opposite(),
+                    cellPath.get(cellPath.size() - 1));
+
+            List<Pipe> pipeList = createPipePath(startCell, directionList);
+
+            source.fill(new Water());
+        }
+        catch (NullPointerException e){
+            configure();
+        }
     }
 
 
@@ -46,7 +72,7 @@ public class Plumber {
 
 
 
-    private List<Cell> createCellPath(@NotNull Cell startCell, @NotNull Cell finishCell) {
+    private List<Cell> createCellPath(@NotNull Cell startCell, @NotNull Cell finishCell, List<Cell> visitedCells, List<Cell> requiredCells) {
 
         Queue<Cell> queue = new LinkedList<>();
         queue.add(startCell);
@@ -54,14 +80,16 @@ public class Plumber {
         Map<Cell, Cell> preCell = new HashMap<>();
 
 
-       // System.out.println("ffff");
         while (!queue.isEmpty()) {
 
             Cell currentCell = queue.remove();
             List<Cell>  neighborList = new ArrayList<>(currentCell.neighbors().values());
             Collections.shuffle(neighborList);
             for (Cell neighbor : neighborList) {
-                if (preCell.get(neighbor) == null && neighbor.equals(startCell) == false) {
+                boolean isVisitedCell =  neighbor.equals(startCell) == true || (visitedCells != null && visitedCells.contains(neighbor));
+                boolean isUnexpectedRequiredCell = neighbor.equals(finishCell) == false && requiredCells.contains(neighbor);
+
+                if (preCell.get(neighbor) == null && isVisitedCell == false && isUnexpectedRequiredCell == false) {
                     preCell.put(neighbor, currentCell);
                     queue.add(neighbor);
                 }
@@ -69,7 +97,7 @@ public class Plumber {
             }
         }
 
-        //System.out.println("-----------------------");
+        System.out.println("-----------------------");
 
         if (preCell.get(finishCell) == null) {
             return null;
@@ -78,10 +106,6 @@ public class Plumber {
         List<Cell> cellPath = new ArrayList<>();
 
         Cell cell = finishCell;
-
-        for(Map.Entry<Cell, Cell>  entry: preCell.entrySet()){
-            System.out.println(entry.getKey() + ":" + entry.getValue());
-        }
 
 
         while (cell != null) {

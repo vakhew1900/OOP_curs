@@ -26,7 +26,7 @@ public class Game implements FlowActionListener {
 
     public void init() {
 
-        gameField = new GameField(5, 5);
+        gameField = new GameField(8, 8);
         plumber = new Plumber(gameField);
         plumber.configure();
         this.water = source().water();
