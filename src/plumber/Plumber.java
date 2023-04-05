@@ -12,7 +12,7 @@ public class Plumber {
 
     private GameField gameField;
     PlumbingProduct source = null, drain = null;
-    List<PlumbingProduct> pipes;
+    List<PlumbingProduct> pipeList;
 
     Plumber(GameField gameField) {
         this.gameField = gameField;
@@ -20,7 +20,12 @@ public class Plumber {
 
 
     public void configure(){
+        createPipeline();
+        disassemblePipeline();
+    }
 
+
+    private void createPipeline(){
         try {
 
             Cell startCell = gameField.cell(random(gameField.height()), 0);
@@ -28,12 +33,6 @@ public class Plumber {
 
             List<Cell> cellPath = new ArrayList<>();
             List<Cell> requiredCells = createRequiredCells(3, startCell, finishCell);
-
-            System.out.println("Required:");
-            for (Cell cell : requiredCells) {
-                System.out.println(cell);
-            }
-            System.out.println("____");
 
             for (int i = 0; i < requiredCells.size() - 1; i++) {
 
@@ -45,26 +44,34 @@ public class Plumber {
 
             cellPath.add(finishCell);
 
-            System.out.println("--------------2---------------");
-            for (Cell cell : cellPath) {
-                System.out.println(cell.row() + " " + cell.col());
-            }
-
             List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
-            PlumbingProduct source = new Source(directionList.get(0), cellPath.get(0));
-            PlumbingProduct drain = new Drain(directionList.get(directionList.size() - 1).opposite(),
+            source = new Source(directionList.get(0), cellPath.get(0));
+            drain = new Drain(directionList.get(directionList.size() - 1).opposite(),
                     cellPath.get(cellPath.size() - 1));
 
-            List<Pipe> pipeList = createPipePath(startCell, directionList);
+            pipeList = createPipePath(startCell, directionList);
 
             source.fill(new Water());
         }
         catch (NullPointerException e){
-            configure();
+            createPipeline();
         }
     }
 
 
+    private void disassemblePipeline(){
+
+        for(PlumbingProduct plumbingProduct : pipeList){
+
+            int rotationCnt = random(4);
+
+            for(int i = 0; i < rotationCnt; i++){
+                Pipe pipe = (Pipe) plumbingProduct;
+                pipe.rotate();
+            }
+
+        }
+    }
 
     private int random(int n) {
         return new Random().nextInt(n);
