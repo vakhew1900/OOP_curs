@@ -1,10 +1,8 @@
 package plumber;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 
-public class Field {
+public class GameField {
 
     private int height = 10;
     private int width = 10;
@@ -14,10 +12,10 @@ public class Field {
 
 
 //   ------------------------------ Конструктор ---------------------------------------
-    public Field(){
-        new Field(10, 10);
+    public GameField(){
+        new GameField(10, 10);
     }
-    public Field(int height, int width){
+    public GameField(int height, int width){
 
         if(height <= 0 || width <= 0){
             throw  new IllegalArgumentException("illegal height or illegal width");

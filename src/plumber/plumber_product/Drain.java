@@ -1,7 +1,9 @@
 package plumber.plumber_product;
 
+import org.jetbrains.annotations.NotNull;
 import plumber.Cell;
 import plumber.Direction;
+import plumber.Water;
 import plumber.events.FlowActionEvent;
 import plumber.events.FlowActionListener;
 import plumber.plumber_product.PlumbingProduct;
@@ -31,6 +33,11 @@ public class Drain extends PlumbingProduct {
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 
+    @Override
+    public void fill(@NotNull Water water) {
+        super.fill(water);
+        fireFlowAction();
+    }
 
 
     //------  Работа со слушателями------------------------

@@ -96,6 +96,7 @@ public class Water  implements ActionListener {
 
     private void stop(){
         timer.stop();
+        fireFlowAction();
     }
 
     @Override

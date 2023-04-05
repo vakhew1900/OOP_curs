@@ -10,20 +10,20 @@ import java.util.*;
 
 public class Plumber {
 
-    private Field field;
+    private GameField gameField;
     PlumbingProduct source = null, drain = null;
     List<PlumbingProduct> pipes;
 
-    Plumber(Field field) {
-        this.field = field;
+    Plumber(GameField gameField) {
+        this.gameField = gameField;
     }
 
 
     public void configure(){
 
 
-        Cell startCell = new Cell(random(field.height()), 0);
-        Cell finishCell = new Cell(random(field.height()), 0);
+        Cell startCell = new Cell(random(gameField.height()), 0);
+        Cell finishCell = new Cell(random(gameField.height()), 0);
 
         List<Cell> cellPath = cellPath(startCell, finishCell);
         List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
@@ -33,6 +33,8 @@ public class Plumber {
                                             cellPath.get(cellPath.size() -1));
 
         List<Pipe> pipeList = createPipePath(startCell, directionList);
+
+        source.fill(new Water());
 
     }
 
