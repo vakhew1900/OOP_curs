@@ -4,9 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import plumber.Cell;
 import plumber.Direction;
 import plumber.Water;
-import plumber.events.FlowActionEvent;
-import plumber.events.FlowActionListener;
-import plumber.plumber_product.PlumbingProduct;
+import plumber.events.WaterStoppedActionEvent;
+import plumber.events.WaterStoppedActionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +18,18 @@ public class Drain extends PlumbingProduct {
 
     /**
      * Конструктор
+     *
      * @param ends - множество концов
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    private Drain(Set<Direction> ends, Cell cell){
+    private Drain(Set<Direction> ends, Cell cell) {
         super(ends, cell);
 
-        if(ends.size() != 1){
+        if (ends.size() != 1) {
             throw new IllegalArgumentException("illegal exception");
         }
 
-        if(ends.contains(null)){
+        if (ends.contains(null)) {
             throw new IllegalArgumentException("illegal exception");
         }
 
@@ -37,46 +37,48 @@ public class Drain extends PlumbingProduct {
 
     /**
      * Конструктор
-     * @param end - конец источника
+     *
+     * @param end  - конец источника
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    public Drain(Direction end, Cell cell){
+    public Drain(Direction end, Cell cell) {
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 
     /**
      * Заполнить слив водой
+     *
      * @param water - вода
      */
     @Override
     public void fill(@NotNull Water water) {
         super.fill(water);
-        fireFlowAction();
+        fireWaterAction();
     }
 
 
     //------  Работа со слушателями------------------------
 
-    //TODO    !!!
-    List<FlowActionListener> FlowActionListeners = new ArrayList<>();
+    List<WaterStoppedActionListener> FlowActionListeners = new ArrayList<>();
 
     // присоединяет слушателя
-    public void addFlowActionListener(FlowActionListener l) {
-        if(FlowActionListeners.contains(l) == false)
+    public void addWaterStoppedActionListener(WaterStoppedActionListener l) {
+
+        if (FlowActionListeners.contains(l) == false)
             FlowActionListeners.add(l);
     }
 
     // отсоединяет слушателя
-    public void removeFlowActionListener(FlowActionListener l) {
+    public void removeFlowActionListener(WaterStoppedActionListener l) {
         if (FlowActionListeners.contains(l)) {
             FlowActionListeners.remove(l);
         }
     }
 
     // оповещает слушателей о событии
-    protected void fireFlowAction() {
-        for (FlowActionListener FlowActionListener : FlowActionListeners) {
-            FlowActionListener.flowStopped(new FlowActionEvent(this));
+    protected void fireWaterAction() {
+        for (WaterStoppedActionListener FlowActionListener : FlowActionListeners) {
+            FlowActionListener.waterStopped(new WaterStoppedActionEvent(this));
         }
     }
 }

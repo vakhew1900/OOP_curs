@@ -2,11 +2,6 @@ package plumber;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import plumber.plumber_product.Pipe;
-import plumber.plumber_product.PlumbingProduct;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class GameTest {
 
@@ -40,7 +35,7 @@ public class GameTest {
         Game game = new Game();
 
         Assertions.assertEquals(Game.RUNNING, game.status());
-        game.source().water().fireFlowAction();
+        game.source().water().fireWaterAction();
         Assertions.assertEquals(Game.LOSE, game.status());
     }
 

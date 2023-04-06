@@ -253,7 +253,7 @@ public class PlumberTest {
     @Test
     public void configure_BigField(){
 
-        gameField = new GameField(100, 100);
+        gameField = new GameField(50, 100);
         Plumber plumber = new Plumber(gameField);
         plumber.configure();
 

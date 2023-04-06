@@ -3,18 +3,18 @@ package plumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import plumber.events.FlowActionEvent;
-import plumber.events.FlowActionListener;
+import plumber.events.WaterStoppedActionEvent;
+import plumber.events.WaterStoppedActionListener;
 import plumber.plumber_product.Drain;
 
-public class FlowActionListenerTest  {
+public class WaterStoppedActionListenerTest {
 
-    private class FlowObserver implements FlowActionListener {
+    private class FlowObserver implements WaterStoppedActionListener {
 
         private int eventCnt =0;
 
         @Override
-        public void flowStopped(FlowActionEvent event) {
+        public void waterStopped(WaterStoppedActionEvent event) {
             incrementEventCnt();
         }
 
@@ -42,28 +42,28 @@ public class FlowActionListenerTest  {
     @Test
     public void flowObserverNotListenTest(){
 
-        water.fireFlowAction();
+        water.fireWaterAction();
         Assertions.assertEquals(0,flowObserver.eventCnt());
     }
 
     @Test
     public void flowObserverListenOneObject(){
-        water.addFlowActionListener(flowObserver);
+        water.addWaterStoppedActionListener(flowObserver);
 
-        water.fireFlowAction();
+        water.fireWaterAction();
         Assertions.assertEquals(1,flowObserver.eventCnt());
         Assertions.assertEquals(1,flowObserver.eventCnt());
 
-        water.fireFlowAction();
+        water.fireWaterAction();
         Assertions.assertEquals(2,flowObserver.eventCnt());
     }
 
     @Test
     public void flowObserverListenOneObjectTwice(){
-        water.addFlowActionListener(flowObserver);
-        water.addFlowActionListener(flowObserver);
+        water.addWaterStoppedActionListener(flowObserver);
+        water.addWaterStoppedActionListener(flowObserver);
 
-        water.fireFlowAction();
+        water.fireWaterAction();
         Assertions.assertEquals(1,flowObserver.eventCnt());
     }
 
@@ -72,25 +72,26 @@ public class FlowActionListenerTest  {
     public void flowObserverListenTwoObject(){
 
 
-        water.addFlowActionListener(flowObserver);
-        drain.addFlowActionListener(flowObserver);
+        water.addWaterStoppedActionListener(flowObserver);
+        Water water2 = new Water();
+        water2.addWaterStoppedActionListener(flowObserver);
 
-        water.fireFlowAction();
+        water.fireWaterAction();
         Assertions.assertEquals(1,flowObserver.eventCnt());
 
-        drain.fill(water);
+        water2.fireWaterAction();
         Assertions.assertEquals(2, flowObserver.eventCnt);
     }
 
     @Test
     public void flowObserverStopListen(){
 
-        water.addFlowActionListener(flowObserver);
-        water.fireFlowAction();
+        water.addWaterStoppedActionListener(flowObserver);
+        water.fireWaterAction();
         Assertions.assertEquals(1,flowObserver.eventCnt());
 
         water.removeFlowActionListener(flowObserver);
-        water.fireFlowAction();
+        water.fireWaterAction();
         Assertions.assertEquals(1,flowObserver.eventCnt());
     }
 

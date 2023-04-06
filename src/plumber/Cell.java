@@ -46,7 +46,7 @@ public class Cell {
      */
     public Cell(int row, int col) {
 
-        if (isValid(row, col)){
+        if (!isValid(row, col)){
             throw  new IllegalArgumentException("Illegal row or col");
         }
 

@@ -1,13 +1,13 @@
 package plumber;
 
-import plumber.events.FlowActionEvent;
-import plumber.events.FlowActionListener;
+import plumber.events.WaterStoppedActionEvent;
+import plumber.events.WaterStoppedActionListener;
 import plumber.plumber_product.Drain;
 import plumber.plumber_product.Pipe;
 import plumber.plumber_product.PlumbingProduct;
 import plumber.plumber_product.Source;
 
-public class Game implements FlowActionListener {
+public class Game implements WaterStoppedActionListener {
 
     /**
      * Статус игры - идет
@@ -77,8 +77,8 @@ public class Game implements FlowActionListener {
         plumber.configure();
         this.water = source().water();
 
-        water.addFlowActionListener(this);
-        drain().addFlowActionListener(this);
+        water.addWaterStoppedActionListener(this);
+        drain().addWaterStoppedActionListener(this);
 
     }
 
@@ -130,12 +130,7 @@ public class Game implements FlowActionListener {
      * @param obj
      */
     private void finish(Object obj) {
-
-        if (obj instanceof Water) {
-            status = LOSE;
-        } else {
-            status = WIN;
-        }
+        status = (obj instanceof Drain)? WIN : LOSE;
     }
 
 
@@ -186,7 +181,7 @@ public class Game implements FlowActionListener {
      * @param event - евент
      */
     @Override
-    public void flowStopped(FlowActionEvent event) {
+    public void waterStopped(WaterStoppedActionEvent event) {
         finish(event.getSource());
     }
 }

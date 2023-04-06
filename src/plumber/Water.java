@@ -1,15 +1,13 @@
 package plumber;
 
 import org.jetbrains.annotations.NotNull;
-import plumber.events.FlowActionEvent;
-import plumber.events.FlowActionListener;
-import plumber.plumber_product.Pipe;
+import plumber.events.WaterStoppedActionEvent;
+import plumber.events.WaterStoppedActionListener;
 import plumber.plumber_product.PlumbingProduct;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +131,7 @@ public class Water  implements ActionListener {
 
     private void stop(){
         timer.stop();
-        fireFlowAction();
+        fireWaterAction();
     }
 
 
@@ -172,26 +170,26 @@ public class Water  implements ActionListener {
     //------  Работа со слушателями------------------------
 
     //TODO    !!!
-    List<FlowActionListener> FlowActionListeners = new ArrayList<>();
+    List<WaterStoppedActionListener> FlowActionListeners = new ArrayList<>();
 
     // присоединяет слушателя
-    public void addFlowActionListener(FlowActionListener l) {
+    public void addWaterStoppedActionListener(WaterStoppedActionListener l) {
 
         if(FlowActionListeners.contains(l) == false)
             FlowActionListeners.add(l);
     }
 
     // отсоединяет слушателя
-    public void removeFlowActionListener(FlowActionListener l) {
+    public void removeFlowActionListener(WaterStoppedActionListener l) {
         if (FlowActionListeners.contains(l)) {
             FlowActionListeners.remove(l);
         }
     }
 
     // оповещает слушателей о событии
-    protected void fireFlowAction() {
-        for (FlowActionListener FlowActionListener : FlowActionListeners) {
-            FlowActionListener.flowStopped(new FlowActionEvent(this));
+    protected void fireWaterAction() {
+        for (WaterStoppedActionListener FlowActionListener : FlowActionListeners) {
+            FlowActionListener.waterStopped(new WaterStoppedActionEvent(this));
         }
     }
 
