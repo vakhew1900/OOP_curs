@@ -19,7 +19,7 @@ public class WaterTest {
 
         for (int i = 0; i < gameField.height(); i++) {
 
-            PlumbingProduct plumbingProduct = gameField.cell(i, 0).getContent();
+            PlumbingProduct plumbingProduct = gameField.cell(i, 0).getPlumbingProduct();
             if (plumbingProduct instanceof Source) {
                 return plumbingProduct;
             }
@@ -220,7 +220,6 @@ public class WaterTest {
         water.start();
 
         Thread.sleep(7000);
-
         Assertions.assertTrue(source().water().getLastFillingPlumbingProduct() instanceof Drain);
 
     }

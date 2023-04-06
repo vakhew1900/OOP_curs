@@ -4,21 +4,45 @@ import java.util.*;
 
 public class GameField {
 
+    /**
+     * Высота игрового поля
+     */
     private int height = 10;
+    /**
+     * Ширина игрового поля
+     */
     private int width = 10;
+
+    /**
+     * Список всех клеток
+     */
     private List<Cell> cellList = new ArrayList<>();
 
+    /**
+     * Сантехник, что раставляет водопровод на поле
+     */
     private Plumber plumber;
 
 
 //   ------------------------------ Конструктор ---------------------------------------
-    public GameField(){
+
+    /**
+     * Конструктор
+     */
+    public GameField() {
         new GameField(10, 10);
     }
-    public GameField(int height, int width){
 
-        if(height <= 0 || width <= 0){
-            throw  new IllegalArgumentException("illegal height or illegal width");
+    /**
+     * Конструктор
+     *
+     * @param height - высота поля
+     * @param width  - ширина поля
+     */
+    public GameField(int height, int width) {
+
+        if (height <= 0 || width <= 0) {
+            throw new IllegalArgumentException("illegal height or illegal width");
         }
 
         this.height = height;
@@ -30,14 +54,27 @@ public class GameField {
 
 //------------------------------Геттеры --------------------------------------------
 
-    public int width(){
+    /**
+     * Получить ширину поля
+     *
+     * @return ширина поля
+     */
+    public int width() {
         return width;
     }
 
-    public int height(){
+    /**
+     * Получить высоту поля
+     *
+     * @return высота поля
+     */
+    public int height() {
         return height;
     }
 
+    /**
+     * Построить поле из клеток
+     */
     private void buildField() {
 
         // Создаем ячейки
@@ -55,7 +92,7 @@ public class GameField {
                 Cell cell = cell(row, col);
 
                 if (height() > 1 && row < height() - 1) {
-                   cell.setNeighbor(Direction.south(), cell(row + 1, col));
+                    cell.setNeighbor(Direction.south(), cell(row + 1, col));
                 }
                 if (row > 0) {
                     cell.setNeighbor(Direction.north(), cell(row - 1, col));
@@ -71,19 +108,21 @@ public class GameField {
     }
 
 
-    public Cell cell(int row, int col){
+    /**
+     * Получить клетке по строке и колонке
+     * @param row - строка
+     * @param col - ширина
+     * @return клетка
+     */
+    public Cell cell(int row, int col) {
 
-        if(row >= height() || col >= width() || row < 0 || col < 0){
+        if (row >= height() || col >= width() || row < 0 || col < 0) {
             throw new IllegalArgumentException("Illegal arguments");
         }
 
         int index = row * width() + col;
-        return  cellList.get(row * width() + col);
+        return cellList.get(row * width() + col);
     }
-
-
-
-
 
 
 }

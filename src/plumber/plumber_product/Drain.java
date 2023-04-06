@@ -16,6 +16,12 @@ import java.util.stream.Stream;
 
 public class Drain extends PlumbingProduct {
 
+
+    /**
+     * Конструктор
+     * @param ends - множество концов
+     * @param cell - клетка, в которой будет расположен наш объект
+     */
     private Drain(Set<Direction> ends, Cell cell){
         super(ends, cell);
 
@@ -29,10 +35,19 @@ public class Drain extends PlumbingProduct {
 
     }
 
+    /**
+     * Конструктор
+     * @param end - конец источника
+     * @param cell - клетка, в которой будет расположен наш объект
+     */
     public Drain(Direction end, Cell cell){
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 
+    /**
+     * Заполнить слив водой
+     * @param water - вода
+     */
     @Override
     public void fill(@NotNull Water water) {
         super.fill(water);

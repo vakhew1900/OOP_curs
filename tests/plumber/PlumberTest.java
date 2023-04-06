@@ -1,10 +1,8 @@
 package plumber;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import plumber.plumber_product.Drain;
-import plumber.plumber_product.Pipe;
 import plumber.plumber_product.PlumbingProduct;
 import plumber.plumber_product.Source;
 
@@ -50,7 +48,7 @@ public class PlumberTest {
 
         for (int i = 0; i < gameField.height(); i++) {
 
-            PlumbingProduct plumbingProduct = gameField.cell(i, 0).getContent();
+            PlumbingProduct plumbingProduct = gameField.cell(i, 0).getPlumbingProduct();
             if (plumbingProduct instanceof Source) {
                 return plumbingProduct;
             }

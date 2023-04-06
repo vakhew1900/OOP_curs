@@ -1,15 +1,21 @@
 package plumber;
 
-/*
+/**
  * Direction - абстракци¤ направлени¤ в системе координат "север-юг-восток-запад";
  * позвол¤ет сравнивать направлени¤ и порождать новые направлени¤ относительно
  * текущего
  */
 public class Direction {
 
-    // определ¤ем направление как угол в градусах от 0 до 360
+    /**
+     *  градусы
+     */
     private int _angle = 90;
 
+    /**
+     * Констурктор
+     * @param angle -градусы
+     */
     private Direction(int angle) {
         // ѕриводим заданный угол к допустимому диапазону
         angle = angle % 360;
@@ -20,18 +26,35 @@ public class Direction {
 
     // ------------------ ¬озможные направлени¤ ---------------------
 
+
+    /**
+     * Вернуть направление-севеир
+     * @return направление-север
+     */
     public static Direction north() {
         return new Direction(90);
     }
 
+    /**
+     * Вернуть направление-юг
+     * @return направление-юг
+     */
     public static Direction south() {
         return new Direction(270);
     }
 
+    /**
+     * Вернуть направление-восток
+     * @return направление-восток
+     */
     public static Direction east() {
         return new Direction(0);
     }
 
+    /**
+     * Вернуть направление-запад
+     * @return направление-запад
+     */
     public static Direction west() {
         return new Direction(180);
     }
@@ -39,33 +62,55 @@ public class Direction {
 
     // ------------------ Ќовые направлени¤ ---------------------
 
+    /**
+     * Создать клон объекта
+     * @return клон объекта
+     */
     @Override
     public Direction clone() {
         return new Direction(this._angle);
     }
 
+    /**
+     * Повернуть направление по часовой
+     * @return направление
+     */
     public Direction clockwise() {
         return new Direction(this._angle - 90);
     }
 
+    /**
+     * Повернуть направление против часовой
+     * @return направление
+     */
     public Direction anticlockwise() {
         return new Direction(this._angle + 90);
     }
 
+    /**
+     * Получить противоположное направление
+     * @return направление
+     */
     public Direction opposite() {
         return new Direction(this._angle + 180);
     }
 
-    public Direction rightword() {
-        return clockwise();
-    }
-
-    public Direction leftword() {
-        return anticlockwise();
+    /**
+     * Проверяет является ли данное направление противопожное другому
+     * @param other - другое направление
+     * @return
+     */
+    public boolean isOpposite(Direction other) {
+        return this.opposite().equals(other);
     }
 
     // ------------------ —равнить направлени¤ ---------------------
 
+    /**
+     * Проверяет эквивалентность объектов
+     * @param other - другой объект
+     * @return true - если объекты эквивалентны, иначе false
+     */
     @Override
     public boolean equals(Object other) {
 
@@ -79,12 +124,36 @@ public class Direction {
         return false;
     }
 
+    /**
+     * Получить хэш
+     * @return хэш
+     */
     @Override
     public int hashCode() {
         return this._angle;
     }
 
-    public boolean isOpposite(Direction other) {
-        return this.opposite().equals(other);
+
+    /**
+     * Конвертировать в строку
+     * @return строка
+     */
+    @Override
+    public String toString() {
+        String res = "south";
+
+        if(this.equals(Direction.north())){
+            res = "north";
+        }
+
+        if (this.equals(Direction.east())){
+            res = "east";
+        }
+
+        if(this.equals(Direction.west())){
+            res = "west";
+        }
+
+        return res;
     }
 }

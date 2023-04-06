@@ -10,6 +10,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Source extends PlumbingProduct {
+
+    /**
+     * Конструктор
+     * @param ends - множество концов
+     * @param cell - клетка, в которой будет расположен наш объект
+     */
     private Source(Set<Direction> ends, Cell cell){
         super(ends, cell);
 
@@ -23,7 +29,11 @@ public class Source extends PlumbingProduct {
 
     }
 
-
+    /**
+     * Конструктор
+     * @param end - конец источника
+     * @param cell - клетка, в которой будет расположен наш объект
+     */
     public Source(@NotNull  Direction end, Cell cell){
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }

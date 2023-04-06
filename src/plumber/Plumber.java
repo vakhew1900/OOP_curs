@@ -10,15 +10,33 @@ import java.util.*;
 
 public class Plumber {
 
+
+    /**
+     * Игровое поле
+     */
     private GameField gameField;
+    /**
+     * Источник и слив
+     */
     PlumbingProduct source = null, drain = null;
+
+    /**
+     * Список всех труб
+     */
     List<PlumbingProduct> pipeList;
 
+    /**
+     * Конструктор
+     * @param gameField - игровое поле
+     */
     Plumber(GameField gameField) {
         this.gameField = gameField;
     }
 
 
+    /**
+     * Создать конфигруации для водопровожда
+     */
     public void configure() {
 
         createPipeline();
@@ -27,16 +45,19 @@ public class Plumber {
     }
 
 
+    /**
+     * Создать собранный водопровод. По данному водопровооду вода может дойти от источника до слива
+     */
     void createPipeline() {
 
-        if(gameField.height() == 1 && gameField.width() == 1) {
+        if (gameField.height() == 1 && gameField.width() == 1) {
             throw new IllegalArgumentException("GameField is verysmall");
         }
 
         Cell startCell = gameField.cell(random(gameField.height()), 0);
         Cell finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
 
-        while (startCell == finishCell){
+        while (startCell == finishCell) {
             finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
         }
 
@@ -53,6 +74,9 @@ public class Plumber {
     }
 
 
+    /**
+     * Нарушить целостность водопровода путем поворота некоторых труб
+     */
     void shufflePipeline() {
 
         for (PlumbingProduct plumbingProduct : pipeList) {
@@ -67,11 +91,22 @@ public class Plumber {
         }
     }
 
+    /**
+     * Функция рандома. Диапозон значений [0, n)
+     * @param n - правая граница для рандома
+     * @return рандомное число
+     */
     private int random(int n) {
         return new Random().nextInt(n);
     }
 
 
+    /**
+     * Создать путь от одной клетки до другой
+     * @param startCell - первая клетка
+     * @param finishCell - конечная клетка
+     * @return список клеток, образующий путь от первой клетки до конечной
+     */
     private List<Cell> createCellPath(@NotNull Cell startCell, @NotNull Cell finishCell) {
 
 
@@ -105,6 +140,13 @@ public class Plumber {
         return cellPath;
     }
 
+
+    /**
+     * Обход в ширину, который определяет для каждой клетки ее предка
+     * @param currentCell - текущая клетка
+     * @param preCell - словарь. Ключ - клетка. Значение - клетка предок
+     * @param startCell - Самая первая клетка последовательности
+     */
     private void dfs(@NotNull Cell currentCell, @NotNull Map<Cell, Cell> preCell, @NotNull Cell startCell) {
 
         List<Cell> neighborList = new ArrayList<>(currentCell.neighbors().values());
@@ -121,6 +163,11 @@ public class Plumber {
         }
     }
 
+    /**
+     * Конвертировать путь из клеток в путь направлений
+     * @param cellPath - путь из клеток
+     * @return список направлений, который представляет собой путь направлений
+     */
     private List<Direction> convertCellPathToDirectionPath(@NotNull List<Cell> cellPath) {
 
         List<Direction> directionList = new ArrayList<>();
@@ -138,6 +185,12 @@ public class Plumber {
         return directionList;
     }
 
+    /**
+     * Создать путь из труб на основе стартовой клетки, в которой распологается источник и пути направлений
+     * @param cell - стартовая клетка
+     * @param directionList - путь направлений
+     * @return Список труб, которые образуют собой полноценный целостный путь
+     */
     private List createPipePath(@NotNull Cell cell, @NotNull List<Direction> directionList) {
 
         List<PlumbingProduct> pipeList = new ArrayList<>();

@@ -15,18 +15,37 @@ import java.util.List;
 
 public class Water  implements ActionListener {
 
-
+    /**
+     * Последняя труба, заполненная водой
+     */
     private PlumbingProduct lastFillingPlumbingProduct;
-    private Direction waterDirection;
+
+    /**
+      Таймер
+     */
     private Timer timer;
+
+    /**
+     * таймаут
+     */
     private int timeout = 2000;
+
+    /**
+     * Переменная, коазывающая остановлена ли вода или нет
+     */
     private boolean isStopped = false;
 
+    /**
+     * Конструктор
+     */
     public Water(){
         this(2000);
     }
 
-
+    /**
+     * Конструктор
+     * @param timeout - таймаут
+     */
     public Water(int timeout){
         if (timeout < 1)
             throw  new IllegalArgumentException("Illegal timeoutargument");
@@ -39,6 +58,10 @@ public class Water  implements ActionListener {
         return lastFillingPlumbingProduct;
     }
 
+
+    /**
+        Заставить воду течь
+     */
     public void flow(){
 
         boolean result = false;
@@ -54,10 +77,17 @@ public class Water  implements ActionListener {
     }
 
 
+    /**
+     * Запустить таймнер, по которому работает вода
+     */
     public  void start(){
         timer.start();
     }
 
+    /**
+     * Установить новое значение для последней посещенной клетки
+     * @param plumbingProduct
+     */
      public void nextPlumbingProduct(@NotNull PlumbingProduct plumbingProduct){
 
 
@@ -70,6 +100,11 @@ public class Water  implements ActionListener {
 
     }
 
+    /**
+     * Перейти к следующему соединенному участку водопрова
+     * @param direction направление в которое мы движемся
+     * @return true - если мы смогли прийти, иначе false
+     */
     private boolean nextConnection(@NotNull Direction direction){
 
         if(getLastFillingPlumbingProduct() == null)
@@ -101,6 +136,11 @@ public class Water  implements ActionListener {
         fireFlowAction();
     }
 
+
+    /**
+     * Обработчик событий, необходимый для обработки событий таймер
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(isStopped){
@@ -112,10 +152,19 @@ public class Water  implements ActionListener {
     }
 
     // ---------------------- геттеры -------------------
+
+    /**
+     * Геттер для таймаута
+     * @return таймаут
+     */
     public int timeout(){
         return timeout;
     }
 
+    /**
+     * Проверить, остановлена ли вода
+     * @return true - если вода остановле, иначе false
+     */
     public boolean isStopped() {
         return isStopped;
     }

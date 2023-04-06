@@ -29,7 +29,6 @@ public class Pipe extends PlumbingProduct {
         }
 
         setEnds(newEnds);
-
     }
 
     @Override

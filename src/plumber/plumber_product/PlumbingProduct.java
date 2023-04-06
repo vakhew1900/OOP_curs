@@ -10,24 +10,44 @@ import java.util.Set;
 
 public abstract class PlumbingProduct {
 
+    /**
+     * Множество концов
+     */
     private Set<Direction> ends = new HashSet<>();
+
+    /**
+     * Клетка, в  которой расположен объет
+     */
     private Cell cell;
 
     // ------------------ Конструктор ----------------------------------------------
 
-    public Set<Direction> getEnds(){
+    /**
+     * геттер для ends
+     *
+     * @return ends - множество концов
+     */
+    public Set<Direction> getEnds() {
         return ends;
     }
 
-    protected void setEnds(@NotNull Set<Direction> ends){
+    /**
+     *  сеттер для ends
+     * @param ends - множество концов
+     */
+    protected void setEnds(@NotNull Set<Direction> ends) {
         this.ends = ends;
     }
 
-    public PlumbingProduct(@NotNull Set<Direction> ends, Cell cell){
+    /**
+     * Конструктор
+     * @param ends - множество концов
+     * @param cell - клетка, в которой будет расположен наш объект
+     */
+    public PlumbingProduct(@NotNull Set<Direction> ends, Cell cell) {
 
 
-
-        if (cell == null || ends == null || ends.size() == 0){
+        if (cell == null || ends == null || ends.size() == 0) {
             throw new IllegalArgumentException("Illegal argument for PlumbingProduct");
         }
 
@@ -39,11 +59,17 @@ public abstract class PlumbingProduct {
 
     // --------------------- взаимодействие с водой ----------------------------------
 
+    /** Вода, заполняющая сантехническое изделие*/
     private Water water = null;
-    public void  fill(@NotNull Water water){
+
+    /**
+     * Заполняет сантехническое изделие водой
+     * @param water - вода
+     */
+    public void fill(@NotNull Water water) {
 
 
-        if(isFilled() == false) {
+        if (isFilled() == false) {
             this.water = water;
             if (water.getLastFillingPlumbingProduct() == null || water.getLastFillingPlumbingProduct().equals(this) == false) {
                 water.nextPlumbingProduct(this);
@@ -51,47 +77,70 @@ public abstract class PlumbingProduct {
         }
     }
 
-    public  boolean isFilled(){
-        return  water != null;
+    /**
+     * Проверяет, заполнена ли сантехническое изделие водой
+     * @return true - если сантехническое изделие заполнено водой, иначе false
+     */
+    public boolean isFilled() {
+        return water != null;
     }
 
+    /**
+     * геттер для water
+     * @return
+     */
     public Water water() {
         return water;
     }
 
     // --------------------------- работа с  концами ------------------------------------
 
-    public boolean hasEnd(Direction direction){
+    /**
+     * Проверяет есть ли у сантехнического изделия есть заданное направление конца
+     * @param direction - заданное направление
+     * @return true - если у сантехнического изделия есть заданное направление конца, иначе false
+     */
+    public boolean hasEnd(Direction direction) {
         return ends.contains(direction);
     }
 
-    public PlumbingProduct neighbor(Direction direction){
+    public PlumbingProduct neighbor(Direction direction) {
 
         Cell neighborCell = cell.neighbor(direction);
 
-        if (neighborCell != null){
-            return neighborCell.getContent();
+        if (neighborCell != null) {
+            return neighborCell.getPlumbingProduct();
         }
 
-        return  null;
+        return null;
     }
 
     // ----------------------------- взаимодействие с трубой -----------------------------
 
-    public boolean isCanFilled(PlumbingProduct other){
+    /**
+     * проверяет возможно заполнить другого сантехническое изделие из заданногого.
+     * @param other - другая труба
+     * @return  true - если возможно заполнить другого сантехническое изделие из заданногого - false
+     */
+    public boolean isCanFilled(PlumbingProduct other) {
         return other != null && other.isFilled() == false && isConnected(other);
     }
 
-    public boolean isConnected(PlumbingProduct other){
+    /**
+     * Проверяет соедино ли данное сантехническое изделие с другим
+     * @param other - другое сантехническое изделие
+     * @return true - если  соедино ли данное сантехническое изделие с другим
+     */
+    public boolean isConnected(PlumbingProduct other) {
 
-        if(other == null)
+        if (other == null)
             return false;
 
         Direction direction = null;
 
-        for(Direction elem : ends){
+        for (Direction elem : ends) {
 
-            if(neighbor(elem) != null && neighbor(elem).equals(other) ){
+            if (neighbor(elem) != null && neighbor(elem).equals(other)) {
                 direction = elem;
             }
         }
@@ -100,7 +149,18 @@ public abstract class PlumbingProduct {
     }
 
 
-
     //------------------------ Системные ----------------------------
 
+
+
+    @Override
+    public String toString() {
+
+        String res = this.getClass().toString() + ":" + "Cell :" + this.cell.toString() + " Directions :";
+
+        for (Direction direction : getEnds()) {
+            res += direction.toString() + " ";
+        }
+        return res;
+    }
 }
