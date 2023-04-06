@@ -27,9 +27,17 @@ public class Plumber {
 
     void createPipeline() {
 
+        if(gameField.height() == 1 && gameField.width() == 1) {
+            throw new IllegalArgumentException("GameField is verysmall");
+        }
 
         Cell startCell = gameField.cell(random(gameField.height()), 0);
         Cell finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
+
+        while (startCell == finishCell){
+            finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
+        }
+
 
         List<Cell> cellPath = createCellPath(startCell, finishCell);
 
@@ -143,33 +151,5 @@ public class Plumber {
 
         return pipeList;
     }
-
-
-    private List<Cell> createRequiredCells(int size, @NotNull Cell startCell, @NotNull Cell finishCell) {
-
-        if (size < 2) {
-            throw new IllegalArgumentException("Illegal size");
-        }
-
-        List<Cell> requiredCells = new ArrayList<>();
-        requiredCells.add(startCell);
-
-        while (requiredCells.size() + 1 != size) {
-
-            int randomRow = random(gameField.height());
-            int randomCol = random(gameField.width());
-
-            Cell cell = gameField.cell(randomRow, randomCol);
-
-            if (requiredCells.contains(cell) == false && cell.equals(finishCell) == false) {
-                requiredCells.add(cell);
-            }
-        }
-
-        requiredCells.add(finishCell);
-
-        return requiredCells;
-    }
-
 
 }
