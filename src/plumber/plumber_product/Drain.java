@@ -47,7 +47,8 @@ public class Drain extends PlumbingProduct {
 
     // присоединяет слушателя
     public void addFlowActionListener(FlowActionListener l) {
-        FlowActionListeners.add(l);
+        if(FlowActionListeners.contains(l) == false)
+            FlowActionListeners.add(l);
     }
 
     // отсоединяет слушателя

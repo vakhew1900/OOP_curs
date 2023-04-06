@@ -20,7 +20,9 @@ public class Plumber {
 
 
     public void configure() {
+
         createPipeline();
+        source.fill(new Water());
         shufflePipeline();
     }
 
@@ -48,7 +50,6 @@ public class Plumber {
 
         pipeList = createPipePath(startCell, directionList);
 
-        source.fill(new Water());
     }
 
 

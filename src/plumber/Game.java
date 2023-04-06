@@ -9,9 +9,9 @@ import plumber.plumber_product.Source;
 public class Game implements FlowActionListener {
 
 
-    public final int RUNNING = 0;
-    public final int LOSE = 1;
-    public final int WIN = 2;
+    public final static int RUNNING = 0;
+    public final static int LOSE = 1;
+    public final static int WIN = 2;
 
 
     private int status = RUNNING;
@@ -19,14 +19,16 @@ public class Game implements FlowActionListener {
     private Plumber plumber;
     private Water water;
 
+    private final int SIZE = 8;
+
     public Game() {
 
         init();
     }
 
-    public void init() {
+    private void init() {
 
-        gameField = new GameField(8, 8);
+        gameField = new GameField(SIZE, SIZE);
         plumber = new Plumber(gameField);
         plumber.configure();
         this.water = source().water();
@@ -37,7 +39,7 @@ public class Game implements FlowActionListener {
     }
 
 
-    private PlumbingProduct source() {
+    PlumbingProduct source() {
 
         for (int i = 0; i < gameField.height(); i++) {
 
@@ -51,7 +53,7 @@ public class Game implements FlowActionListener {
         return null;
     }
 
-    private Drain drain() {
+    Drain drain() {
         for (int i = 0; i < gameField.height(); i++) {
 
             PlumbingProduct plumbingProduct = gameField.cell(i, gameField.width() - 1).getContent();
@@ -65,10 +67,10 @@ public class Game implements FlowActionListener {
     }
 
     public void flowWater() {
-        water.flow();
+        water.start();
     }
 
-    public void finish(Object obj) {
+    private void finish(Object obj) {
 
         if (obj instanceof Water) {
             status = LOSE;

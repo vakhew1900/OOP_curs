@@ -3,6 +3,7 @@ package plumber;
 import org.jetbrains.annotations.NotNull;
 import plumber.events.FlowActionEvent;
 import plumber.events.FlowActionListener;
+import plumber.plumber_product.Pipe;
 import plumber.plumber_product.PlumbingProduct;
 
 import javax.swing.*;
@@ -40,10 +41,6 @@ public class Water  implements ActionListener {
 
     public void flow(){
 
-        if(timer.isRunning() == false && isStopped == false){
-            timer.start();
-        }
-
         boolean result = false;
         for(Direction direction :  getLastFillingPlumbingProduct().getEnds()){
             result = nextConnection(direction);
@@ -54,6 +51,11 @@ public class Water  implements ActionListener {
         }
 
         isStopped = !result || isStopped;
+    }
+
+
+    public  void start(){
+        timer.start();
     }
 
      public void nextPlumbingProduct(@NotNull PlumbingProduct plumbingProduct){
@@ -113,8 +115,10 @@ public class Water  implements ActionListener {
     public int timeout(){
         return timeout;
     }
-    
-    
+
+    public boolean isStopped() {
+        return isStopped;
+    }
 
     //------  Работа со слушателями------------------------
 
@@ -123,7 +127,9 @@ public class Water  implements ActionListener {
 
     // присоединяет слушателя
     public void addFlowActionListener(FlowActionListener l) {
-        FlowActionListeners.add(l);
+
+        if(FlowActionListeners.contains(l) == false)
+            FlowActionListeners.add(l);
     }
 
     // отсоединяет слушателя
@@ -139,4 +145,6 @@ public class Water  implements ActionListener {
             FlowActionListener.flowStopped(new FlowActionEvent(this));
         }
     }
+
+
 }
