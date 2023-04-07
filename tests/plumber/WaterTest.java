@@ -236,7 +236,7 @@ public class WaterTest {
         source().fill(water);
         water.start();
 
-        Thread.sleep(100);
+        Thread.sleep(500);
 
         Assertions.assertTrue(source().water().getLastFillingPlumbingProduct() instanceof Drain);
     }

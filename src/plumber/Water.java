@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Water  implements ActionListener {
+public class Water implements ActionListener {
 
     /**
      * Последняя труба, заполненная водой
@@ -19,7 +19,7 @@ public class Water  implements ActionListener {
     private PlumbingProduct lastFillingPlumbingProduct;
 
     /**
-      Таймер
+     * Таймер
      */
     private Timer timer;
 
@@ -36,37 +36,38 @@ public class Water  implements ActionListener {
     /**
      * Конструктор
      */
-    public Water(){
+    public Water() {
         this(2000);
     }
 
     /**
      * Конструктор
+     *
      * @param timeout - таймаут
      */
-    public Water(int timeout){
+    public Water(int timeout) {
         if (timeout < 1)
-            throw  new IllegalArgumentException("Illegal timeoutargument");
+            throw new IllegalArgumentException("Illegal timeoutargument");
 
         this.timeout = timeout;
         timer = new Timer(timeout, this);
     }
 
-    public PlumbingProduct getLastFillingPlumbingProduct(){
+    public PlumbingProduct getLastFillingPlumbingProduct() {
         return lastFillingPlumbingProduct;
     }
 
 
     /**
-        Заставить воду течь
+     * Заставить воду течь
      */
-    public void flow(){
+    public void flow() {
 
         boolean result = false;
-        for(Direction direction :  getLastFillingPlumbingProduct().getEnds()){
+        for (Direction direction : getLastFillingPlumbingProduct().getEnds()) {
             result = nextConnection(direction);
 
-            if(result == true){
+            if (result == true) {
                 break;
             }
         }
@@ -78,18 +79,19 @@ public class Water  implements ActionListener {
     /**
      * Запустить таймнер, по которому работает вода
      */
-    public  void start(){
+    public void start() {
         timer.start();
     }
 
     /**
      * Установить новое значение для последней посещенной клетки
+     *
      * @param plumbingProduct
      */
-     public void nextPlumbingProduct(@NotNull PlumbingProduct plumbingProduct){
+    public void nextPlumbingProduct(@NotNull PlumbingProduct plumbingProduct) {
 
 
-        if(plumbingProduct.isFilled() == false) {
+        if (plumbingProduct.isFilled() == false) {
             plumbingProduct.fill(this);
         }
 
@@ -100,36 +102,35 @@ public class Water  implements ActionListener {
 
     /**
      * Перейти к следующему соединенному участку водопрова
+     *
      * @param direction направление в которое мы движемся
      * @return true - если мы смогли прийти, иначе false
      */
-    private boolean nextConnection(@NotNull Direction direction){
+    private boolean nextConnection(@NotNull Direction direction) {
 
-        if(getLastFillingPlumbingProduct() == null)
+        if (getLastFillingPlumbingProduct() == null)
             return false;
 
         boolean result = true;
-        PlumbingProduct neighbor =  getLastFillingPlumbingProduct().neighbor(direction);
+        PlumbingProduct neighbor = getLastFillingPlumbingProduct().neighbor(direction);
 
-        if(neighbor!= null){
+        if (neighbor != null) {
 
             boolean flag = getLastFillingPlumbingProduct().isCanFilled(neighbor);
 
-            if(flag){
+            if (flag) {
                 nextPlumbingProduct(neighbor);
-            }
-            else{
+            } else {
                 result = false;
             }
-        }
-        else{
+        } else {
             result = false;
         }
 
         return result;
     }
 
-    private void stop(){
+    private void stop() {
         timer.stop();
         fireWaterAction();
     }
@@ -137,14 +138,14 @@ public class Water  implements ActionListener {
 
     /**
      * Обработчик событий, необходимый для обработки событий таймер
+     *
      * @param e the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(isStopped){
+        if (isStopped) {
             stop();
-        }
-        else {
+        } else {
             flow();
         }
     }
@@ -153,14 +154,16 @@ public class Water  implements ActionListener {
 
     /**
      * Геттер для таймаута
+     *
      * @return таймаут
      */
-    public int timeout(){
+    public int timeout() {
         return timeout;
     }
 
     /**
      * Проверить, остановлена ли вода
+     *
      * @return true - если вода остановле, иначе false
      */
     public boolean isStopped() {
@@ -175,7 +178,7 @@ public class Water  implements ActionListener {
     // присоединяет слушателя
     public void addWaterStoppedActionListener(WaterStoppedActionListener l) {
 
-        if(FlowActionListeners.contains(l) == false)
+        if (FlowActionListeners.contains(l) == false)
             FlowActionListeners.add(l);
     }
 
