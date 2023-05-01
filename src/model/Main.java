@@ -1,35 +1,30 @@
 package model;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Game game = new Game();
+        SwingUtilities.invokeLater(GamePanel::new);
 
-        Scanner scanner = new Scanner(System.in);
+    }
 
-        while (true) {
+    static class GamePanel extends JFrame {
 
+        Game game;
+        public GamePanel() throws HeadlessException {
 
-            game.printAllPipeline();
-            System.out.println("Введите 1 x y для поворота трубы в клетке (x; y). Введите 0 для запуска воды");
-            int typeCommand = scanner.nextInt();
+            game = new Game();
+            defaultSetting();
+        }
 
-            if (typeCommand == 1) {
-                int x = scanner.nextInt();
-                int y = scanner.nextInt();
-
-                try {
-                    game.rotate(x, y);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("ошибка неверные данные");
-                }
-
-            } else {
-                game.flowWater();
-                break;
-            }
+        private void defaultSetting(){
+            setVisible(true);
+            pack();
+            setResizable(false);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
         }
     }
 
