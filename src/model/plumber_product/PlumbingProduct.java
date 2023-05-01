@@ -1,9 +1,9 @@
-package plumber.plumber_product;
+package model.plumber_product;
 
 import org.jetbrains.annotations.NotNull;
-import plumber.Cell;
-import plumber.Direction;
-import plumber.Water;
+import model.Cell;
+import model.Direction;
+import model.Water;
 
 import java.util.HashSet;
 import java.util.Set;

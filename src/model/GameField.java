@@ -1,4 +1,4 @@
-package plumber;
+package model;
 
 import java.util.*;
 

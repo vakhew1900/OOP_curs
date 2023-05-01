@@ -1,7 +1,7 @@
-package plumber;
+package model;
 
 import org.jetbrains.annotations.NotNull;
-import plumber.plumber_product.PlumbingProduct;
+import model.plumber_product.PlumbingProduct;
 
 import java.util.Collections;
 import java.util.HashMap;

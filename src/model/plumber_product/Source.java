@@ -1,9 +1,8 @@
-package plumber.plumber_product;
+package model.plumber_product;
 
 import org.jetbrains.annotations.NotNull;
-import plumber.Cell;
-import plumber.Direction;
-import plumber.plumber_product.PlumbingProduct;
+import model.Cell;
+import model.Direction;
 
 import java.util.Set;
 import java.util.stream.Collectors;

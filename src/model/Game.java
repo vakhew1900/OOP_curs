@@ -1,11 +1,11 @@
-package plumber;
+package model;
 
-import plumber.events.WaterStoppedActionEvent;
-import plumber.events.WaterStoppedActionListener;
-import plumber.plumber_product.Drain;
-import plumber.plumber_product.Pipe;
-import plumber.plumber_product.PlumbingProduct;
-import plumber.plumber_product.Source;
+import model.events.WaterStoppedActionEvent;
+import model.events.WaterStoppedActionListener;
+import model.plumber_product.Drain;
+import model.plumber_product.Pipe;
+import model.plumber_product.PlumbingProduct;
+import model.plumber_product.Source;
 
 public class Game implements WaterStoppedActionListener {
 

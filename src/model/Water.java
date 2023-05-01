@@ -1,9 +1,9 @@
-package plumber;
+package model;
 
 import org.jetbrains.annotations.NotNull;
-import plumber.events.WaterStoppedActionEvent;
-import plumber.events.WaterStoppedActionListener;
-import plumber.plumber_product.PlumbingProduct;
+import model.events.WaterStoppedActionEvent;
+import model.events.WaterStoppedActionListener;
+import model.plumber_product.PlumbingProduct;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

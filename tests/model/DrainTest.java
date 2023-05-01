@@ -1,12 +1,12 @@
-package plumber;
+package model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import plumber.plumber_product.PlumbingProduct;
-import plumber.plumber_product.Source;
+import model.plumber_product.Drain;
+import model.plumber_product.PlumbingProduct;
 
-public class SourceTest {
+public class DrainTest {
 
 
     private Cell cell;
@@ -21,7 +21,7 @@ public class SourceTest {
     @Test
     public void constructorTest(){
 
-        PlumbingProduct plumbingProduct = new Source(Direction.east(), cell);
+        PlumbingProduct plumbingProduct = new Drain(Direction.east(), cell);
 
         Assertions.assertTrue(plumbingProduct.hasEnd(Direction.east()));
     }
@@ -29,13 +29,14 @@ public class SourceTest {
     @Test
     public void directionIsNull(){
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Source(null, cell));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Drain(null, cell));
     }
 
     @Test
     public void cellIsNull(){
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Source(Direction.east(), null));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Drain(Direction.east(), null));
     }
+
 
 }

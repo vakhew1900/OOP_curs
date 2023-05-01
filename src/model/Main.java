@@ -1,7 +1,4 @@
-package plumber;
-
-import plumber.plumber_product.Drain;
-import plumber.plumber_product.PlumbingProduct;
+package model;
 
 import java.util.Scanner;
 

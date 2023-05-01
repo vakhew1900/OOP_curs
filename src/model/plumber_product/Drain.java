@@ -1,11 +1,11 @@
-package plumber.plumber_product;
+package model.plumber_product;
 
 import org.jetbrains.annotations.NotNull;
-import plumber.Cell;
-import plumber.Direction;
-import plumber.Water;
-import plumber.events.WaterStoppedActionEvent;
-import plumber.events.WaterStoppedActionListener;
+import model.Cell;
+import model.Direction;
+import model.Water;
+import model.events.WaterStoppedActionEvent;
+import model.events.WaterStoppedActionListener;
 
 import java.util.ArrayList;
 import java.util.List;

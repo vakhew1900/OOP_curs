@@ -1,4 +1,4 @@
-package plumber.events;
+package model.events;
 
 import java.util.EventObject;
 

@@ -1,10 +1,10 @@
-package plumber;
+package model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import plumber.plumber_product.Drain;
-import plumber.plumber_product.PlumbingProduct;
-import plumber.plumber_product.Source;
+import model.plumber_product.Drain;
+import model.plumber_product.PlumbingProduct;
+import model.plumber_product.Source;
 
 import java.util.ArrayList;
 import java.util.List;
