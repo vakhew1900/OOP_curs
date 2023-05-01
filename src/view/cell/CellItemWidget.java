@@ -3,11 +3,12 @@ package view.cell;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class CellItemWidget extends JPanel {
 
 
-    protected abstract BufferedImage getImage();
+    protected abstract BufferedImage getImage() throws IOException;
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

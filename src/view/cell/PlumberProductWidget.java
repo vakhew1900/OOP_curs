@@ -5,15 +5,12 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class PlumberProductWidget extends CellItemWidget {
 
-    private PlumbingProduct plumbingProduct;
-    public PlumberProductWidget(@NotNull PlumbingProduct plumbingProduct){
-        this.plumbingProduct = plumbingProduct;
-    }
+    public abstract PlumbingProduct plumberProduct();
 
      abstract void fill();
 
 
     public boolean isFilled(){
-        return plumbingProduct.isFilled();
+        return plumberProduct().isFilled();
     }
 }
