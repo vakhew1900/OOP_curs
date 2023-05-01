@@ -1,5 +1,7 @@
 package model;
 
+import view.GameFieldWidget;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Scanner;
@@ -17,6 +19,8 @@ public class Main {
         public GamePanel() throws HeadlessException {
 
             game = new Game();
+            GameFieldWidget gameFieldWidget = new GameFieldWidget(game.gamefield());
+            add(gameFieldWidget);
             defaultSetting();
         }
 
