@@ -1,4 +1,4 @@
-package view;
+package view.cell;
 
 import model.Cell;
 import org.jetbrains.annotations.NotNull;

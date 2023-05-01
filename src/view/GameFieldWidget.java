@@ -1,9 +1,9 @@
 package view;
 
 import model.Cell;
-import model.Game;
 import model.GameField;
 import org.jetbrains.annotations.NotNull;
+import view.cell.CellWidget;
 
 import javax.swing.*;
 
