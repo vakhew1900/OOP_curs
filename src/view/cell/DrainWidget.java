@@ -1,39 +1,36 @@
 package view.cell;
 
 import model.Direction;
+import model.plumber_product.Drain;
 import model.plumber_product.PlumbingProduct;
-import model.plumber_product.Source;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class SourceWidget extends PlumberProductWidget{
+public class DrainWidget extends PlumberProductWidget{
 
-    Source source;
-
-    public SourceWidget(@NotNull Source source){
+    private Drain drain;
+    public DrainWidget(@NotNull Drain drain){
         super();
-        this.source = source;
+        this.drain = drain;
     }
     @Override
     protected BufferedImage getImage() throws IOException {
 
         BufferedImage image = null;
         try {
-
-            String imagePath = getFullPath();
-            File file = new File(imagePath);
+            String basePath = new File(getFullPath()).getAbsolutePath();
+            System.out.println(basePath);
+            System.out.println(getFullPath());
+            File file = new File(basePath);
             image = ImageIO.read(file);
-            if (source.hasEnd(Direction.north())) {
+
+            if(drain.hasEnd(Direction.north())){
                 image = rotateClockwise(image, Math.PI);
             }
-
-            return image;
-
         }
         catch (IOException ex){
             ex.printStackTrace();
@@ -44,16 +41,23 @@ public class SourceWidget extends PlumberProductWidget{
 
     @Override
     protected String getPath() {
-        return "images/source/";
+
+        String path = "images/unfilled/";
+
+        if(isFilled()){
+            path = "images/filled/";
+        }
+
+        return path;
     }
 
     @Override
     protected String getFileName() {
 
-        String fileName = "source_south_80.png";
+        String fileName = "Drain_south_80.png";
 
-        if(plumberProduct().hasEnd(Direction.west())){
-            fileName = "source_east_80.png";
+        if (drain.hasEnd(Direction.west())){
+            fileName = "Drain_west_80.png";
         }
 
         return fileName;
@@ -61,11 +65,8 @@ public class SourceWidget extends PlumberProductWidget{
 
 
 
-
     @Override
     public PlumbingProduct plumberProduct() {
-        return source;
+        return drain;
     }
-
-
 }

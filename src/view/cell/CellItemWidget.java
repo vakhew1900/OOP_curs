@@ -8,11 +8,20 @@ import java.io.IOException;
 public abstract class CellItemWidget extends JPanel {
 
 
+    private Color CELL_COLOR = Color.decode("#70FE19");
+     public  CellItemWidget(){
+         setPreferredSize(new Dimension(80, 80));
+         setOpaque(false);
+     }
     protected abstract BufferedImage getImage() throws IOException;
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(getImage(), 0, 0, null);
+        try {
+            g.drawImage(getImage(), 0, -5, null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected  BufferedImage rotateClockwise(BufferedImage src, double radian) {
@@ -27,5 +36,13 @@ public abstract class CellItemWidget extends JPanel {
         graphics2D.drawRenderedImage(src, null);
 
         return dest;
+    }
+
+    protected  abstract String getPath();
+
+    protected abstract String getFileName();
+
+    protected String getFullPath(){
+        return getPath() + getFileName();
     }
 }

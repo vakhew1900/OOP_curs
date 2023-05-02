@@ -7,8 +7,9 @@ public abstract class PlumberProductWidget extends CellItemWidget {
 
     public abstract PlumbingProduct plumberProduct();
 
-     abstract void fill();
-
+    public PlumberProductWidget(){
+        super();
+    }
 
     public boolean isFilled(){
         return plumberProduct().isFilled();

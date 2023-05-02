@@ -1,6 +1,11 @@
 package view.cell;
 
 import model.Cell;
+import model.Plumber;
+import model.plumber_product.Drain;
+import model.plumber_product.Pipe;
+import model.plumber_product.PlumbingProduct;
+import model.plumber_product.Source;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -16,9 +21,27 @@ public class CellWidget extends JPanel {
         this.cell = cell;
         setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
         setBackground(CELL_COLOR);
-
-        //границы
         setBorder(BorderFactory.createLineBorder(Color.black));
+
+        PlumbingProduct plumbingProduct = cell.getPlumbingProduct();
+
+        if(plumbingProduct != null){
+            PlumberProductWidget plumberProductWidget = null;
+            if (plumbingProduct instanceof Pipe){
+
+            }
+            else if(plumbingProduct instanceof Source){
+                   plumberProductWidget = new SourceWidget((Source) plumbingProduct);
+            }
+            else if (plumbingProduct instanceof Drain){
+                plumberProductWidget = new DrainWidget((Drain) plumbingProduct);
+            }
+
+            if(plumberProductWidget !=null){
+                add(plumberProductWidget);
+            }
+
+        }
     }
 
 
