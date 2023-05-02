@@ -7,10 +7,9 @@ import java.io.IOException;
 
 public abstract class CellItemWidget extends JPanel {
 
-
-    private Color CELL_COLOR = Color.decode("#70FE19");
+    private static final int CELL_SIZE = 80;
      public  CellItemWidget(){
-         setPreferredSize(new Dimension(80, 80));
+         setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
          setOpaque(false);
      }
     protected abstract BufferedImage getImage() throws IOException;
@@ -18,7 +17,7 @@ public abstract class CellItemWidget extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         try {
-            g.drawImage(getImage(), 0, -5, null);
+            g.drawImage(getImage(), 0, 0, null);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

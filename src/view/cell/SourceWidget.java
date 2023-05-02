@@ -28,12 +28,6 @@ public class SourceWidget extends PlumberProductWidget{
             String imagePath = getFullPath();
             File file = new File(imagePath);
             image = ImageIO.read(file);
-            if (source.hasEnd(Direction.north())) {
-                image = rotateClockwise(image, Math.PI);
-            }
-
-            return image;
-
         }
         catch (IOException ex){
             ex.printStackTrace();
@@ -52,8 +46,13 @@ public class SourceWidget extends PlumberProductWidget{
 
         String fileName = "source_south_80.png";
 
-        if(plumberProduct().hasEnd(Direction.west())){
+        if(plumberProduct().hasEnd(Direction.east())){
             fileName = "source_east_80.png";
+        }
+
+        if (plumberProduct().hasEnd(Direction.north())){
+            System.out.println("fff");
+            fileName = "source_north_80.png";
         }
 
         return fileName;

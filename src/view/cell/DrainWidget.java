@@ -28,9 +28,6 @@ public class DrainWidget extends PlumberProductWidget{
             File file = new File(basePath);
             image = ImageIO.read(file);
 
-            if(drain.hasEnd(Direction.north())){
-                image = rotateClockwise(image, Math.PI);
-            }
         }
         catch (IOException ex){
             ex.printStackTrace();
@@ -60,6 +57,9 @@ public class DrainWidget extends PlumberProductWidget{
             fileName = "Drain_west_80.png";
         }
 
+        if (drain.hasEnd(Direction.north())){
+            fileName = "Drain_north_80.png";
+        }
         return fileName;
     }
 
