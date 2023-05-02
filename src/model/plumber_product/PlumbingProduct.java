@@ -1,11 +1,17 @@
 package model.plumber_product;
 
+import model.events.PlumberProductFilledActionEvent;
+import model.events.PlumberProductFilledActionListener;
+import model.events.WaterStoppedActionEvent;
+import model.events.WaterStoppedActionListener;
 import org.jetbrains.annotations.NotNull;
 import model.Cell;
 import model.Direction;
 import model.Water;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public abstract class PlumbingProduct {
@@ -75,6 +81,8 @@ public abstract class PlumbingProduct {
                 water.nextPlumbingProduct(this);
             }
         }
+
+        firePlumberProductAction();
     }
 
     /**
@@ -162,5 +170,29 @@ public abstract class PlumbingProduct {
             res += direction.toString() + " ";
         }
         return res;
+    }
+
+    //TODO    !!!
+    List<PlumberProductFilledActionListener> plumberProductFilledActionListeners = new ArrayList<>();
+
+    // присоединяет слушателя
+    public void addPlumberProductFilledActionListener(PlumberProductFilledActionListener l) {
+
+        if (plumberProductFilledActionListeners.contains(l) == false)
+            plumberProductFilledActionListeners.add(l);
+    }
+
+    // отсоединяет слушателя
+    public void removeFlowActionListener(WaterStoppedActionListener l) {
+        if (plumberProductFilledActionListeners.contains(l)) {
+            plumberProductFilledActionListeners.remove(l);
+        }
+    }
+
+    // оповещает слушателей о событии
+    protected void firePlumberProductAction() {
+        for (PlumberProductFilledActionListener plumberProductFilledActionListener : plumberProductFilledActionListeners) {
+            plumberProductFilledActionListener.plumberProductFilled(new PlumberProductFilledActionEvent(this));
+        }
     }
 }

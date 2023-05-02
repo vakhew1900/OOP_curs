@@ -4,6 +4,9 @@ import view.GameFieldWidget;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Scanner;
 
 public class Main {
@@ -22,6 +25,7 @@ public class Main {
             GameFieldWidget gameFieldWidget = new GameFieldWidget(game.gamefield());
             add(gameFieldWidget);
             defaultSetting();
+            addKeyListener(new MyKeyListener());
         }
 
         private void defaultSetting(){
@@ -29,6 +33,19 @@ public class Main {
             pack();
             setResizable(false);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
+        }
+
+        private class MyKeyListener extends KeyAdapter {
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                System.out.println(e.getKeyCode());
+                if(e.getKeyCode() == KeyEvent.VK_C){
+                    game.flowWater();
+                }
+            }
+
+
         }
     }
 

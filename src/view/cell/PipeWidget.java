@@ -6,15 +6,19 @@ import model.plumber_product.PlumbingProduct;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class PipeWidget extends PlumberProductWidget {
 
-    Pipe pipe;
     public PipeWidget(@NotNull Pipe pipe) {
-        this.pipe = pipe;
+        super(pipe);
+        addMouseListener(new MyMouseListener());
+        setToolTipText("Повернуть");
     }
 
     @Override
@@ -77,8 +81,14 @@ public class PipeWidget extends PlumberProductWidget {
         return fileName;
     }
 
-    @Override
-    public PlumbingProduct plumberProduct() {
-        return pipe;
+
+    private class MyMouseListener extends MouseAdapter {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            ((Pipe) plumberProduct()).rotate();
+            repaint();
+        }
+
     }
 }

@@ -40,7 +40,7 @@ public class Plumber {
     public void configure() {
 
         createPipeline();
-        source.fill(new Water());
+        source.fill(new Water(400));
         shufflePipeline();
     }
 

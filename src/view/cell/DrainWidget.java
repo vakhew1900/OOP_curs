@@ -12,10 +12,8 @@ import java.io.IOException;
 
 public class DrainWidget extends PlumberProductWidget{
 
-    private Drain drain;
     public DrainWidget(@NotNull Drain drain){
-        super();
-        this.drain = drain;
+        super(drain);
     }
     @Override
     protected BufferedImage getImage() throws IOException {
@@ -53,20 +51,14 @@ public class DrainWidget extends PlumberProductWidget{
 
         String fileName = "Drain_south_80.png";
 
-        if (drain.hasEnd(Direction.west())){
+        if (plumberProduct().hasEnd(Direction.west())){
             fileName = "Drain_west_80.png";
         }
 
-        if (drain.hasEnd(Direction.north())){
+        if (plumberProduct().hasEnd(Direction.north())){
             fileName = "Drain_north_80.png";
         }
         return fileName;
     }
 
-
-
-    @Override
-    public PlumbingProduct plumberProduct() {
-        return drain;
-    }
 }

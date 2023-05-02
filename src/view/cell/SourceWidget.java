@@ -13,11 +13,8 @@ import java.io.IOException;
 
 public class SourceWidget extends PlumberProductWidget{
 
-    Source source;
-
     public SourceWidget(@NotNull Source source){
-        super();
-        this.source = source;
+        super(source);
     }
     @Override
     protected BufferedImage getImage() throws IOException {
@@ -57,14 +54,5 @@ public class SourceWidget extends PlumberProductWidget{
 
         return fileName;
     }
-
-
-
-
-    @Override
-    public PlumbingProduct plumberProduct() {
-        return source;
-    }
-
 
 }
