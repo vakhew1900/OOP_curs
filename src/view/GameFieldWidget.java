@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import view.cell.CellWidget;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GameFieldWidget extends JPanel {
 

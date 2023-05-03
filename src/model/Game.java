@@ -1,11 +1,17 @@
 package model;
 
+import model.events.GameFinishedActionEvent;
+import model.events.GameFinishedActionListener;
 import model.events.WaterStoppedActionEvent;
+
 import model.events.WaterStoppedActionListener;
 import model.plumber_product.Drain;
 import model.plumber_product.Pipe;
 import model.plumber_product.PlumbingProduct;
 import model.plumber_product.Source;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game implements WaterStoppedActionListener {
 
@@ -13,6 +19,7 @@ public class Game implements WaterStoppedActionListener {
      * Статус игры - идет
      */
     public final static int RUNNING = 0;
+
 
     /**
      * Статус игры - проигрыш
@@ -24,6 +31,7 @@ public class Game implements WaterStoppedActionListener {
      */
     public final static int WIN = 2;
 
+    public final static int WATER_START = 3;
 
     /**
      * Статус игры
@@ -131,6 +139,7 @@ public class Game implements WaterStoppedActionListener {
      */
     private void finish(Object obj) {
         status = (obj instanceof Drain)? WIN : LOSE;
+        fireGameFinishedAction();
     }
 
 
@@ -183,5 +192,32 @@ public class Game implements WaterStoppedActionListener {
     @Override
     public void waterStopped(WaterStoppedActionEvent event) {
         finish(event.getSource());
+    }
+    
+    
+    
+    //----------------------------- Cлушатели
+
+    List<GameFinishedActionListener> gameFinishedListeners = new ArrayList<>();
+
+    // присоединяет слушателя
+    public void addGameFinishedActionListener(GameFinishedActionListener l) {
+
+        if (gameFinishedListeners.contains(l) == false)
+            gameFinishedListeners.add(l);
+    }
+
+    // отсоединяет слушателя
+    public void removegameFinishedListener(GameFinishedActionListener l) {
+        if (gameFinishedListeners.contains(l)) {
+            gameFinishedListeners.remove(l);
+        }
+    }
+
+    // оповещает слушателей о событии
+    protected void fireGameFinishedAction() {
+        for (GameFinishedActionListener gameFinishedListener : gameFinishedListeners) {
+            gameFinishedListener.gameFinished(new GameFinishedActionEvent(this));
+        }
     }
 }
