@@ -53,7 +53,7 @@ public class Drain extends PlumbingProduct {
     @Override
     public void fill(@NotNull Water water) {
         super.fill(water);
-        fireWaterAction();
+//        fireWaterAction();
     }
 
 
@@ -62,7 +62,7 @@ public class Drain extends PlumbingProduct {
     List<WaterStoppedActionListener> FlowActionListeners = new ArrayList<>();
 
     // присоединяет слушателя
-    public void addWaterStoppedActionListener(WaterStoppedActionListener l) {
+   /* public void addWaterStoppedActionListener(WaterStoppedActionListener l) {
 
         if (FlowActionListeners.contains(l) == false)
             FlowActionListeners.add(l);
@@ -80,5 +80,5 @@ public class Drain extends PlumbingProduct {
         for (WaterStoppedActionListener FlowActionListener : FlowActionListeners) {
             FlowActionListener.waterStopped(new WaterStoppedActionEvent(this));
         }
-    }
+    }*/
 }

@@ -27,6 +27,7 @@ public class GameTest {
         Assertions.assertEquals(Game.RUNNING, game.status());
 
         game.drain().fill(game.source().water());
+        game.drain().water().fireWaterAction();
         Assertions.assertEquals(Game.WIN, game.status());
     }
 

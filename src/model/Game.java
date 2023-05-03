@@ -86,7 +86,7 @@ public class Game implements WaterStoppedActionListener {
         this.water = source().water();
 
         water.addWaterStoppedActionListener(this);
-        drain().addWaterStoppedActionListener(this);
+       // drain().addWaterStoppedActionListener(this);
 
     }
 
@@ -191,7 +191,7 @@ public class Game implements WaterStoppedActionListener {
      */
     @Override
     public void waterStopped(WaterStoppedActionEvent event) {
-        finish(event.getSource());
+        finish(((Water) event.getSource()).getLastFillingPlumbingProduct());
     }
     
     

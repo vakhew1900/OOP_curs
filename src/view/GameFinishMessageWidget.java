@@ -68,6 +68,8 @@ public class GameFinishMessageWidget extends JPanel implements GameFinishedActio
     @Override
     public void gameFinished(GameFinishedActionEvent event) {
         Game game = (Game) event.getSource();
+
+        System.out.println(game.status());
         if(game.status() == Game.LOSE){
             lose();
         }
