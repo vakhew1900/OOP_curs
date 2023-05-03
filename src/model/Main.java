@@ -15,27 +15,30 @@ public class Main {
 
     }
 
-    static class GamePanel extends JFrame {
+    public static class GamePanel extends JFrame {
 
         Game game;
+        JPanel mainPanel;
 
         public GamePanel() throws HeadlessException {
+            start();
 
+        }
+
+        private void start(){
             game = new Game();
-            JPanel mainPanel = new JPanel();
+            mainPanel = new JPanel();
             GameFieldWidget gameFieldWidget = new GameFieldWidget(game.gamefield());
             mainPanel.add("CENTER", gameFieldWidget);
             JPanel managePanel = createManagePanel();
             mainPanel.add("EAST", managePanel);
             add(mainPanel);
-
             defaultSetting();
-
-
         }
 
         public void restart(){
-
+                remove(mainPanel);
+                start();
         }
 
         private JPanel createManagePanel() {
@@ -49,10 +52,19 @@ public class Main {
             game.addGameFinishedActionListener(gameFinishMessageWidget);
             managePanel.add(gameFinishMessageWidget);
 
+            JButton restartButton = createRestartButton();
+            restartButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    restart();
+                }
+            });
+
             JButton flowWatterButton = new JButton("Открыть кран");
             flowWatterButton.addActionListener(new WaterStartAction());
             flowWatterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             ;
+            managePanel.add("SOUTH", restartButton);
             managePanel.add("SOUTH", flowWatterButton);
             managePanel.setLayout(new BoxLayout(managePanel, BoxLayout.Y_AXIS));
             return managePanel;
@@ -64,6 +76,13 @@ public class Main {
             setResizable(false);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        }
+
+        private JButton createRestartButton(){
+            JButton button = new JButton("Перезапустить");
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            return button;
         }
 
        private class WaterStartAction implements ActionListener{

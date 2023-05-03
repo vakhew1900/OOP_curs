@@ -20,6 +20,8 @@ public class GameFieldWidget extends JPanel {
 
     }
 
+
+
     private void fillField(){
 
         for(int i = 0; i < gameField.width(); i++){

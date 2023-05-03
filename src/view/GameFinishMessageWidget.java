@@ -1,11 +1,14 @@
 package view;
 
 import model.Game;
+import model.Main;
 import model.events.GameFinishedActionEvent;
 import model.events.GameFinishedActionListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameFinishMessageWidget extends JPanel implements GameFinishedActionListener {
 
@@ -19,19 +22,16 @@ public class GameFinishMessageWidget extends JPanel implements GameFinishedActio
 
     private JLabel title;
     private JLabel message;
-    private JButton restartButton;
 
     public GameFinishMessageWidget() {
         setVisible(false);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         title = createTitle();
         message = createMessage();
-        restartButton = createRestartButton();
 
 
         add(title);
         add(message);
-        add(restartButton);
     }
 
     private JLabel createTitle(){
@@ -48,11 +48,7 @@ public class GameFinishMessageWidget extends JPanel implements GameFinishedActio
         return jLabel;
     }
 
-    private JButton createRestartButton(){
-        JButton button = new JButton("Перезапустить");
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return button;
-    }
+
 
 
 
