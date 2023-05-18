@@ -20,6 +20,9 @@ public class Pipe extends PlumbingProduct {
     }
 
     public void rotate(){
+        if (isFilled()){
+            return;
+        }
 
         Set<Direction> newEnds = new HashSet<>();
 

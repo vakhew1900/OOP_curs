@@ -115,7 +115,7 @@ public class Direction {
     public boolean equals(Object other) {
 
         if (other instanceof Direction) {
-            // “ипы совместимы, можно провести преобразование
+            // типы совместимы, можно провести преобразование
             Direction otherDirect = (Direction) other;
             // ¬озвращаем результат сравнени¤ углов
             return _angle == otherDirect._angle;
