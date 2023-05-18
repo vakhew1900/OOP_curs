@@ -3,13 +3,14 @@ package model.plumber_product;
 import model.Cell;
 import model.Direction;
 import model.Water;
+import model.plumber_product_end.PlumberProductEnd;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Pipe extends PlumbingProduct {
 
-    public Pipe(Set<Direction> ends, Cell cell) {
+    public Pipe(Set<PlumberProductEnd> ends, Cell cell) {
 
         super(ends, cell);
 
@@ -24,13 +25,10 @@ public class Pipe extends PlumbingProduct {
             return;
         }
 
-        Set<Direction> newEnds = new HashSet<>();
-
-        for(Direction end : getEnds()){
-            newEnds.add(end.clockwise());
+        for(PlumberProductEnd end : getEnds()){
+           end.rotate();
         }
 
-        setEnds(newEnds);
     }
 
     @Override

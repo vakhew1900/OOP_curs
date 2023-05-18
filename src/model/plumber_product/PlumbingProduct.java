@@ -2,8 +2,8 @@ package model.plumber_product;
 
 import model.events.PlumberProductFilledActionEvent;
 import model.events.PlumberProductFilledActionListener;
-import model.events.WaterStoppedActionEvent;
 import model.events.WaterStoppedActionListener;
+import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.Cell;
 import model.Direction;
@@ -19,7 +19,7 @@ public abstract class PlumbingProduct {
     /**
      * Множество концов
      */
-    private Set<Direction> ends = new HashSet<>();
+    private Set<PlumberProductEnd> ends = new HashSet<>();
 
     /**
      * Клетка, в  которой расположен объет
@@ -33,7 +33,7 @@ public abstract class PlumbingProduct {
      *
      * @return ends - множество концов
      */
-    public Set<Direction> getEnds() {
+    public Set<PlumberProductEnd> getEnds() {
         return ends;
     }
 
@@ -41,7 +41,7 @@ public abstract class PlumbingProduct {
      *  сеттер для ends
      * @param ends - множество концов
      */
-    protected void setEnds(@NotNull Set<Direction> ends) {
+    protected void setEnds(@NotNull Set<PlumberProductEnd> ends) {
         this.ends = ends;
     }
 
@@ -50,14 +50,14 @@ public abstract class PlumbingProduct {
      * @param ends - множество концов
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    public PlumbingProduct(@NotNull Set<Direction> ends, Cell cell) {
+    public PlumbingProduct(@NotNull Set<PlumberProductEnd> ends, Cell cell) {
 
 
         if (cell == null || ends == null || ends.size() == 0) {
             throw new IllegalArgumentException("Illegal argument for PlumbingProduct");
         }
 
-        this.ends = new HashSet<Direction>(ends);
+        this.ends = new HashSet<PlumberProductEnd>(ends);
         this.cell = cell;
         cell.fill(this);
     }
@@ -108,8 +108,8 @@ public abstract class PlumbingProduct {
      * @param direction - заданное направление
      * @return true - если у сантехнического изделия есть заданное направление конца, иначе false
      */
-    public boolean hasEnd(Direction direction) {
-        return ends.contains(direction);
+    public boolean hasEnd(PlumberProductEnd plumberProductEnd) {
+        return ends.contains(plumberProductEnd);
     }
 
     public PlumbingProduct neighbor(Direction direction) {
@@ -144,16 +144,18 @@ public abstract class PlumbingProduct {
         if (other == null)
             return false;
 
-        Direction direction = null;
+        PlumberProductEnd plumberProductEnd = null;
 
-        for (Direction elem : ends) {
+        for (PlumberProductEnd end : ends) {
+
+            Direction elem  = end.direction();
 
             if (neighbor(elem) != null && neighbor(elem).equals(other)) {
-                direction = elem;
+                plumberProductEnd = end;
             }
         }
 
-        return direction != null && other.hasEnd(direction.opposite());
+        return plumberProductEnd!= null && other.hasEnd(plumberProductEnd.opposite());
     }
 
 
@@ -166,8 +168,8 @@ public abstract class PlumbingProduct {
 
         String res = this.getClass().toString() + ":" + "Cell :" + this.cell.toString() + " Directions :";
 
-        for (Direction direction : getEnds()) {
-            res += direction.toString() + " ";
+        for (PlumberProductEnd plumberProductEnd : getEnds()) {
+            res += plumberProductEnd.toString() + " ";
         }
         return res;
     }

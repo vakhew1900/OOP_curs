@@ -1,5 +1,6 @@
 package model.plumber_product;
 
+import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.Cell;
 import model.Direction;
@@ -15,7 +16,7 @@ public class Source extends PlumbingProduct {
      * @param ends - множество концов
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    private Source(Set<Direction> ends, Cell cell){
+    private Source(Set<PlumberProductEnd> ends, Cell cell){
         super(ends, cell);
 
         if(ends.size() != 1){
@@ -33,7 +34,7 @@ public class Source extends PlumbingProduct {
      * @param end - конец источника
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    public Source(@NotNull  Direction end, Cell cell){
+    public Source(@NotNull  PlumberProductEnd end, Cell cell){
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 }

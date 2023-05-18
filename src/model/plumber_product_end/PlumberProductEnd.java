@@ -36,7 +36,7 @@ public abstract class PlumberProductEnd implements Cloneable {
         direction = direction.clockwise();
     }
 
-    public PlumberProductEnd oposite() {
+    public PlumberProductEnd opposite() {
         PlumberProductEnd other = null;
         try {
             other = (PlumberProductEnd) this.clone();
@@ -60,5 +60,13 @@ public abstract class PlumberProductEnd implements Cloneable {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return material.hashCode()* 1000 * 1000 + diameter * 1000 + direction.hashCode();
+    }
 
+    @Override
+    public String toString() {
+        return direction.toString() + " " + direction + " " + material.toString();
+    }
 }

@@ -1,5 +1,8 @@
 package model;
 
+import model.material.Metal;
+import model.plumber_product_end.PlumberProductEnd;
+import model.plumber_product_end.SmallPlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +36,10 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+
+
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -50,8 +55,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -67,8 +72,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
        // PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -84,8 +89,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -101,8 +106,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.north(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.north(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.south(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -118,8 +123,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.north(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.south(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.north(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -135,8 +140,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
-        PlumbingProduct plumbingProduct1 = new Drain(Direction.north(), cell1);
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.south(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        PlumbingProduct plumbingProduct1 = new Drain( new SmallPlumberProductEnd(Direction.north(), new Metal()), cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
         Assertions.assertTrue(plumbingProduct1.isConnected(plumbingProduct2));
@@ -151,8 +156,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
-        PlumbingProduct plumbingProduct1 = new Drain(Direction.west(), cell1);
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.south(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        PlumbingProduct plumbingProduct1 = new Drain(new SmallPlumberProductEnd(Direction.west(), new Metal()), cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
         Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
@@ -167,8 +172,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
-        PlumbingProduct plumbingProduct1 = new Drain(Direction.north(), cell1);
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.south(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        PlumbingProduct plumbingProduct1 = new Drain(new SmallPlumberProductEnd(Direction.north(), new Metal()), cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
         Assertions.assertTrue(plumbingProduct1.isConnected(plumbingProduct2));
@@ -183,8 +188,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.south(), Direction.west()}));
-        PlumbingProduct plumbingProduct1 = new Source(Direction.west(), cell1);
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.south(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        PlumbingProduct plumbingProduct1 = new Source(new SmallPlumberProductEnd(Direction.west(), new Metal()), cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
         Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
@@ -202,8 +207,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -218,8 +223,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.south()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.south(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -234,8 +239,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.south()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.south(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -253,8 +258,8 @@ public class PlumbingProductTest {
 
         cell1.setNeighbor(Direction.east(), cell2);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.south()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.south(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -273,8 +278,8 @@ public class PlumbingProductTest {
         Cell cell1 = new Cell(1, 1);
         Cell cell2 = new Cell(2, 1);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -293,8 +298,8 @@ public class PlumbingProductTest {
         Cell cell1 = new Cell(1, 1);
         Cell cell2 = new Cell(2, 1);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<PlumberProductEnd> set1 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
+        Set<PlumberProductEnd> set2 = new HashSet<>(List.of(new PlumberProductEnd[]{new SmallPlumberProductEnd(Direction.east(), new Metal()), new SmallPlumberProductEnd(Direction.west(), new Metal())}));
         PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
         PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
 

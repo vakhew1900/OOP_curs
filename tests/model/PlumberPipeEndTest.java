@@ -52,7 +52,7 @@ public class PlumberPipeEndTest {
         PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.north(), new Metal());
         PlumberProductEnd plumberProductEnd2 = new SmallPlumberProductEnd(Direction.south(), new Metal());
 
-        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd.oposite());
+        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd.opposite());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class PlumberPipeEndTest {
         PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.east(), new Metal());
         PlumberProductEnd plumberProductEnd2 = new SmallPlumberProductEnd(Direction.west(), new Metal());
 
-        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd.oposite());
+        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd.opposite());
     }
 
 }

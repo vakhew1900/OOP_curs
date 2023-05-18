@@ -1,5 +1,6 @@
 package model.plumber_product;
 
+import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.Cell;
 import model.Direction;
@@ -22,7 +23,7 @@ public class Drain extends PlumbingProduct {
      * @param ends - множество концов
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    private Drain(Set<Direction> ends, Cell cell) {
+    private Drain(Set<PlumberProductEnd> ends, Cell cell) {
         super(ends, cell);
 
         if (ends.size() != 1) {
@@ -41,7 +42,7 @@ public class Drain extends PlumbingProduct {
      * @param end  - конец источника
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    public Drain(Direction end, Cell cell) {
+    public Drain(PlumberProductEnd end, Cell cell) {
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 
@@ -53,32 +54,6 @@ public class Drain extends PlumbingProduct {
     @Override
     public void fill(@NotNull Water water) {
         super.fill(water);
-//        fireWaterAction();
     }
 
-
-    //------  Работа со слушателями------------------------
-
-    List<WaterStoppedActionListener> FlowActionListeners = new ArrayList<>();
-
-    // присоединяет слушателя
-   /* public void addWaterStoppedActionListener(WaterStoppedActionListener l) {
-
-        if (FlowActionListeners.contains(l) == false)
-            FlowActionListeners.add(l);
-    }
-
-    // отсоединяет слушателя
-    public void removeFlowActionListener(WaterStoppedActionListener l) {
-        if (FlowActionListeners.contains(l)) {
-            FlowActionListeners.remove(l);
-        }
-    }
-
-    // оповещает слушателей о событии
-    protected void fireWaterAction() {
-        for (WaterStoppedActionListener FlowActionListener : FlowActionListeners) {
-            FlowActionListener.waterStopped(new WaterStoppedActionEvent(this));
-        }
-    }*/
 }
