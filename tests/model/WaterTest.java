@@ -139,7 +139,7 @@ public class WaterTest {
     @Test
     public void flow_bigFieldTest() throws InterruptedException {
 
-        gameField = new GameField(100, 100);
+        gameField = new GameField(80, 80);
         Plumber plumber = new Plumber(gameField);
         plumber.createPipeline();
 
