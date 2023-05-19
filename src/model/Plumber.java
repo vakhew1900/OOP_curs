@@ -66,10 +66,11 @@ public class Plumber {
 
         List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
         source = new Source(directionList.get(0), cellPath.get(0));
+        pipeList = createPipePath(startCell, directionList);
         drain = new Drain(directionList.get(directionList.size() - 1).opposite(),
                 cellPath.get(cellPath.size() - 1));
 
-        pipeList = createPipePath(startCell, directionList);
+
 
     }
 

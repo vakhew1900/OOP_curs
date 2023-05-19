@@ -3,26 +3,23 @@ package model.plumber_product_end;
 import model.Direction;
 import model.material.Material;
 
-public abstract class PlumberProductEnd implements Cloneable {
+public  class PlumberProductEnd extends AbstractPlumberProductEnd  {
 
-    private Direction direction;
+
     private int diameter;
 
     private Material material;
 
     public PlumberProductEnd(Direction direction, int diameter, Material material) {
+        super(direction);
         if (diameter <= 0) {
             throw new IllegalArgumentException("Illegal diameter");
         }
 
-        this.direction = direction;
         this.material = material;
         this.diameter = diameter;
     }
 
-    public Direction direction() {
-        return direction;
-    }
 
     public int diameter() {
         return diameter;
@@ -32,20 +29,7 @@ public abstract class PlumberProductEnd implements Cloneable {
         return material;
     }
 
-    public void rotate() {
-        direction = direction.clockwise();
-    }
 
-    public PlumberProductEnd opposite() {
-        PlumberProductEnd other = null;
-        try {
-            other = (PlumberProductEnd) this.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-        other.direction = other.direction.opposite();
-        return other;
-    }
 
     @Override
 
@@ -53,7 +37,7 @@ public abstract class PlumberProductEnd implements Cloneable {
         if (other instanceof PlumberProductEnd) {
             PlumberProductEnd otherEnd = (PlumberProductEnd) other;
 
-            return otherEnd.direction().equals(this.direction) && this.diameter == otherEnd.diameter
+            return otherEnd.direction().equals(this.direction()) && this.diameter == otherEnd.diameter
                     && otherEnd.material.equals(this.material);
         }
 
@@ -62,11 +46,11 @@ public abstract class PlumberProductEnd implements Cloneable {
 
     @Override
     public int hashCode() {
-        return material.hashCode()* 1000 * 1000 + diameter * 1000 + direction.hashCode();
+        return material.hashCode()* 1000 * 1000 + diameter * 1000 + direction().hashCode();
     }
 
     @Override
     public String toString() {
-        return direction.toString() + " " + direction + " " + material.toString();
+       return super.toString() + " " + material.toString();
     }
 }

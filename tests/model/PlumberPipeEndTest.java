@@ -2,9 +2,7 @@ package model;
 
 import model.material.Metal;
 import model.material.Plastic;
-import model.plumber_product_end.BigPlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
-import model.plumber_product_end.SmallPlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
