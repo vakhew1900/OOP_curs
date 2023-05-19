@@ -44,7 +44,7 @@ public class PipeWidget extends PlumberProductWidget {
                 image = rotateClockwise(image, Math.PI/2);
             }
 
-            if(plumberProduct().hasEnd(southPlumberProduct) && plumberProduct().hasEnd(eastPlumberProduct)){
+            if(plumberProduct().hasEnd(southPlumberProduct) && plumberProduct().hasEnd(westPlumberProduct)){
                 image = rotateClockwise(image, Math.PI);
             }
 
