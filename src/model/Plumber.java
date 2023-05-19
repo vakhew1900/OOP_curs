@@ -1,5 +1,7 @@
 package model;
 
+import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.plumber_product.Drain;
 import model.plumber_product.Pipe;
@@ -65,9 +67,9 @@ public class Plumber {
         List<Cell> cellPath = createCellPath(startCell, finishCell);
 
         List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
-        source = new Source(directionList.get(0), cellPath.get(0));
+        source = new Source( new SimplePlumberProductEnd(directionList.get(0)), cellPath.get(0));
         pipeList = createPipePath(startCell, directionList);
-        drain = new Drain(directionList.get(directionList.size() - 1).opposite(),
+        drain = new Drain( new SimplePlumberProductEnd(directionList.get(directionList.size() - 1).opposite()),
                 cellPath.get(cellPath.size() - 1));
 
 
@@ -198,7 +200,7 @@ public class Plumber {
         cell = cell.neighbor(directionList.get(0));
 
         for (int i = 1; i < directionList.size(); i++) {
-            Set<Direction> directions = new HashSet<>(List.of(new Direction[]{directionList.get(i - 1).opposite(), directionList.get(i)}));
+            Set<AbstractPlumberProductEnd> directions = new HashSet<>(List.of(new AbstractPlumberProductEnd[]{ new SimplePlumberProductEnd(directionList.get(i - 1).opposite()), new SimplePlumberProductEnd(directionList.get(i))}));
             PlumbingProduct pipe = new Pipe(directions, cell);
             pipeList.add(pipe);
             cell = cell.neighbor(directionList.get(i));

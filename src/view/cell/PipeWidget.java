@@ -3,6 +3,7 @@ package view.cell;
 import model.Direction;
 import model.plumber_product.Pipe;
 import model.plumber_product.PlumbingProduct;
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -30,19 +31,24 @@ public class PipeWidget extends PlumberProductWidget {
             File file = new File(imagePath);
             image = ImageIO.read(file);
 
-            if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.west())) {
+            SimplePlumberProductEnd eastPlumberProduct = new SimplePlumberProductEnd(Direction.east());
+            SimplePlumberProductEnd westPlumberProduct = new SimplePlumberProductEnd(Direction.west());
+            SimplePlumberProductEnd northPlumberProduct = new SimplePlumberProductEnd(Direction.north());
+            SimplePlumberProductEnd southPlumberProduct = new SimplePlumberProductEnd(Direction.south());
+
+            if (plumberProduct().hasEnd(eastPlumberProduct) && plumberProduct().hasEnd(westPlumberProduct)) {
                 image = rotateClockwise(image, Math.PI/2);
             }
 
-            if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.south())){
+            if (plumberProduct().hasEnd(eastPlumberProduct) && plumberProduct().hasEnd(southPlumberProduct)){
                 image = rotateClockwise(image, Math.PI/2);
             }
 
-            if(plumberProduct().hasEnd(Direction.south()) && plumberProduct().hasEnd(Direction.west())){
+            if(plumberProduct().hasEnd(southPlumberProduct) && plumberProduct().hasEnd(eastPlumberProduct)){
                 image = rotateClockwise(image, Math.PI);
             }
 
-            if(plumberProduct().hasEnd(Direction.west()) && plumberProduct().hasEnd(Direction.north())){
+            if(plumberProduct().hasEnd(westPlumberProduct) && plumberProduct().hasEnd(northPlumberProduct)){
                 image = rotateClockwise(image, Math.PI*3/2);
             }
         }
@@ -70,11 +76,17 @@ public class PipeWidget extends PlumberProductWidget {
 
         String fileName = "angular_pipe_80.png";
 
-        if (plumberProduct().hasEnd(Direction.north()) && plumberProduct().hasEnd(Direction.south())) {
+        SimplePlumberProductEnd eastPlumberProduct = new SimplePlumberProductEnd(Direction.east());
+        SimplePlumberProductEnd westPlumberProduct = new SimplePlumberProductEnd(Direction.west());
+        SimplePlumberProductEnd northPlumberProduct = new SimplePlumberProductEnd(Direction.north());
+        SimplePlumberProductEnd southPlumberProduct = new SimplePlumberProductEnd(Direction.south());
+
+
+        if (plumberProduct().hasEnd(northPlumberProduct) && plumberProduct().hasEnd(southPlumberProduct)) {
             fileName = "straight_pipe_80.png";
         }
 
-        if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.west())) {
+        if (plumberProduct().hasEnd(eastPlumberProduct) && plumberProduct().hasEnd(westPlumberProduct)) {
             fileName = "straight_pipe_80.png";
         }
 

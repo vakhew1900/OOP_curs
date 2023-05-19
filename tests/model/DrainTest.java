@@ -1,5 +1,7 @@
 package model;
 
+import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,9 +23,10 @@ public class DrainTest {
     @Test
     public void constructorTest(){
 
-        PlumbingProduct plumbingProduct = new Drain(Direction.east(), cell);
+        AbstractPlumberProductEnd plumberProductEnd = new SimplePlumberProductEnd(Direction.east());
+        PlumbingProduct plumbingProduct = new Drain(plumberProductEnd, cell);
 
-        Assertions.assertTrue(plumbingProduct.hasEnd(Direction.east()));
+        Assertions.assertTrue(plumbingProduct.hasEnd(plumberProductEnd));
     }
 
     @Test
@@ -35,7 +38,8 @@ public class DrainTest {
     @Test
     public void cellIsNull(){
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> new Drain(Direction.east(), null));
+        AbstractPlumberProductEnd plumberProductEnd = new SimplePlumberProductEnd(Direction.east());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Drain(plumberProductEnd, null));
     }
 
 

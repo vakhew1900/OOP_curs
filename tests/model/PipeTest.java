@@ -1,5 +1,7 @@
 package model;
 
+import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,11 +26,11 @@ public class PipeTest {
     @Test
     public void constructorTypeTest(){
 
-        Set<Direction> ends = new HashSet(List.of(new Direction[]{Direction.south(), Direction.west()}));
+        Set<AbstractPlumberProductEnd> ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.west())}));
         PlumbingProduct plumbingProduct = new Pipe(ends, cell);
 
-        Assertions.assertTrue(plumbingProduct.hasEnd(Direction.south()));
-        Assertions.assertTrue(plumbingProduct.hasEnd(Direction.west()));
+        Assertions.assertTrue(plumbingProduct.hasEnd(new SimplePlumberProductEnd(Direction.west())));
+        Assertions.assertTrue(plumbingProduct.hasEnd(new SimplePlumberProductEnd(Direction.south())));
     }
 
     @Test
@@ -43,26 +45,26 @@ public class PipeTest {
     @Test
     public void rotate_TypeTest(){
 
-        Set<Direction> ends = new HashSet(List.of(new Direction[]{Direction.south(), Direction.west()}));
+        Set<AbstractPlumberProductEnd> ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.west())}));
         Pipe pipe = new Pipe(ends, cell);
 
         pipe.rotate();
 
-        Assertions.assertTrue(pipe.hasEnd(Direction.west()));
-        Assertions.assertTrue(pipe.hasEnd(Direction.north()));
+        Assertions.assertTrue(pipe.hasEnd(new SimplePlumberProductEnd(Direction.north())));
+        Assertions.assertTrue(pipe.hasEnd(new SimplePlumberProductEnd(Direction.west())));
 
     }
 
     @Test
     public void rotate_TypeTest2(){
 
-        Set<Direction> ends = new HashSet(List.of(new Direction[]{Direction.south(), Direction.north()}));
+        Set<AbstractPlumberProductEnd> ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.north())}));
         Pipe pipe = new Pipe(ends, cell);
 
         pipe.rotate();
 
-        Assertions.assertTrue(pipe.hasEnd(Direction.west()));
-        Assertions.assertTrue(pipe.hasEnd(Direction.east()));
+        Assertions.assertTrue(pipe.hasEnd(new SimplePlumberProductEnd(Direction.east())));
+        Assertions.assertTrue(pipe.hasEnd(new SimplePlumberProductEnd(Direction.west())));
 
     }
 }

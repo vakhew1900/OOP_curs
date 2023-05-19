@@ -1,5 +1,6 @@
 package model.plumber_product;
 
+import model.plumber_product_end.AbstractPlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.Cell;
@@ -23,7 +24,7 @@ public class Drain extends PlumbingProduct {
      * @param ends - множество концов
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    private Drain(Set<PlumberProductEnd> ends, Cell cell) {
+    private Drain(Set<AbstractPlumberProductEnd> ends, Cell cell) {
         super(ends, cell);
 
         if (ends.size() != 1) {
@@ -42,7 +43,7 @@ public class Drain extends PlumbingProduct {
      * @param end  - конец источника
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    public Drain(PlumberProductEnd end, Cell cell) {
+    public Drain(AbstractPlumberProductEnd end, Cell cell) {
         this(Stream.of(end).collect(Collectors.toSet()), cell);
     }
 

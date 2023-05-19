@@ -1,5 +1,6 @@
 package model;
 
+import model.plumber_product_end.AbstractPlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.events.WaterStoppedActionEvent;
 import model.events.WaterStoppedActionListener;
@@ -64,7 +65,9 @@ public class Water implements ActionListener {
     public void flow() {
 
         boolean result = false;
-        for (Direction direction : getLastFillingPlumbingProduct().getEnds()) {
+        for (AbstractPlumberProductEnd abstractPlumberProductEnd : getLastFillingPlumbingProduct().getEnds()) {
+
+            Direction direction = abstractPlumberProductEnd.direction();
             result = nextConnection(direction);
 
             if (result == true) {

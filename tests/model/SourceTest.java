@@ -1,7 +1,7 @@
 package model;
 
-import model.material.Metal;
-import model.plumber_product_end.PlumberProductEnd;
+import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class SourceTest {
     @Test
     public void constructorTest(){
 
-        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.east(), new Metal());
+        AbstractPlumberProductEnd plumberProductEnd = new SimplePlumberProductEnd(Direction.east());
         PlumbingProduct plumbingProduct = new Source(plumberProductEnd, cell);
 
         Assertions.assertTrue(plumbingProduct.hasEnd(plumberProductEnd));
@@ -38,7 +38,7 @@ public class SourceTest {
     @Test
     public void cellIsNull(){
 
-        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.east(), new Metal());
+        AbstractPlumberProductEnd plumberProductEnd = new SimplePlumberProductEnd(Direction.east());
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Source(plumberProductEnd, null));
     }
 

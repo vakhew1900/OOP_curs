@@ -3,6 +3,7 @@ package view.cell;
 import model.Direction;
 import model.plumber_product.Drain;
 import model.plumber_product.PlumbingProduct;
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -51,11 +52,13 @@ public class DrainWidget extends PlumberProductWidget{
 
         String fileName = "Drain_south_80.png";
 
-        if (plumberProduct().hasEnd(Direction.west())){
+        SimplePlumberProductEnd westPlumberProduct = new SimplePlumberProductEnd(Direction.west());
+        if (plumberProduct().hasEnd(westPlumberProduct)){
             fileName = "Drain_west_80.png";
         }
 
-        if (plumberProduct().hasEnd(Direction.north())){
+        SimplePlumberProductEnd northPlumberProduct = new SimplePlumberProductEnd(Direction.north());
+        if (plumberProduct().hasEnd(northPlumberProduct)){
             fileName = "Drain_north_80.png";
         }
         return fileName;

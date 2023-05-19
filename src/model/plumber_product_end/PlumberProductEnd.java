@@ -10,6 +10,10 @@ public  class PlumberProductEnd extends AbstractPlumberProductEnd  {
 
     private Material material;
 
+    public int BIG_DIAMETER = 80;
+    public int SMALL_DIAMETER = 50;
+
+
     public PlumberProductEnd(Direction direction, int diameter, Material material) {
         super(direction);
         if (diameter <= 0) {

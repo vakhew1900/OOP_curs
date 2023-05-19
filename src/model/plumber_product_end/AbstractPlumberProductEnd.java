@@ -17,8 +17,16 @@ public abstract class AbstractPlumberProductEnd implements Cloneable{
     }
 
 
-    public void rotate() {
-        direction = direction.clockwise();
+    public AbstractPlumberProductEnd rotate() {
+
+        AbstractPlumberProductEnd other = null;
+        try {
+            other = (AbstractPlumberProductEnd) this.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+        other.direction = direction.clockwise();
+        return  other;
     }
 
     public AbstractPlumberProductEnd opposite() {
@@ -32,26 +40,13 @@ public abstract class AbstractPlumberProductEnd implements Cloneable{
         return other;
     }
 
-    @Override
 
-    public boolean equals(Object other) {
-        if (other instanceof PlumberProductEnd) {
-            PlumberProductEnd otherEnd = (PlumberProductEnd) other;
 
-            return otherEnd.direction().equals(this.direction)
-        }
 
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return direction.hashCode();
-    }
 
     @Override
     public String toString() {
-        return direction.toString() + " " + direction;
+        return direction.toString();
     }
 
 }

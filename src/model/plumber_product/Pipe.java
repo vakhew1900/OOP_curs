@@ -3,6 +3,7 @@ package model.plumber_product;
 import model.Cell;
 import model.Direction;
 import model.Water;
+import model.plumber_product_end.AbstractPlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
 
 import java.util.HashSet;
@@ -10,7 +11,7 @@ import java.util.Set;
 
 public class Pipe extends PlumbingProduct {
 
-    public Pipe(Set<PlumberProductEnd> ends, Cell cell) {
+    public Pipe(Set<AbstractPlumberProductEnd> ends, Cell cell) {
 
         super(ends, cell);
 
@@ -25,10 +26,12 @@ public class Pipe extends PlumbingProduct {
             return;
         }
 
-        for(PlumberProductEnd end : getEnds()){
-           end.rotate();
+        Set<AbstractPlumberProductEnd> newEnds = new HashSet<>();
+        for(AbstractPlumberProductEnd end : getEnds()){
+           AbstractPlumberProductEnd newEnd =  end.rotate();
+           newEnds.add(newEnd);
         }
-
+         setEnds(newEnds);
     }
 
     @Override

@@ -3,6 +3,7 @@ package model.plumber_product;
 import model.events.PlumberProductFilledActionEvent;
 import model.events.PlumberProductFilledActionListener;
 import model.events.WaterStoppedActionListener;
+import model.plumber_product_end.AbstractPlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.Cell;
@@ -19,7 +20,7 @@ public abstract class PlumbingProduct {
     /**
      * Множество концов
      */
-    private Set<PlumberProductEnd> ends = new HashSet<>();
+    private Set<AbstractPlumberProductEnd> ends = new HashSet<>();
 
     /**
      * Клетка, в  которой расположен объет
@@ -33,7 +34,7 @@ public abstract class PlumbingProduct {
      *
      * @return ends - множество концов
      */
-    public Set<PlumberProductEnd> getEnds() {
+    public Set<AbstractPlumberProductEnd> getEnds() {
         return ends;
     }
 
@@ -41,7 +42,7 @@ public abstract class PlumbingProduct {
      *  сеттер для ends
      * @param ends - множество концов
      */
-    protected void setEnds(@NotNull Set<PlumberProductEnd> ends) {
+    protected void setEnds(@NotNull Set<AbstractPlumberProductEnd> ends) {
         this.ends = ends;
     }
 
@@ -50,14 +51,14 @@ public abstract class PlumbingProduct {
      * @param ends - множество концов
      * @param cell - клетка, в которой будет расположен наш объект
      */
-    public PlumbingProduct(@NotNull Set<PlumberProductEnd> ends, Cell cell) {
+    public PlumbingProduct(@NotNull Set<AbstractPlumberProductEnd> ends, Cell cell) {
 
 
         if (cell == null || ends == null || ends.size() == 0) {
             throw new IllegalArgumentException("Illegal argument for PlumbingProduct");
         }
 
-        this.ends = new HashSet<PlumberProductEnd>(ends);
+        this.ends = new HashSet<AbstractPlumberProductEnd>(ends);
         this.cell = cell;
         cell.fill(this);
     }
@@ -105,10 +106,17 @@ public abstract class PlumbingProduct {
 
     /**
      * Проверяет есть ли у сантехнического изделия есть заданное направление конца
-     * @param direction - заданное направление
+     * @param plumberProductEnd - заданное направление
      * @return true - если у сантехнического изделия есть заданное направление конца, иначе false
      */
-    public boolean hasEnd(PlumberProductEnd plumberProductEnd) {
+    public boolean hasEnd(AbstractPlumberProductEnd plumberProductEnd) {
+        boolean dbg = ends.contains(plumberProductEnd);
+
+
+        for(AbstractPlumberProductEnd e : ends ){
+            System.out.println(e.hashCode() + " " + e.toString());
+        }
+
         return ends.contains(plumberProductEnd);
     }
 
@@ -144,9 +152,9 @@ public abstract class PlumbingProduct {
         if (other == null)
             return false;
 
-        PlumberProductEnd plumberProductEnd = null;
+        AbstractPlumberProductEnd plumberProductEnd = null;
 
-        for (PlumberProductEnd end : ends) {
+        for (AbstractPlumberProductEnd end : ends) {
 
             Direction elem  = end.direction();
 
@@ -168,7 +176,7 @@ public abstract class PlumbingProduct {
 
         String res = this.getClass().toString() + ":" + "Cell :" + this.cell.toString() + " Directions :";
 
-        for (PlumberProductEnd plumberProductEnd : getEnds()) {
+        for (AbstractPlumberProductEnd plumberProductEnd : getEnds()) {
             res += plumberProductEnd.toString() + " ";
         }
         return res;

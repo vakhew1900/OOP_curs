@@ -1,5 +1,6 @@
 package model;
 
+import model.plumber_product_end.AbstractPlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import model.plumber_product.Drain;
@@ -28,7 +29,9 @@ public class PlumberTest {
         while (f){
 
             boolean isUnVisited = false;
-            for(Direction direction : current.getEnds()){
+            for(AbstractPlumberProductEnd plumberProductEnd : current.getEnds()){
+
+                Direction direction = plumberProductEnd.direction();
                 PlumbingProduct neighbor = current.neighbor(direction);
 
                 if (neighbor != null && !plumbingProducts.contains(neighbor) && current.isConnected(neighbor)){

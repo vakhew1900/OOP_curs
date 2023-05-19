@@ -1,5 +1,6 @@
 package model;
 
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ public class WaterStoppedActionListenerTest {
     private void init(){
         flowObserver = new FlowObserver();
         water = new Water();
-        drain = new Drain(Direction.west(), new Cell(1, 1));
+        drain = new Drain(new SimplePlumberProductEnd(Direction.west()), new Cell(1, 1));
     }
 
 

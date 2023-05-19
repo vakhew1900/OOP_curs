@@ -1,5 +1,7 @@
 package model;
 
+import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,8 +68,8 @@ public class WaterTest {
         cell1 = new Cell(1, 1);
         cell2 = new Cell(2, 1);
 
-        Set<Direction> set1 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
-        Set<Direction> set2 = new HashSet<>(List.of(new Direction[]{Direction.east(), Direction.west()}));
+        Set<AbstractPlumberProductEnd> set1 = new HashSet(List.of(new AbstractPlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.east()),  new SimplePlumberProductEnd(Direction.west())}));
+        Set<AbstractPlumberProductEnd> set2 = new HashSet(List.of(new AbstractPlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.east()),  new SimplePlumberProductEnd(Direction.west())}));
         plumbingProduct1 = new Pipe(set1, cell1);
         plumbingProduct2 = new Pipe(set2, cell2);
 
