@@ -3,15 +3,15 @@ package model.plumber_product_end;
 import model.Direction;
 import model.material.Material;
 
-public  class PlumberProductEnd extends AbstractPlumberProductEnd  {
+public class PlumberProductEnd extends AbstractPlumberProductEnd {
 
 
     private int diameter;
 
     private Material material;
 
-    public int BIG_DIAMETER = 80;
-    public int SMALL_DIAMETER = 50;
+    public static final int BIG_DIAMETER = 80;
+    public static final int SMALL_DIAMETER = 50;
 
 
     public PlumberProductEnd(Direction direction, int diameter, Material material) {
@@ -24,6 +24,9 @@ public  class PlumberProductEnd extends AbstractPlumberProductEnd  {
         this.diameter = diameter;
     }
 
+    public PlumberProductEnd(PlumberProductEnd plumberProductEnd){
+        this(plumberProductEnd.direction(), plumberProductEnd.diameter(),plumberProductEnd.material);
+    }
 
     public int diameter() {
         return diameter;
@@ -32,7 +35,6 @@ public  class PlumberProductEnd extends AbstractPlumberProductEnd  {
     public Material material() {
         return material;
     }
-
 
 
     @Override
@@ -50,11 +52,11 @@ public  class PlumberProductEnd extends AbstractPlumberProductEnd  {
 
     @Override
     public int hashCode() {
-        return material.hashCode()* 1000 * 1000 + diameter * 1000 + direction().hashCode();
+        return material.hashCode() * 1000 * 1000 + diameter * 1000 + direction().hashCode();
     }
 
     @Override
     public String toString() {
-       return super.toString() + " " + material.toString();
+        return super.toString() + " " + material.toString();
     }
 }

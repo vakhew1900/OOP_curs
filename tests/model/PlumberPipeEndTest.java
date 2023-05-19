@@ -2,6 +2,7 @@ package model;
 
 import model.material.Metal;
 import model.material.Plastic;
+import model.material.Steel;
 import model.plumber_product_end.AbstractPlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
 import model.plumber_product_end.SimplePlumberProductEnd;
@@ -10,57 +11,58 @@ import org.junit.jupiter.api.Test;
 
 public class PlumberPipeEndTest {
 
-//    @Test
-//    public void EqualsTypeTest(){
-//        PlumberProductEnd plumberProductEnd = new SimplePlumberProductEnd(Direction.south());
-//        PlumberProductEnd plumberProductEnd2 = new SimplePlumberProductEnd(Direction.south());
-//        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd);
-//    }
-//
-//    @Test
-//    public void differentDirectionTest(){
-//        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.north(), new Metal());
-//        PlumberProductEnd plumberProductEnd2 = new SmallPlumberProductEnd(Direction.south(), new Metal());
-//        Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
-//    }
-//
-//    @Test
-//    public void differentMaterialTest(){
-//        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.north(), new Plastic());
-//        PlumberProductEnd plumberProductEnd2 = new SmallPlumberProductEnd(Direction.south(), new Metal());
-//        Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
-//    }
-//
-//    @Test
-//    public void differentDiameter(){
-//        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.south(), new Metal());
-//        PlumberProductEnd plumberProductEnd2 = new BigPlumberProductEnd(Direction.south(), new Metal());
-//        Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
-//    }
-//
-//    @Test
-//    public void rotateTypeTest(){
-//        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.north(), new Metal());
-//        PlumberProductEnd plumberProductEnd2 = new SmallPlumberProductEnd(Direction.east(), new Metal());
-//
-//        plumberProductEnd.rotate();
-//        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd);
-//    }
-//
-//    @Test
-//    public void oppositeTypeTest()  {
-//        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.north(), new Metal());
-//        PlumberProductEnd plumberProductEnd2 = new SmallPlumberProductEnd(Direction.south(), new Metal());
-//
-//        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd.opposite());
-//    }
-//
-//    @Test
-//    public void oppositeTypeTest2()  {
-//        PlumberProductEnd plumberProductEnd = new SmallPlumberProductEnd(Direction.east(), new Metal());
-//        PlumberProductEnd plumberProductEnd2 = new SmallPlumberProductEnd(Direction.west(), new Metal());
-//
-//        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd.opposite());
-//    }
+    @Test
+    public void constructorTypeTest(){
 
+        PlumberProductEnd productEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.SMALL_DIAMETER, new Metal() );
+
+        Assertions.assertEquals(Direction.east(), productEnd.direction());
+        Assertions.assertEquals(PlumberProductEnd.SMALL_DIAMETER, productEnd.diameter());
+        Assertions.assertEquals(new Metal(), productEnd.material());
+    }
+
+    @Test
+    public void equalsTypeTest(){
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.SMALL_DIAMETER, new Metal());
+        PlumberProductEnd plumberProductEnd2 = new PlumberProductEnd(Direction.east(), PlumberProductEnd.SMALL_DIAMETER, new Metal());
+
+        Assertions.assertEquals(plumberProductEnd2, plumberProductEnd);
+    }
+
+    @Test
+    public void differentDiameterTest(){
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Metal());
+        PlumberProductEnd plumberProductEnd2 = new PlumberProductEnd(Direction.east(), PlumberProductEnd.SMALL_DIAMETER, new Metal());
+
+        Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
+    }
+
+    @Test
+    public void differentMaterialTest(){
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Metal());
+        PlumberProductEnd plumberProductEnd2 = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Steel());
+
+        Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
+    }
+
+    @Test
+    public void differentMaterial2Test(){
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Metal());
+        PlumberProductEnd plumberProductEnd2 = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Plastic());
+
+        Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
+    }
+
+    @Test
+    public void differentDirectionTest(){
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Metal());
+        PlumberProductEnd plumberProductEnd2 = new PlumberProductEnd(Direction.west(), PlumberProductEnd.BIG_DIAMETER, new Plastic());
+
+        Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
+    }
 }

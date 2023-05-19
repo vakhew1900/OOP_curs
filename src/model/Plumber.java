@@ -1,6 +1,11 @@
 package model;
 
+import model.material.Material;
+import model.material.Metal;
+import model.material.Plastic;
+import model.material.Steel;
 import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.PlumberProductEnd;
 import model.plumber_product_end.SimplePlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.plumber_product.Drain;
@@ -26,9 +31,12 @@ public class Plumber {
      * Список всех труб
      */
     List<PlumbingProduct> pipeList;
+    private List<Material> materials = new ArrayList<>(Arrays.asList(new Metal(), new Plastic(), new Steel()));
+    private List<Integer> diameters = new ArrayList<>(Arrays.asList(Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER), Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER)));
 
     /**
      * Конструктор
+     *
      * @param gameField - игровое поле
      */
     Plumber(GameField gameField) {
@@ -67,12 +75,16 @@ public class Plumber {
         List<Cell> cellPath = createCellPath(startCell, finishCell);
 
         List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
-        source = new Source( new SimplePlumberProductEnd(directionList.get(0)), cellPath.get(0));
+
+        AbstractPlumberProductEnd sourcePlumberProductEnd = new PlumberProductEnd(directionList.get(0), diameters.get(random(diameters.size())), materials.get(random(materials.size())));
+        // new SimplePlumberProductEnd(directionList.get(0))
+        source = new Source(sourcePlumberProductEnd, cellPath.get(0));
+
         pipeList = createPipePath(startCell, directionList);
-        drain = new Drain( new SimplePlumberProductEnd(directionList.get(directionList.size() - 1).opposite()),
-                cellPath.get(cellPath.size() - 1));
+        PlumbingProduct lastPlumberProduct = (pipeList.size() > 0)? pipeList.get(pipeList.size() - 1) : source;
 
-
+        AbstractPlumberProductEnd drainPlumberProductEnd = new PlumberProductEnd((PlumberProductEnd) lastPlumberProduct.getEnd(directionList.get(directionList.size() - 1)).opposite());
+        drain = new Drain(drainPlumberProductEnd, cellPath.get(cellPath.size() - 1));
 
     }
 
@@ -96,6 +108,7 @@ public class Plumber {
 
     /**
      * Функция рандома. Диапозон значений [0, n)
+     *
      * @param n - правая граница для рандома
      * @return рандомное число
      */
@@ -106,7 +119,8 @@ public class Plumber {
 
     /**
      * Создать путь от одной клетки до другой
-     * @param startCell - первая клетка
+     *
+     * @param startCell  - первая клетка
      * @param finishCell - конечная клетка
      * @return список клеток, образующий путь от первой клетки до конечной
      */
@@ -146,9 +160,10 @@ public class Plumber {
 
     /**
      * Обход в ширину, который определяет для каждой клетки ее предка
+     *
      * @param currentCell - текущая клетка
-     * @param preCell - словарь. Ключ - клетка. Значение - клетка предок
-     * @param startCell - Самая первая клетка последовательности
+     * @param preCell     - словарь. Ключ - клетка. Значение - клетка предок
+     * @param startCell   - Самая первая клетка последовательности
      */
     private void dfs(@NotNull Cell currentCell, @NotNull Map<Cell, Cell> preCell, @NotNull Cell startCell) {
 
@@ -168,6 +183,7 @@ public class Plumber {
 
     /**
      * Конвертировать путь из клеток в путь направлений
+     *
      * @param cellPath - путь из клеток
      * @return список направлений, который представляет собой путь направлений
      */
@@ -190,7 +206,8 @@ public class Plumber {
 
     /**
      * Создать путь из труб на основе стартовой клетки, в которой распологается источник и пути направлений
-     * @param cell - стартовая клетка
+     *
+     * @param cell          - стартовая клетка
      * @param directionList - путь направлений
      * @return Список труб, которые образуют собой полноценный целостный путь
      */
@@ -200,7 +217,33 @@ public class Plumber {
         cell = cell.neighbor(directionList.get(0));
 
         for (int i = 1; i < directionList.size(); i++) {
-            Set<AbstractPlumberProductEnd> directions = new HashSet<>(List.of(new AbstractPlumberProductEnd[]{ new SimplePlumberProductEnd(directionList.get(i - 1).opposite()), new SimplePlumberProductEnd(directionList.get(i))}));
+
+            PlumberProductEnd predPlumberProductEnd;
+            Direction predDirection = directionList.get(i - 1);
+            if (pipeList.size() == 0) {
+                predPlumberProductEnd = (PlumberProductEnd) source.getEnd(predDirection);
+            } else {
+                predPlumberProductEnd = (PlumberProductEnd) pipeList.get(pipeList.size() - 1).getEnd(predDirection);
+            }
+
+
+            AbstractPlumberProductEnd leftPlumberProductEnd = new PlumberProductEnd((PlumberProductEnd) predPlumberProductEnd.opposite());
+            AbstractPlumberProductEnd rightPlumberProductEnd;
+
+
+            Direction direction = directionList.get(i);
+            Material material = predPlumberProductEnd.material();
+            int diameter = predPlumberProductEnd.diameter();
+            int tmp = 3;
+            if (random(tmp) == 1) {
+                material = materials.get(random(materials.size()));
+                diameter = diameters.get(random(diameters.size()));
+            }
+
+            rightPlumberProductEnd = new PlumberProductEnd(direction, diameter, material);
+
+
+            Set<AbstractPlumberProductEnd> directions = new HashSet<>(List.of(new AbstractPlumberProductEnd[]{leftPlumberProductEnd, rightPlumberProductEnd}));
             PlumbingProduct pipe = new Pipe(directions, cell);
             pipeList.add(pipe);
             cell = cell.neighbor(directionList.get(i));

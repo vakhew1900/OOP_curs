@@ -17,7 +17,8 @@ import java.util.Set;
 public class WaterTest {
 
     GameField gameField;
-    private PlumbingProduct source(){
+
+    private PlumbingProduct source() {
 
         for (int i = 0; i < gameField.height(); i++) {
 
@@ -63,13 +64,14 @@ public class WaterTest {
 
     PlumbingProduct plumbingProduct1;
     PlumbingProduct plumbingProduct2;
+
     @BeforeEach
-    public void createSurrounding(){
+    public void createSurrounding() {
         cell1 = new Cell(1, 1);
         cell2 = new Cell(2, 1);
 
-        Set<AbstractPlumberProductEnd> set1 = new HashSet(List.of(new AbstractPlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.east()),  new SimplePlumberProductEnd(Direction.west())}));
-        Set<AbstractPlumberProductEnd> set2 = new HashSet(List.of(new AbstractPlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.east()),  new SimplePlumberProductEnd(Direction.west())}));
+        Set<AbstractPlumberProductEnd> set1 = new HashSet(List.of(new AbstractPlumberProductEnd[]{new SimplePlumberProductEnd(Direction.east()), new SimplePlumberProductEnd(Direction.west())}));
+        Set<AbstractPlumberProductEnd> set2 = new HashSet(List.of(new AbstractPlumberProductEnd[]{new SimplePlumberProductEnd(Direction.east()), new SimplePlumberProductEnd(Direction.west())}));
         plumbingProduct1 = new Pipe(set1, cell1);
         plumbingProduct2 = new Pipe(set2, cell2);
 
@@ -78,7 +80,7 @@ public class WaterTest {
 
 
     @Test
-    public void nextPlumbingProduct_TypeTest(){
+    public void nextPlumbingProduct_TypeTest() {
 
         cell1.setNeighbor(Direction.north(), cell2);
 
@@ -89,7 +91,7 @@ public class WaterTest {
     }
 
     @Test
-    public void nextPlumbingProduct_PlumbingProductFilledTwiceSameWaterTest(){
+    public void nextPlumbingProduct_PlumbingProductFilledTwiceSameWaterTest() {
 
         Water water = new Water(1);
 
@@ -100,7 +102,7 @@ public class WaterTest {
 
 
     @Test
-    public void nextPlumbingProduct_WithTwoPlumbingProductTest(){
+    public void nextPlumbingProduct_WithTwoPlumbingProductTest() {
 
         Water water = new Water(1);
 
@@ -125,7 +127,7 @@ public class WaterTest {
         Water water = new Water();
         source().fill(water);
 
-        while (water.isStopped() == false){
+        while (water.isStopped() == false) {
             water.flow();
         }
 
@@ -144,7 +146,7 @@ public class WaterTest {
         Water water = new Water();
         source().fill(water);
 
-        while (water.isStopped() == false){
+        while (water.isStopped() == false) {
             water.flow();
         }
 
@@ -154,7 +156,7 @@ public class WaterTest {
 
 
     @Test
-    public void flow_smallField(){
+    public void flow_smallField() {
 
         gameField = new GameField(1, 2);
         Plumber plumber = new Plumber(gameField);
@@ -163,7 +165,7 @@ public class WaterTest {
         Water water = new Water(1);
         source().fill(water);
 
-        while (water.isStopped() == false){
+        while (water.isStopped() == false) {
             water.flow();
         }
 
@@ -242,9 +244,6 @@ public class WaterTest {
 
         Assertions.assertTrue(source().water().getLastFillingPlumbingProduct() instanceof Drain);
     }
-
-
-
 
 
 }

@@ -120,6 +120,17 @@ public abstract class PlumbingProduct {
         return ends.contains(plumberProductEnd);
     }
 
+    public AbstractPlumberProductEnd getEnd(Direction direction){
+
+        for (AbstractPlumberProductEnd e : ends){
+            if (e.direction().equals(direction)){
+                return e;
+            }
+        }
+
+        return null;
+    }
+
     public PlumbingProduct neighbor(Direction direction) {
 
         Cell neighborCell = cell.neighbor(direction);

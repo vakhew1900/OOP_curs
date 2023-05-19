@@ -24,6 +24,11 @@ public class SimplePlumberProductEnd extends AbstractPlumberProductEnd{
     public  SimplePlumberProductEnd rotate(){
         return (SimplePlumberProductEnd) super.rotate();
     }
+
+    public SimplePlumberProductEnd opposite(){
+        return (SimplePlumberProductEnd) super.opposite();
+    }
+
     @Override
     public int hashCode() {
         int hashCode = direction().hashCode();
