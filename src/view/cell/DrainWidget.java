@@ -52,13 +52,11 @@ public class DrainWidget extends PlumberProductWidget{
 
         String fileName = "Drain_south_80.png";
 
-        SimplePlumberProductEnd westPlumberProduct = new SimplePlumberProductEnd(Direction.west());
-        if (plumberProduct().hasEnd(westPlumberProduct)){
+        if (plumberProduct().hasEnd(Direction.west())){
             fileName = "Drain_west_80.png";
         }
 
-        SimplePlumberProductEnd northPlumberProduct = new SimplePlumberProductEnd(Direction.north());
-        if (plumberProduct().hasEnd(northPlumberProduct)){
+        if (plumberProduct().hasEnd(Direction.north())){
             fileName = "Drain_north_80.png";
         }
         return fileName;

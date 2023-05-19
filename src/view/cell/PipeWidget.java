@@ -31,24 +31,20 @@ public class PipeWidget extends PlumberProductWidget {
             File file = new File(imagePath);
             image = ImageIO.read(file);
 
-            SimplePlumberProductEnd eastPlumberProduct = new SimplePlumberProductEnd(Direction.east());
-            SimplePlumberProductEnd westPlumberProduct = new SimplePlumberProductEnd(Direction.west());
-            SimplePlumberProductEnd northPlumberProduct = new SimplePlumberProductEnd(Direction.north());
-            SimplePlumberProductEnd southPlumberProduct = new SimplePlumberProductEnd(Direction.south());
-
-            if (plumberProduct().hasEnd(eastPlumberProduct) && plumberProduct().hasEnd(westPlumberProduct)) {
+   
+            if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.west())) {
                 image = rotateClockwise(image, Math.PI/2);
             }
 
-            if (plumberProduct().hasEnd(eastPlumberProduct) && plumberProduct().hasEnd(southPlumberProduct)){
+            if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.south())){
                 image = rotateClockwise(image, Math.PI/2);
             }
 
-            if(plumberProduct().hasEnd(southPlumberProduct) && plumberProduct().hasEnd(westPlumberProduct)){
+            if(plumberProduct().hasEnd(Direction.south()) && plumberProduct().hasEnd(Direction.west())){
                 image = rotateClockwise(image, Math.PI);
             }
 
-            if(plumberProduct().hasEnd(westPlumberProduct) && plumberProduct().hasEnd(northPlumberProduct)){
+            if(plumberProduct().hasEnd(Direction.west()) && plumberProduct().hasEnd(Direction.north())){
                 image = rotateClockwise(image, Math.PI*3/2);
             }
         }
@@ -75,18 +71,12 @@ public class PipeWidget extends PlumberProductWidget {
     protected String getFileName() {
 
         String fileName = "angular_pipe_80.png";
-
-        SimplePlumberProductEnd eastPlumberProduct = new SimplePlumberProductEnd(Direction.east());
-        SimplePlumberProductEnd westPlumberProduct = new SimplePlumberProductEnd(Direction.west());
-        SimplePlumberProductEnd northPlumberProduct = new SimplePlumberProductEnd(Direction.north());
-        SimplePlumberProductEnd southPlumberProduct = new SimplePlumberProductEnd(Direction.south());
-
-
-        if (plumberProduct().hasEnd(northPlumberProduct) && plumberProduct().hasEnd(southPlumberProduct)) {
+        
+        if (plumberProduct().hasEnd(Direction.north()) && plumberProduct().hasEnd(Direction.south())) {
             fileName = "straight_pipe_80.png";
         }
 
-        if (plumberProduct().hasEnd(eastPlumberProduct) && plumberProduct().hasEnd(westPlumberProduct)) {
+        if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.west())) {
             fileName = "straight_pipe_80.png";
         }
 

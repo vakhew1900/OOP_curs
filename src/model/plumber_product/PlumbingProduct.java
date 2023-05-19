@@ -120,6 +120,9 @@ public abstract class PlumbingProduct {
         return ends.contains(plumberProductEnd);
     }
 
+    public boolean hasEnd(Direction direction){
+        return getEnd(direction) != null;
+    }
     public AbstractPlumberProductEnd getEnd(Direction direction){
 
         for (AbstractPlumberProductEnd e : ends){

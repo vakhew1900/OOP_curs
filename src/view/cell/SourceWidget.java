@@ -44,13 +44,11 @@ public class SourceWidget extends PlumberProductWidget{
 
         String fileName = "source_south_80.png";
 
-        SimplePlumberProductEnd eastPlumberProduct = new SimplePlumberProductEnd(Direction.east());
-        if(plumberProduct().hasEnd(eastPlumberProduct)){
+        if(plumberProduct().hasEnd(Direction.east())){
             fileName = "source_east_80.png";
         }
 
-        SimplePlumberProductEnd northPlumberProduct = new SimplePlumberProductEnd(Direction.north());
-        if (plumberProduct().hasEnd(northPlumberProduct)){
+        if (plumberProduct().hasEnd(Direction.north())){
             System.out.println("fff");
             fileName = "source_north_80.png";
         }
