@@ -36,6 +36,15 @@ public class PlumberProductEnd extends AbstractPlumberProductEnd {
         return material;
     }
 
+    @Override
+    public PlumberProductEnd rotate() {
+        return (PlumberProductEnd) super.rotate();
+    }
+
+    @Override
+    public PlumberProductEnd opposite() {
+        return (PlumberProductEnd) super.opposite();
+    }
 
     @Override
 

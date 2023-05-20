@@ -15,23 +15,36 @@ public class Pipe extends PlumbingProduct {
 
         super(ends, cell);
 
-        if (ends.size() != 2){
+        if (ends.size() != 2) {
             cell.clear();
             throw new IllegalArgumentException("illegal argument for pipe");
         }
     }
 
-    public void rotate(){
-        if (isFilled()){
+    public void rotate() {
+        if (isFilled()) {
             return;
         }
 
         Set<AbstractPlumberProductEnd> newEnds = new HashSet<>();
-        for(AbstractPlumberProductEnd end : getEnds()){
-           AbstractPlumberProductEnd newEnd =  end.rotate();
-           newEnds.add(newEnd);
+        for (AbstractPlumberProductEnd end : getEnds()) {
+            AbstractPlumberProductEnd newEnd = end.rotate();
+            newEnds.add(newEnd);
         }
-         setEnds(newEnds);
+        setEnds(newEnds);
+    }
+
+    public boolean isAngular() {
+
+        if (this.hasEnd(Direction.north()) && this.hasEnd(Direction.south())) {
+            return false;
+        }
+
+        if (this.hasEnd(Direction.east()) && this.hasEnd(Direction.west())) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

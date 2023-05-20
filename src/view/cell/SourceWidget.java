@@ -42,15 +42,15 @@ public class SourceWidget extends PlumberProductWidget{
     @Override
     protected String getFileName() {
 
-        String fileName = "source_south_80.png";
+        String fileName = "source_south.png";
 
         if(plumberProduct().hasEnd(Direction.east())){
-            fileName = "source_east_80.png";
+            fileName = "source_east.png";
         }
 
         if (plumberProduct().hasEnd(Direction.north())){
             System.out.println("fff");
-            fileName = "source_north_80.png";
+            fileName = "source_north.png";
         }
 
         return fileName;

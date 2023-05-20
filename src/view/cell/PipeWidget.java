@@ -28,6 +28,7 @@ public class PipeWidget extends PlumberProductWidget {
         try {
 
             String imagePath = getFullPath();
+            System.out.println(getFullPath());
             File file = new File(imagePath);
             image = ImageIO.read(file);
 
@@ -64,31 +65,40 @@ public class PipeWidget extends PlumberProductWidget {
             path = "images/filled/";
         }
 
+        if(plumberProduct().isAngular()){
+            path += "angular_pipe/";
+        }
+        else {
+            path += "straight_pipe/";
+        }
+
+
         return path;
     }
 
     @Override
     protected String getFileName() {
 
-        String fileName = "angular_pipe_80.png";
+        String fileName = "angular_pipe.png";
         
-        if (plumberProduct().hasEnd(Direction.north()) && plumberProduct().hasEnd(Direction.south())) {
-            fileName = "straight_pipe_80.png";
-        }
-
-        if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.west())) {
-            fileName = "straight_pipe_80.png";
+        if (plumberProduct().isAngular() == false) {
+            fileName = "straight_pipe.png";
         }
 
         return fileName;
     }
 
 
+    @Override
+    public Pipe plumberProduct() {
+        return (Pipe) super.plumberProduct();
+    }
+
     private class MyMouseListener extends MouseAdapter {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            ((Pipe) plumberProduct()).rotate();
+            plumberProduct().rotate();
             repaint();
         }
 

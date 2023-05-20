@@ -44,20 +44,21 @@ public class DrainWidget extends PlumberProductWidget{
             path = "images/filled/";
         }
 
+        path += "drain/";
         return path;
     }
 
     @Override
     protected String getFileName() {
 
-        String fileName = "Drain_south_80.png";
+        String fileName = "Drain_south.png";
 
         if (plumberProduct().hasEnd(Direction.west())){
-            fileName = "Drain_west_80.png";
+            fileName = "Drain_west.png";
         }
 
         if (plumberProduct().hasEnd(Direction.north())){
-            fileName = "Drain_north_80.png";
+            fileName = "Drain_north.png";
         }
         return fileName;
     }
