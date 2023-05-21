@@ -58,11 +58,11 @@ public class PipeWidget extends PlumberProductWidget {
                 leftPlumberProductEnd = leftPlumberProductEnd.rotate();
                 rightPlumberProductEnd = rightPlumberProductEnd.rotate();
 
-                int exLeftHash = plumberProduct().getEndsList().get(0).hashCode();
-                int exRightHash = plumberProduct().getEndsList().get(1).hashCode();
-
-                int leftHash = rightPlumberProductEnd.hashCode();
-                int rightHash = leftPlumberProductEnd.hashCode();
+//                int exLeftHash = plumberProduct().getEndsList().get(0).hashCode();
+//                int exRightHash = plumberProduct().getEndsList().get(1).hashCode();
+//
+//                int leftHash = rightPlumberProductEnd.hashCode();
+//                int rightHash = leftPlumberProductEnd.hashCode();
 
                 System.out.println(leftPlumberProductEnd.toString()+ " " + rightPlumberProductEnd.toString());
                 cnt++;
@@ -104,6 +104,8 @@ public class PipeWidget extends PlumberProductWidget {
         AbstractPlumberProductEnd leftPlumberProductEnd = plumberProduct().getEndsList().get(0);
         AbstractPlumberProductEnd rightPlumberProductEnd = plumberProduct().getEndsList().get(1);
 
+
+
         String supDirectory = "big/";
         if(leftPlumberProductEnd instanceof PlumberProductEnd
             && rightPlumberProductEnd instanceof PlumberProductEnd){
@@ -111,7 +113,9 @@ public class PipeWidget extends PlumberProductWidget {
             if (isMixed((PlumberProductEnd) leftPlumberProductEnd,(PlumberProductEnd) rightPlumberProductEnd)){
                supDirectory = "mixed/";
             }
-
+            else if (isRevMixed((PlumberProductEnd) leftPlumberProductEnd,(PlumberProductEnd) rightPlumberProductEnd) && plumberProduct().isAngular()){
+                supDirectory = "rev_mixed/";
+            }
             else if( isSmall((PlumberProductEnd) leftPlumberProductEnd, (PlumberProductEnd) rightPlumberProductEnd) ){
                 supDirectory = "small/";
             }
@@ -126,9 +130,17 @@ public class PipeWidget extends PlumberProductWidget {
 
 
     private  boolean isMixed(PlumberProductEnd left, PlumberProductEnd right){
-        return left.diameter() < right.diameter();
+
+        if(plumberProduct().isAngular()) {
+            return left.diameter() < right.diameter();
+        }
+
+        return left.diameter() != right.diameter();
     }
 
+    private  boolean isRevMixed(PlumberProductEnd left, PlumberProductEnd right){
+        return left.diameter() > right.diameter();
+    }
     private boolean isSmall(PlumberProductEnd left, PlumberProductEnd right){
         return left.diameter() == right.diameter() && left.diameter() == PlumberProductEnd.SMALL_DIAMETER;
     }

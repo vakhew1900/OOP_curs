@@ -66,6 +66,6 @@ public class PlumberProductEnd extends AbstractPlumberProductEnd {
 
     @Override
     public String toString() {
-        return super.toString() + " " + material.toString();
+        return super.toString() + " " + material.toString() + diameter + " ";
     }
 }

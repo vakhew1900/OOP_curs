@@ -75,13 +75,17 @@ public class DrainWidget extends PlumberProductWidget{
         }
 
 
-        String materialString = "metal";
+        String materialString = "metal_";
         AbstractPlumberProductEnd plumberProductEnd = plumberProduct().getEndsList().get(0);
         if (plumberProduct().getEndsList().get(0) instanceof PlumberProductEnd){
-            materialString =  ((PlumberProductEnd) plumberProductEnd).material().toString();
+            materialString =  ((PlumberProductEnd) plumberProductEnd).material().toString() + "_";
         }
 
-        fileName = materialString + "_" + fileName;
+        if(isFilled()){
+            materialString = "";
+        }
+
+        fileName = materialString  + fileName;
 
         return fileName;
     }

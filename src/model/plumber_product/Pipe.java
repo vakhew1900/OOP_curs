@@ -39,6 +39,10 @@ public class Pipe extends PlumbingProduct {
             if(right.clockwise().equals(left)){
                 Collections.swap(plumberProductEnds, 0, 1);
             }
+            else if ( isAngular() == false && ((PlumberProductEnd) leftPlumberProductEnd).diameter() > ((PlumberProductEnd) rightPlumberProductEnd).diameter()){
+                Collections.swap(plumberProductEnds, 0, 1);
+            }
+
         }
 
         return plumberProductEnds;
