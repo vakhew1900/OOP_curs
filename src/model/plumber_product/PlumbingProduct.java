@@ -184,6 +184,26 @@ public abstract class PlumbingProduct {
         return plumberProductEnd!= null && other.hasEnd(plumberProductEnd.opposite());
     }
 
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == null || this.getClass() != other.getClass()){
+            return false;
+        }
+
+        PlumbingProduct  otherPlumberProduct = (PlumbingProduct) other;
+
+        boolean res = this.getEnds().size() == otherPlumberProduct.getEnds().size();
+
+        for(AbstractPlumberProductEnd elem : otherPlumberProduct.getEnds()){
+                res = res && this.hasEnd(elem);
+        }
+
+        res = res && this.isFilled() == otherPlumberProduct.isFilled();
+
+        return res;
+    }
+
 
     //------------------------ Системные ----------------------------
 

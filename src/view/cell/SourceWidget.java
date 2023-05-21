@@ -26,10 +26,13 @@ public class SourceWidget extends PlumberProductWidget{
         try {
 
             String imagePath = getFullPath();
+            System.out.println(getFullPath());
             File file = new File(imagePath);
             image = ImageIO.read(file);
         }
         catch (IOException ex){
+            System.out.println(getPath());
+            String fullPath = getFullPath();
             ex.printStackTrace();
         }
 
@@ -57,7 +60,6 @@ public class SourceWidget extends PlumberProductWidget{
     protected String getFileName() {
 
         String fileName = "source_south.png";
-
         if(plumberProduct().hasEnd(Direction.east())){
             fileName = "source_east.png";
         }
@@ -67,6 +69,14 @@ public class SourceWidget extends PlumberProductWidget{
             fileName = "source_north.png";
         }
 
+        String materialString = "metal";
+        AbstractPlumberProductEnd plumberProductEnd = plumberProduct().getEndsList().get(0);
+        if (plumberProduct().getEndsList().get(0) instanceof PlumberProductEnd){
+            materialString =  ((PlumberProductEnd) plumberProductEnd).material().toString();
+        }
+
+        fileName = materialString + "_" + fileName;
+        System.out.println("fileName" + plumberProduct() + "---" + fileName);
         return fileName;
     }
 

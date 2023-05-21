@@ -31,8 +31,8 @@ public class Plumber {
      * Список всех труб
      */
     List<PlumbingProduct> pipeList;
-    private List<Material> materials = new ArrayList<>(Arrays.asList(new Metal(), new Plastic(), new Steel()));
-    private List<Integer> diameters = new ArrayList<>(Arrays.asList(Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER), Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER)));
+    private List<Material> materials = new ArrayList<>(Arrays.asList(new Metal(), new Plastic()));
+    private List<Integer> diameters = new ArrayList<>(Arrays.asList(Integer.valueOf(PlumberProductEnd.BIG_DIAMETER), Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER)));
 
     /**
      * Конструктор
@@ -238,6 +238,7 @@ public class Plumber {
             if (random(tmp) == 1) {
                 material = materials.get(random(materials.size()));
                 diameter = diameters.get(random(diameters.size()));
+
             }
 
             rightPlumberProductEnd = new PlumberProductEnd(direction, diameter, material);

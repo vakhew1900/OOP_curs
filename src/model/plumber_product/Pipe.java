@@ -6,7 +6,9 @@ import model.Water;
 import model.plumber_product_end.AbstractPlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
 
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Pipe extends PlumbingProduct {
@@ -19,6 +21,27 @@ public class Pipe extends PlumbingProduct {
             cell.clear();
             throw new IllegalArgumentException("illegal argument for pipe");
         }
+    }
+
+    @Override
+    public List<AbstractPlumberProductEnd> getEndsList() {
+        List<AbstractPlumberProductEnd> plumberProductEnds = super.getEndsList();
+
+        AbstractPlumberProductEnd leftPlumberProductEnd = plumberProductEnds.get(0);
+        AbstractPlumberProductEnd rightPlumberProductEnd = plumberProductEnds.get(1);
+
+        if (leftPlumberProductEnd instanceof PlumberProductEnd
+                && rightPlumberProductEnd instanceof PlumberProductEnd) {
+
+            Direction left = ((PlumberProductEnd) leftPlumberProductEnd).direction();
+            Direction right = ((PlumberProductEnd) rightPlumberProductEnd).direction();
+
+            if(right.clockwise().equals(left)){
+                Collections.swap(plumberProductEnds, 0, 1);
+            }
+        }
+
+        return plumberProductEnds;
     }
 
     public void rotate() {

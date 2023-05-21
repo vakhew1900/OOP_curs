@@ -24,11 +24,13 @@ public class DrainWidget extends PlumberProductWidget{
             String basePath = new File(getFullPath()).getAbsolutePath();
             System.out.println(basePath);
             System.out.println(getFullPath());
-            File file = new File(basePath);
+            File file = new File(getFullPath());
             image = ImageIO.read(file);
 
         }
         catch (IOException ex){
+         //   System.out.println(getPath());
+            String fullPath = getFullPath();
             ex.printStackTrace();
         }
 
@@ -52,32 +54,33 @@ public class DrainWidget extends PlumberProductWidget{
 
         if (plumberProductEnd instanceof PlumberProductEnd
             && ((PlumberProductEnd) plumberProductEnd).diameter() == PlumberProductEnd.SMALL_DIAMETER){
-            tmp += "small/";
+            tmp = "small/";
         }
 
+        path += tmp;
         return path;
     }
 
     @Override
     protected String getFileName() {
 
-        String fileName = "Drain_south.png";
+        String fileName = "drain_south.png";
 
         if (plumberProduct().hasEnd(Direction.west())){
-            fileName = "Drain_west.png";
+            fileName = "drain_west.png";
         }
 
         if (plumberProduct().hasEnd(Direction.north())){
-            fileName = "Drain_north.png";
+            fileName = "drain_north.png";
         }
 
-        AbstractPlumberProductEnd plumberProductEnd = plumberProduct().getEndsList().get(0);
+
         String materialString = "metal";
-
-        if(isFilled() == false &&  plumberProductEnd instanceof  PlumberProductEnd ){
-
-            materialString = ((PlumberProductEnd) plumberProductEnd).material().toString();
+        AbstractPlumberProductEnd plumberProductEnd = plumberProduct().getEndsList().get(0);
+        if (plumberProduct().getEndsList().get(0) instanceof PlumberProductEnd){
+            materialString =  ((PlumberProductEnd) plumberProductEnd).material().toString();
         }
+
         fileName = materialString + "_" + fileName;
 
         return fileName;
