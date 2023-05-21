@@ -38,6 +38,10 @@ public abstract class PlumbingProduct {
         return ends;
     }
 
+    public List<AbstractPlumberProductEnd> getEndsList(){
+        return new ArrayList<>(ends);
+    }
+
     /**
      *  сеттер для ends
      * @param ends - множество концов

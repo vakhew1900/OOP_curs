@@ -6,4 +6,9 @@ public class Plastic extends Material{
     public int hashCode() {
         return 3;
     }
+
+    @Override
+    public String toString() {
+        return "plastic";
+    }
 }

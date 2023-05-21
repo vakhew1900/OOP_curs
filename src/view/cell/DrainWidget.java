@@ -2,8 +2,8 @@ package view.cell;
 
 import model.Direction;
 import model.plumber_product.Drain;
-import model.plumber_product.PlumbingProduct;
-import model.plumber_product_end.SimplePlumberProductEnd;
+import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -45,6 +45,16 @@ public class DrainWidget extends PlumberProductWidget{
         }
 
         path += "drain/";
+
+        AbstractPlumberProductEnd  plumberProductEnd = plumberProduct().getEndsList().get(0);
+
+        String tmp = "big/";
+
+        if (plumberProductEnd instanceof PlumberProductEnd
+            && ((PlumberProductEnd) plumberProductEnd).diameter() == PlumberProductEnd.SMALL_DIAMETER){
+            tmp += "small/";
+        }
+
         return path;
     }
 
@@ -60,6 +70,16 @@ public class DrainWidget extends PlumberProductWidget{
         if (plumberProduct().hasEnd(Direction.north())){
             fileName = "Drain_north.png";
         }
+
+        AbstractPlumberProductEnd plumberProductEnd = plumberProduct().getEndsList().get(0);
+        String materialString = "metal";
+
+        if(isFilled() == false &&  plumberProductEnd instanceof  PlumberProductEnd ){
+
+            materialString = ((PlumberProductEnd) plumberProductEnd).material().toString();
+        }
+        fileName = materialString + "_" + fileName;
+
         return fileName;
     }
 

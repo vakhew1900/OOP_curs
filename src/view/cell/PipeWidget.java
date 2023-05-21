@@ -32,22 +32,7 @@ public class PipeWidget extends PlumberProductWidget {
             File file = new File(imagePath);
             image = ImageIO.read(file);
 
-   
-            if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.west())) {
-                image = rotateClockwise(image, Math.PI/2);
-            }
 
-            if (plumberProduct().hasEnd(Direction.east()) && plumberProduct().hasEnd(Direction.south())){
-                image = rotateClockwise(image, Math.PI/2);
-            }
-
-            if(plumberProduct().hasEnd(Direction.south()) && plumberProduct().hasEnd(Direction.west())){
-                image = rotateClockwise(image, Math.PI);
-            }
-
-            if(plumberProduct().hasEnd(Direction.west()) && plumberProduct().hasEnd(Direction.north())){
-                image = rotateClockwise(image, Math.PI*3/2);
-            }
         }
         catch (IOException ex){
             ex.printStackTrace();
@@ -61,6 +46,7 @@ public class PipeWidget extends PlumberProductWidget {
 
         String path = "images/unfilled/";
 
+        String materialString = "";
         if (isFilled()) {
             path = "images/filled/";
         }
@@ -73,17 +59,17 @@ public class PipeWidget extends PlumberProductWidget {
         }
 
 
+
+
+
         return path;
     }
 
     @Override
     protected String getFileName() {
 
-        String fileName = "angular_pipe.png";
-        
-        if (plumberProduct().isAngular() == false) {
-            fileName = "straight_pipe.png";
-        }
+        String fileName = "pipe.png";
+
 
         return fileName;
     }

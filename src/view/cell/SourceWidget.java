@@ -3,6 +3,8 @@ package view.cell;
 import model.Direction;
 import model.plumber_product.PlumbingProduct;
 import model.plumber_product.Source;
+import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.PlumberProductEnd;
 import model.plumber_product_end.SimplePlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +38,19 @@ public class SourceWidget extends PlumberProductWidget{
 
     @Override
     protected String getPath() {
-        return "images/source/";
+
+        String path = "images/source/";
+        AbstractPlumberProductEnd plumberProductEnd = plumberProduct().getEndsList().get(0);
+        String tmp = "big/";
+
+        if (plumberProductEnd instanceof PlumberProductEnd
+                && ((PlumberProductEnd) plumberProductEnd).diameter() == PlumberProductEnd.SMALL_DIAMETER){
+            tmp = "small/";
+        }
+
+        path += tmp;
+
+        return path;
     }
 
     @Override
