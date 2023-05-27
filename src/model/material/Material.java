@@ -1,5 +1,7 @@
 package model.material;
 
+import java.awt.*;
+
 public abstract class Material {
 
     @Override
@@ -14,4 +16,6 @@ public abstract class Material {
     public int hashCode() {
         return 1;
     }
+
+    public abstract Color color();
 }

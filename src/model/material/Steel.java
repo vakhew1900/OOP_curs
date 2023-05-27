@@ -1,5 +1,7 @@
 package model.material;
 
+import java.awt.*;
+
 public class Steel extends Metal{
 
     @Override
@@ -10,5 +12,10 @@ public class Steel extends Metal{
     @Override
     public String toString() {
         return "steel";
+    }
+
+    @Override
+    public Color color() {
+        return Color.darkGray;
     }
 }

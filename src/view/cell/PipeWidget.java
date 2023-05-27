@@ -8,6 +8,7 @@ import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -24,153 +25,33 @@ public class PipeWidget extends PlumberProductWidget {
 
     @Override
     protected BufferedImage getImage() throws IOException {
-        BufferedImage image = null;
-        try {
 
-            String imagePath = getFullPath();
-            System.out.println(getFullPath());
-            File file = new File(imagePath);
-            image = ImageIO.read(file);
+        BufferedImage img1 = new PlumberProductEndWidget(plumberProduct().getEndsList().get(0)).getImage();
+        BufferedImage img2 = new PlumberProductEndWidget(plumberProduct().getEndsList().get(1)).getImage();
+        BufferedImage resultImg = new BufferedImage(80,80,BufferedImage.TYPE_INT_ARGB);
 
 
-            AbstractPlumberProductEnd leftPlumberProductEnd = plumberProduct().getEndsList().get(0);
-            AbstractPlumberProductEnd rightPlumberProductEnd = plumberProduct().getEndsList().get(1);
 
-            Direction expectedLeftDirection = Direction.north();
-            Direction expectedRightDirection = Direction.south();
-
-            if(plumberProduct().isAngular()){
-                expectedRightDirection = Direction.east();
-            }
-
-            while (leftPlumberProductEnd.direction().equals(expectedLeftDirection) == false){
-                leftPlumberProductEnd = leftPlumberProductEnd.rotate();
-            }
-//
-            while (rightPlumberProductEnd.direction().equals(expectedRightDirection) == false){
-                rightPlumberProductEnd = rightPlumberProductEnd.rotate();
-            }
-
-            int cnt = 0;
-            PlumbingProduct dbg = plumberProduct();
-            while (plumberProduct().hasEnd(leftPlumberProductEnd) == false
-                    || plumberProduct().hasEnd(rightPlumberProductEnd) == false ){
-                leftPlumberProductEnd = leftPlumberProductEnd.rotate();
-                rightPlumberProductEnd = rightPlumberProductEnd.rotate();
-
-//                int exLeftHash = plumberProduct().getEndsList().get(0).hashCode();
-//                int exRightHash = plumberProduct().getEndsList().get(1).hashCode();
-//
-//                int leftHash = rightPlumberProductEnd.hashCode();
-//                int rightHash = leftPlumberProductEnd.hashCode();
-
-                System.out.println(leftPlumberProductEnd.toString()+ " " + rightPlumberProductEnd.toString());
-                cnt++;
-
-                if(cnt > 6){
-                    dbg.getEndsList();
-                }
-            }
-
-            image = rotateClockwise(image, cnt * Math.PI/2);
-
-
-        }
-        catch (IOException ex){
-            System.out.println("path:" +getPath());
-            ex.printStackTrace();
+        if(isFilled()){
+            ImageUtils.changeColor(img1, ((PlumberProductEnd) plumberProduct().getEndsList().get(0)).material().color(), new Color(5, 225, 225));
+            ImageUtils.changeColor(img2, ((PlumberProductEnd) plumberProduct().getEndsList().get(1)).material().color(),new Color(5, 225, 225));
         }
 
-        return image;
+        resultImg.getGraphics().drawImage(img1, 0, 0, null);
+        resultImg.getGraphics().drawImage(img2, 0, 0, null);
+
+        return resultImg;
     }
 
     @Override
     protected String getPath() {
-
-        String path = "images/unfilled/";
-
-        if (isFilled()) {
-            path = "images/filled/";
-        }
-
-        if(plumberProduct().isAngular()){
-            path += "angular_pipe/";
-        }
-        else {
-            path += "straight_pipe/";
-        }
-
-
-        AbstractPlumberProductEnd leftPlumberProductEnd = plumberProduct().getEndsList().get(0);
-        AbstractPlumberProductEnd rightPlumberProductEnd = plumberProduct().getEndsList().get(1);
-
-
-
-        String supDirectory = "big/";
-        if(leftPlumberProductEnd instanceof PlumberProductEnd
-            && rightPlumberProductEnd instanceof PlumberProductEnd){
-
-            if (isMixed((PlumberProductEnd) leftPlumberProductEnd,(PlumberProductEnd) rightPlumberProductEnd)){
-               supDirectory = "mixed/";
-            }
-            else if (isRevMixed((PlumberProductEnd) leftPlumberProductEnd,(PlumberProductEnd) rightPlumberProductEnd) && plumberProduct().isAngular()){
-                supDirectory = "rev_mixed/";
-            }
-            else if( isSmall((PlumberProductEnd) leftPlumberProductEnd, (PlumberProductEnd) rightPlumberProductEnd) ){
-                supDirectory = "small/";
-            }
-
-
-
-        }
-
-        path += supDirectory;
-        return path;
-    }
-
-
-    private  boolean isMixed(PlumberProductEnd left, PlumberProductEnd right){
-
-        if(plumberProduct().isAngular()) {
-            return left.diameter() < right.diameter();
-        }
-
-        return left.diameter() != right.diameter();
-    }
-
-    private  boolean isRevMixed(PlumberProductEnd left, PlumberProductEnd right){
-        return left.diameter() > right.diameter();
-    }
-    private boolean isSmall(PlumberProductEnd left, PlumberProductEnd right){
-        return left.diameter() == right.diameter() && left.diameter() == PlumberProductEnd.SMALL_DIAMETER;
+        return null;
     }
 
     @Override
     protected String getFileName() {
-
-        String fileName = "pipe.png";
-
-        String materialString = "metal";
-
-        AbstractPlumberProductEnd leftPlumberProductEnd = plumberProduct().getEndsList().get(0);
-        AbstractPlumberProductEnd rightPlumberProductEnd = plumberProduct().getEndsList().get(1);
-
-        if(leftPlumberProductEnd instanceof PlumberProductEnd && rightPlumberProductEnd instanceof PlumberProductEnd){
-            materialString = ((PlumberProductEnd) leftPlumberProductEnd).material().toString()+ "_" + ((PlumberProductEnd) rightPlumberProductEnd).material().toString() + "_";
-
-            if(((PlumberProductEnd) leftPlumberProductEnd).material().equals(((PlumberProductEnd) rightPlumberProductEnd).material())){
-                materialString = ((PlumberProductEnd) leftPlumberProductEnd).material().toString() + "_";
-            }
-        }
-
-        if(plumberProduct().isFilled()){
-            materialString = "";
-        }
-
-        fileName = materialString + fileName;
-        return fileName;
+        return null;
     }
-
 
     @Override
     public Pipe plumberProduct() {
