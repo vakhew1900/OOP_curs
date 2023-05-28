@@ -26,4 +26,9 @@ public abstract class PlumberProductWidget extends CellItemWidget implements Plu
     public void plumberProductFilled(PlumberProductFilledActionEvent plumberProductFilledActionEvent) {
         repaint();
     }
+
+    @Override
+    protected String getPath() {
+        return "image/";
+    }
 }

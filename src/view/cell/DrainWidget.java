@@ -19,75 +19,25 @@ public class DrainWidget extends PlumberProductWidget{
     @Override
     protected BufferedImage getImage() throws IOException {
 
-        BufferedImage image = null;
-        try {
-            String basePath = new File(getFullPath()).getAbsolutePath();
-            System.out.println(basePath);
-            System.out.println(getFullPath());
-            File file = new File(getFullPath());
-            image = ImageIO.read(file);
+        File file = new File(getFullPath());
+        System.out.println();
+        BufferedImage image = ImageIO.read(file);
 
-        }
-        catch (IOException ex){
-         //   System.out.println(getPath());
-            String fullPath = getFullPath();
-            ex.printStackTrace();
-        }
+        BufferedImage img1 = new MiniPlumberProductEndWidget(plumberProduct().getEndsList().get(0)).getImage(isFilled());
 
-        return image;
+        BufferedImage resultImg = ImageUtils.overlayImage(image, img1);
+
+        return resultImg;
     }
 
     @Override
     protected String getPath() {
-
-        String path = "images/unfilled/";
-
-        if(isFilled()){
-            path = "images/filled/";
-        }
-
-        path += "drain/";
-
-        AbstractPlumberProductEnd  plumberProductEnd = plumberProduct().getEndsList().get(0);
-
-        String tmp = "big/";
-
-        if (plumberProductEnd instanceof PlumberProductEnd
-            && ((PlumberProductEnd) plumberProductEnd).diameter() == PlumberProductEnd.SMALL_DIAMETER){
-            tmp = "small/";
-        }
-
-        path += tmp;
-        return path;
+        return "image/";
     }
 
     @Override
     protected String getFileName() {
-
-        String fileName = "drain_south.png";
-
-        if (plumberProduct().hasEnd(Direction.west())){
-            fileName = "drain_west.png";
-        }
-
-        if (plumberProduct().hasEnd(Direction.north())){
-            fileName = "drain_north.png";
-        }
-
-
-        String materialString = "metal_";
-        AbstractPlumberProductEnd plumberProductEnd = plumberProduct().getEndsList().get(0);
-        if (plumberProduct().getEndsList().get(0) instanceof PlumberProductEnd){
-            materialString =  ((PlumberProductEnd) plumberProductEnd).material().toString() + "_";
-        }
-
-        if(isFilled()){
-            materialString = "";
-        }
-
-        fileName = materialString  + fileName;
-
-        return fileName;
+        return "drain.png";
     }
 
 }

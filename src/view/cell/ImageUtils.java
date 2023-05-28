@@ -31,4 +31,13 @@ public class ImageUtils {
             }
         }
     }
+
+    public static BufferedImage overlayImage(BufferedImage img1, BufferedImage img2){
+
+        BufferedImage resultImg = new BufferedImage(80,80,BufferedImage.TYPE_INT_ARGB);
+        resultImg.getGraphics().drawImage(img1, 0, 0, null);
+        resultImg.getGraphics().drawImage(img2, 0, 0, null);
+
+        return  resultImg;
+    }
 }
