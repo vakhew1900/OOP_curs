@@ -9,6 +9,7 @@ import model.plumber_product.Source;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PlumberTest {
 
@@ -38,8 +39,27 @@ public class PlumberTest {
                     current = neighbor;
                     isUnVisited = true;
                     plumbingProducts.add(neighbor);
+                    break;
                 }
 
+
+
+            }
+
+            if (isUnVisited == false){
+                System.out.println(current);
+                for(AbstractPlumberProductEnd plumberProductEnd : current.getEnds()) {
+
+                    Direction direction = plumberProductEnd.direction();
+                    PlumbingProduct neighbor = current.neighbor(direction);
+                    System.out.println(neighbor);
+
+                    if(plumbingProducts.contains(neighbor) == true){
+                        boolean tmp = current.isConnected(neighbor);
+                        PlumbingProduct drain = drain();
+                        System.out.println("fff");
+                    }
+                }
             }
             f = f && isUnVisited;
         }
@@ -53,6 +73,20 @@ public class PlumberTest {
 
             PlumbingProduct plumbingProduct = gameField.cell(i, 0).getPlumbingProduct();
             if (plumbingProduct instanceof Source) {
+                return plumbingProduct;
+            }
+
+        }
+
+        return null;
+    }
+
+    private PlumbingProduct drain(){
+
+        for (int i = 0; i < gameField.height(); i++) {
+
+            PlumbingProduct plumbingProduct = gameField.cell(i, gameField.width() - 1).getPlumbingProduct();
+            if (plumbingProduct instanceof Drain) {
                 return plumbingProduct;
             }
 
