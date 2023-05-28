@@ -31,7 +31,7 @@ public class Plumber {
      * Список всех труб
      */
     List<PlumbingProduct> pipeList;
-    private List<Material> materials = new ArrayList<>(Arrays.asList(new Metal(), new Plastic()));
+    private List<Material> materials = new ArrayList<>(Arrays.<Material>asList(new Metal(), new Plastic(), new Steel()));
     private List<Integer> diameters = new ArrayList<>(Arrays.asList(Integer.valueOf(PlumberProductEnd.BIG_DIAMETER), Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER)));
 
     /**

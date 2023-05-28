@@ -14,6 +14,7 @@ public abstract class AbstractPlumberProductEndWidget extends CellItemWidget{
 
     private AbstractPlumberProductEnd plumberProductEnd;
 
+    private Color waterColor = new Color(5, 225, 225);
     public AbstractPlumberProductEndWidget(AbstractPlumberProductEnd plumberProductEnd){
         this.plumberProductEnd = plumberProductEnd;
     }
@@ -54,7 +55,6 @@ public abstract class AbstractPlumberProductEndWidget extends CellItemWidget{
 
         if(isFilled){
             Color color = new Color(217, 217, 217);
-            Color waterColor = new Color(5, 225, 225);
             if (plumberProductEnd instanceof  PlumberProductEnd){
                 color = ((PlumberProductEnd) plumberProductEnd).material().color();
             }
