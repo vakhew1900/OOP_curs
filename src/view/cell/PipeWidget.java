@@ -25,18 +25,16 @@ public class PipeWidget extends PlumberProductWidget {
         BufferedImage img2 = new PlumberProductProductEndWidget(plumberProduct().getEndsList().get(1)).getImage(isFilled());
 
         BufferedImage resultImg = ImageUtils.overlayImage(img1, img2);
+        resultImg = ImageUtils.overlayImage(resultImg, super.getImage());
 
         return resultImg;
     }
 
-    @Override
-    protected String getPath() {
-        return null;
-    }
+
 
     @Override
     protected String getFileName() {
-        return null;
+        return "pipe_center.png";
     }
 
     @Override

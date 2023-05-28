@@ -27,9 +27,7 @@ public abstract class AbstractPlumberProductEndWidget extends CellItemWidget{
     @Override
     protected BufferedImage getImage() throws IOException {
 
-        File file = new File(getFullPath());
-        System.out.println(getFullPath());
-        BufferedImage image = ImageIO.read(file);
+        BufferedImage image = super.getImage();
 
         double angle = 0;
 

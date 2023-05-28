@@ -22,9 +22,7 @@ public class SourceWidget extends PlumberProductWidget{
     @Override
     protected BufferedImage getImage() throws IOException {
 
-        File file = new File(getFullPath());
-        System.out.println();
-        BufferedImage image = ImageIO.read(file);
+        BufferedImage image = super.getImage();
 
         BufferedImage img1 = new MiniPlumberProductEndWidget(plumberProduct().getEndsList().get(0)).getImage(isFilled());
 

@@ -1,8 +1,10 @@
 package view.cell;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public abstract class CellItemWidget extends JPanel {
@@ -12,7 +14,11 @@ public abstract class CellItemWidget extends JPanel {
          setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
          setOpaque(false);
      }
-    protected abstract BufferedImage getImage() throws IOException;
+    protected  BufferedImage getImage() throws IOException{
+        File file = new File(getFullPath());
+        BufferedImage image = ImageIO.read(file);
+        return image;
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
