@@ -15,22 +15,10 @@ import model.plumber_product.Source;
 
 import java.util.*;
 
-public class Plumber {
+public class Plumber extends AbstractPlumber {
 
 
-    /**
-     * Игровое поле
-     */
-    private GameField gameField;
-    /**
-     * Источник и слив
-     */
-    PlumbingProduct source = null, drain = null;
 
-    /**
-     * Список всех труб
-     */
-    List<PlumbingProduct> pipeList;
     private List<Material> materials = new ArrayList<>(Arrays.<Material>asList(new Metal(), new Plastic(), new Steel()));
     private List<Integer> diameters = new ArrayList<>(Arrays.asList(Integer.valueOf(PlumberProductEnd.BIG_DIAMETER), Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER)));
 
@@ -40,217 +28,62 @@ public class Plumber {
      * @param gameField - игровое поле
      */
     Plumber(GameField gameField) {
-        this.gameField = gameField;
-    }
-
-
-    /**
-     * Создать конфигруации для водопровожда
-     */
-    public void configure() {
-
-        createPipeline();
-        source.fill(new Water(400));
-        shufflePipeline();
+        super(gameField);
     }
 
 
     /**
      * Создать собранный водопровод. По данному водопровооду вода может дойти от источника до слива
      */
-    void createPipeline() {
+    @Override
+    protected Source createSource(Direction direction, Cell cell) {
+        AbstractPlumberProductEnd sourcePlumberProductEnd = new PlumberProductEnd(direction, diameters.get(random(diameters.size())), materials.get(random(materials.size())));
 
-        if (gameField.height() == 1 && gameField.width() == 1) {
-            throw new IllegalArgumentException("GameField is verysmall");
-        }
+        return new Source(sourcePlumberProductEnd, cell);
+    }
 
-        Cell startCell = gameField.cell(random(gameField.height()), 0);
-        Cell finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
+    @Override
+    protected Drain createDrain(Direction direction, Cell cell) {
+        PlumbingProduct lastPlumberProduct = (pipeList().size() > 0)? pipeList().get(pipeList().size() - 1) : source();
 
-        while (startCell == finishCell) {
-            finishCell = gameField.cell(random(gameField.height()), gameField.width() - 1);
-        }
-
-
-        List<Cell> cellPath = createCellPath(startCell, finishCell);
-
-        List<Direction> directionList = convertCellPathToDirectionPath(cellPath);
-
-        AbstractPlumberProductEnd sourcePlumberProductEnd = new PlumberProductEnd(directionList.get(0), diameters.get(random(diameters.size())), materials.get(random(materials.size())));
-        // new SimplePlumberProductEnd(directionList.get(0))
-        source = new Source(sourcePlumberProductEnd, cellPath.get(0));
-
-        pipeList = createPipePath(startCell, directionList);
-        PlumbingProduct lastPlumberProduct = (pipeList.size() > 0)? pipeList.get(pipeList.size() - 1) : source;
-
-        AbstractPlumberProductEnd drainPlumberProductEnd = new PlumberProductEnd((PlumberProductEnd) lastPlumberProduct.getEnd(directionList.get(directionList.size() - 1)).opposite());
-        drain = new Drain(drainPlumberProductEnd, cellPath.get(cellPath.size() - 1));
-
+        AbstractPlumberProductEnd drainPlumberProductEnd = new PlumberProductEnd((PlumberProductEnd) lastPlumberProduct.getEnd(direction)).opposite();
+        return new Drain(drainPlumberProductEnd, cell);
     }
 
 
-    /**
-     * Нарушить целостность водопровода путем поворота некоторых труб
-     */
-    void shufflePipeline() {
 
-        for (PlumbingProduct plumbingProduct : pipeList) {
+    @Override
+    protected Pipe createPipe(List<Direction> directions, Cell cell, List<Pipe> pipeList) {
 
-            int rotationCnt = random(4);
-
-            for (int i = 0; i < rotationCnt; i++) {
-                Pipe pipe = (Pipe) plumbingProduct;
-                pipe.rotate();
-            }
-
-        }
-    }
-
-    /**
-     * Функция рандома. Диапозон значений [0, n)
-     *
-     * @param n - правая граница для рандома
-     * @return рандомное число
-     */
-    private int random(int n) {
-        return new Random().nextInt(n);
-    }
-
-
-    /**
-     * Создать путь от одной клетки до другой
-     *
-     * @param startCell  - первая клетка
-     * @param finishCell - конечная клетка
-     * @return список клеток, образующий путь от первой клетки до конечной
-     */
-    private List<Cell> createCellPath(@NotNull Cell startCell, @NotNull Cell finishCell) {
-
-
-        Map<Cell, Cell> preCell = new HashMap<>();
-
-        dfs(startCell, preCell, startCell);
-
-
-        if (preCell.get(finishCell) == null) {
-            return null;
+        PlumberProductEnd predPlumberProductEnd;
+        Direction predDirection = directions.get(0);
+        if (pipeList.size() == 0) {
+            predPlumberProductEnd = (PlumberProductEnd) source().getEnd(predDirection);
+        } else {
+            predPlumberProductEnd = (PlumberProductEnd) pipeList.get(pipeList.size() - 1).getEnd(predDirection);
         }
 
-        List<Cell> cellPath = new ArrayList<>();
 
-        Cell cell = finishCell;
+        AbstractPlumberProductEnd leftPlumberProductEnd = new PlumberProductEnd((PlumberProductEnd) predPlumberProductEnd.opposite());
+        AbstractPlumberProductEnd rightPlumberProductEnd;
 
 
-        while (cell != null) {
-            cellPath.add(cell);
-            cell = preCell.get(cell);
+        Direction direction = directions.get(1);
+        Material material = predPlumberProductEnd.material();
+        int diameter = predPlumberProductEnd.diameter();
+        int tmp = 3;
+        if (random(tmp) == 1) {
+            material = materials.get(random(materials.size()));
+            diameter = diameters.get(random(diameters.size()));
+
         }
 
-        Collections.reverse(cellPath);
-
-        System.out.println(cellPath.size());
-
-        for (Cell cell1 : cellPath) {
-            System.out.println(cell1.row() + " " + cell1.col());
-        }
-
-        return cellPath;
-    }
+        rightPlumberProductEnd = new PlumberProductEnd(direction, diameter, material);
 
 
-    /**
-     * Обход в ширину, который определяет для каждой клетки ее предка
-     *
-     * @param currentCell - текущая клетка
-     * @param preCell     - словарь. Ключ - клетка. Значение - клетка предок
-     * @param startCell   - Самая первая клетка последовательности
-     */
-    private void dfs(@NotNull Cell currentCell, @NotNull Map<Cell, Cell> preCell, @NotNull Cell startCell) {
+        Set<AbstractPlumberProductEnd> directionSet = new HashSet<>(List.of(new AbstractPlumberProductEnd[]{leftPlumberProductEnd, rightPlumberProductEnd}));
 
-        List<Cell> neighborList = new ArrayList<>(currentCell.neighbors().values());
-        Collections.shuffle(neighborList);
-
-        for (Cell neighbor : neighborList) {
-
-            boolean isVisited = neighbor.equals(startCell) || preCell.get(neighbor) != null;
-
-            if (isVisited == false) {
-                preCell.put(neighbor, currentCell);
-                dfs(neighbor, preCell, startCell);
-            }
-        }
-    }
-
-    /**
-     * Конвертировать путь из клеток в путь направлений
-     *
-     * @param cellPath - путь из клеток
-     * @return список направлений, который представляет собой путь направлений
-     */
-    private List<Direction> convertCellPathToDirectionPath(@NotNull List<Cell> cellPath) {
-
-        List<Direction> directionList = new ArrayList<>();
-
-        for (int i = 1; i < cellPath.size(); i++) {
-            Direction direction = cellPath.get(i - 1).neighborDirection(cellPath.get(i));
-
-            if (direction == null) {
-                throw new IllegalArgumentException("Illegal createCellPath");
-            }
-
-            directionList.add(direction);
-        }
-
-        return directionList;
-    }
-
-    /**
-     * Создать путь из труб на основе стартовой клетки, в которой распологается источник и пути направлений
-     *
-     * @param cell          - стартовая клетка
-     * @param directionList - путь направлений
-     * @return Список труб, которые образуют собой полноценный целостный путь
-     */
-    private List createPipePath(@NotNull Cell cell, @NotNull List<Direction> directionList) {
-
-        List<PlumbingProduct> pipeList = new ArrayList<>();
-        cell = cell.neighbor(directionList.get(0));
-
-        for (int i = 1; i < directionList.size(); i++) {
-
-            PlumberProductEnd predPlumberProductEnd;
-            Direction predDirection = directionList.get(i - 1);
-            if (pipeList.size() == 0) {
-                predPlumberProductEnd = (PlumberProductEnd) source.getEnd(predDirection);
-            } else {
-                predPlumberProductEnd = (PlumberProductEnd) pipeList.get(pipeList.size() - 1).getEnd(predDirection);
-            }
-
-
-            AbstractPlumberProductEnd leftPlumberProductEnd = new PlumberProductEnd((PlumberProductEnd) predPlumberProductEnd.opposite());
-            AbstractPlumberProductEnd rightPlumberProductEnd;
-
-
-            Direction direction = directionList.get(i);
-            Material material = predPlumberProductEnd.material();
-            int diameter = predPlumberProductEnd.diameter();
-            int tmp = 3;
-            if (random(tmp) == 1) {
-                material = materials.get(random(materials.size()));
-                diameter = diameters.get(random(diameters.size()));
-
-            }
-
-            rightPlumberProductEnd = new PlumberProductEnd(direction, diameter, material);
-
-
-            Set<AbstractPlumberProductEnd> directions = new HashSet<>(List.of(new AbstractPlumberProductEnd[]{leftPlumberProductEnd, rightPlumberProductEnd}));
-            PlumbingProduct pipe = new Pipe(directions, cell);
-            pipeList.add(pipe);
-            cell = cell.neighbor(directionList.get(i));
-        }
-
-        return pipeList;
+        return  new Pipe(directionSet, cell);
     }
 
 }

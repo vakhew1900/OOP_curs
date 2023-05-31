@@ -24,7 +24,7 @@ public class SourceWidget extends PlumberProductWidget{
 
         BufferedImage image = super.getImage();
 
-        BufferedImage img1 = new MiniPlumberProductEndWidget(plumberProduct().getEndsList().get(0)).getImage(isFilled());
+        BufferedImage img1 = new MiniPlumberProductEndWidget(plumberProduct().getEndsList().get(0)).getImage();
 
         BufferedImage resultImg = ImageUtils.overlayImage(image, img1);
 
