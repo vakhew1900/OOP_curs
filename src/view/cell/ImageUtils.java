@@ -62,4 +62,9 @@ public class ImageUtils {
 
         return  resultImg;
     }
+
+    /**
+     * Цвет Воды
+     */
+    public static final Color waterColor = new Color(5, 225, 225);
 }

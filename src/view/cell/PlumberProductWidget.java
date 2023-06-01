@@ -11,7 +11,6 @@ public abstract class PlumberProductWidget extends CellItemWidget implements Plu
 
     private PlumbingProduct plumbingProduct;
 
-    protected Color waterColor = new Color(5, 225, 225);
 
     public  PlumbingProduct plumberProduct(){
         return plumbingProduct;

@@ -29,7 +29,7 @@ public class DrainWidget extends PlumberProductWidget{
         BufferedImage image = super.getImage();
 
         if(isFilled()){
-            ImageUtils.changeColor(image, color, waterColor);
+            ImageUtils.changeColor(image, color, ImageUtils.waterColor);
         }
 
         BufferedImage img1 = new MiniPlumberProductEndWidget(plumberProduct().getEndsList().get(0)).getImage(isFilled());

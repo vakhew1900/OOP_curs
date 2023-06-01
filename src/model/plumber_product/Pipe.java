@@ -23,30 +23,7 @@ public class Pipe extends PlumbingProduct {
         }
     }
 
-    @Override
-    public List<AbstractPlumberProductEnd> getEndsList() {
-        List<AbstractPlumberProductEnd> plumberProductEnds = super.getEndsList();
 
-        AbstractPlumberProductEnd leftPlumberProductEnd = plumberProductEnds.get(0);
-        AbstractPlumberProductEnd rightPlumberProductEnd = plumberProductEnds.get(1);
-
-        if (leftPlumberProductEnd instanceof PlumberProductEnd
-                && rightPlumberProductEnd instanceof PlumberProductEnd) {
-
-            Direction left = ((PlumberProductEnd) leftPlumberProductEnd).direction();
-            Direction right = ((PlumberProductEnd) rightPlumberProductEnd).direction();
-
-            if(right.clockwise().equals(left)){
-                Collections.swap(plumberProductEnds, 0, 1);
-            }
-            else if ( isAngular() == false && ((PlumberProductEnd) leftPlumberProductEnd).diameter() > ((PlumberProductEnd) rightPlumberProductEnd).diameter()){
-                Collections.swap(plumberProductEnds, 0, 1);
-            }
-
-        }
-
-        return plumberProductEnds;
-    }
 
     public void rotate() {
         if (isFilled()) {

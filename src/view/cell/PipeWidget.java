@@ -42,8 +42,15 @@ public class PipeWidget extends PlumberProductWidget {
         return (Pipe) super.plumberProduct();
     }
 
+    /**
+     * Обработчик работы с мышью
+     */
     private class MyMouseListener extends MouseAdapter {
 
+        /**
+         * Обработчик события нажатия кнопки
+         * @param e the event to be processed
+         */
         @Override
         public void mouseClicked(MouseEvent e) {
             plumberProduct().rotate();
