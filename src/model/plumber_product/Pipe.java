@@ -21,6 +21,13 @@ public class Pipe extends PlumbingProduct {
             cell.clear();
             throw new IllegalArgumentException("illegal argument for pipe");
         }
+
+        AbstractPlumberProductEnd first = getEndsList().get(0);
+        AbstractPlumberProductEnd second = getEndsList().get(1);
+
+        if (first.direction().equals(second)){
+            throw new IllegalArgumentException("both ends have similar directions");
+        }
     }
 
 

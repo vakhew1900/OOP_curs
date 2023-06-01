@@ -116,5 +116,10 @@ public class DirectionTest {
         Assertions.assertFalse(Direction.north().isOpposite(Direction.north()));
     }
 
+    @Test
+    public void cloneTest(){
+        Direction direction = Direction.south();
 
+        Assertions.assertEquals(direction, direction.clone());
+    }
 }

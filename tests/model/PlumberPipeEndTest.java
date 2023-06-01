@@ -49,6 +49,12 @@ public class PlumberPipeEndTest {
     }
 
     @Test
+    public void negativeDiameterTest(){
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> { new PlumberProductEnd(Direction.east(), -1, new Metal());});
+    }
+
+    @Test
     public void differentMaterial2Test(){
 
         PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Metal());
@@ -65,4 +71,12 @@ public class PlumberPipeEndTest {
 
         Assertions.assertNotEquals(plumberProductEnd2, plumberProductEnd);
     }
+
+    @Test
+    public void compareWithOtherObject(){
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.east(), PlumberProductEnd.BIG_DIAMETER, new Metal());
+        Assertions.assertFalse(plumberProductEnd.equals(new Object()));
+        Assertions.assertFalse(plumberProductEnd.equals(new SimplePlumberProductEnd(Direction.east())));
+    }
+
 }

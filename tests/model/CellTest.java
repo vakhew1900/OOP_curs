@@ -1,5 +1,8 @@
 package model;
 
+import model.material.Steel;
+import model.plumber_product.Drain;
+import model.plumber_product_end.PlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -110,4 +113,20 @@ public class CellTest {
         Assertions.assertEquals(cell2, cell1.neighbor(Direction.south()));
     }
 
+
+    @Test
+    public void notEquals_Test(){
+        Cell cell1 = new Cell(1, 2);
+        Cell cell2 = new Cell(2, 3);
+        Assertions.assertNotEquals(cell1, cell2);
+    }
+
+    @Test
+    public void isFilled_Test(){
+
+        Cell cell = new Cell(1, 2);
+        Assertions.assertFalse(cell.isFilled());
+        Drain drain = new Drain(new PlumberProductEnd(Direction.west(), PlumberProductEnd.SMALL_DIAMETER, new Steel()), cell);
+        Assertions.assertTrue(cell.isFilled());
+    }
 }

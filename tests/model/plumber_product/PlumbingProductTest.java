@@ -1,5 +1,10 @@
-package model;
+package model.plumber_product;
 
+import model.Cell;
+import model.Direction;
+import model.Water;
+import model.events.PlumberProductFilledActionEvent;
+import model.events.PlumberProductFilledActionListener;
 import model.plumber_product_end.AbstractPlumberProductEnd;
 import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
@@ -308,5 +313,32 @@ public class PlumbingProductTest {
         plumbingProduct2.fill(water);
         plumbingProduct2.fill(water);
         Assertions.assertEquals(plumbingProduct2, water.getLastFillingPlumbingProduct());
+    }
+
+    @Test
+    public void ListenerTest(){
+         PlumbingProduct product = new Drain(new SimplePlumberProductEnd(Direction.east()), new Cell(1, 2));
+         MydPlumberProductFilledActionListener tmp = new MydPlumberProductFilledActionListener();
+         product.addPlumberProductFilledActionListener(tmp);
+
+         int expectedX = tmp.x + 1;
+
+         product.firePlumberProductAction();
+
+         Assertions.assertEquals(expectedX, tmp.x);
+         product.removeFlowActionListener(tmp);
+         product.firePlumberProductAction();
+         Assertions.assertEquals(expectedX, tmp.x);
+
+    }
+
+    private class MydPlumberProductFilledActionListener implements PlumberProductFilledActionListener{
+
+        private int x;
+
+        @Override
+        public void plumberProductFilled(PlumberProductFilledActionEvent plumberProductFilledActionEvent) {
+            x++;
+        }
     }
 }

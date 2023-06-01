@@ -165,10 +165,7 @@ public abstract class PlumbingProduct {
      * @param other - другое сантехническое изделие
      * @return true - если  соедино ли данное сантехническое изделие с другим
      */
-    public boolean isConnected(PlumbingProduct other) {
-
-        if (other == null)
-            return false;
+    public boolean isConnected(@NotNull PlumbingProduct other) {
 
         AbstractPlumberProductEnd plumberProductEnd = null;
 
@@ -212,7 +209,7 @@ public abstract class PlumbingProduct {
     }
 
     // отсоединяет слушателя
-    public void removeFlowActionListener(WaterStoppedActionListener l) {
+    public void removeFlowActionListener(PlumberProductFilledActionListener l) {
         if (plumberProductFilledActionListeners.contains(l)) {
             plumberProductFilledActionListeners.remove(l);
         }

@@ -1,5 +1,7 @@
-package model;
+package model.plumber_product;
 
+import model.Cell;
+import model.Direction;
 import model.plumber_product_end.AbstractPlumberProductEnd;
 import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
@@ -43,6 +45,16 @@ public class PipeTest {
     //---------------------------rotate ------------------------------------------
 
     @Test
+    public void constructor_Test(){
+
+        Set<AbstractPlumberProductEnd> ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()), new SimplePlumberProductEnd(Direction.west()),  new SimplePlumberProductEnd(Direction.east())}));
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{new Pipe(ends, cell);});
+
+        Set<AbstractPlumberProductEnd> ends2 = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.south())}));
+        Assertions.assertThrows(IllegalArgumentException.class, ()->{new Pipe(ends2, cell);});
+    }
+
+    @Test
     public void rotate_TypeTest(){
 
         Set<AbstractPlumberProductEnd> ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.west())}));
@@ -66,5 +78,29 @@ public class PipeTest {
         Assertions.assertTrue(pipe.hasEnd(new SimplePlumberProductEnd(Direction.east())));
         Assertions.assertTrue(pipe.hasEnd(new SimplePlumberProductEnd(Direction.west())));
 
+    }
+
+    @Test
+    public  void isAngular_TypeTest(){
+
+        Set<AbstractPlumberProductEnd> ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.north())}));
+
+        Assertions.assertFalse(new Pipe(ends, cell).isAngular());
+
+        ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.east()),  new SimplePlumberProductEnd(Direction.west())}));
+
+        Assertions.assertFalse(new Pipe(ends,cell).isAngular());
+
+        ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.east())}));
+
+        Assertions.assertTrue(new Pipe(ends,cell).isAngular());
+
+        ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.north()),  new SimplePlumberProductEnd(Direction.east())}));
+
+        Assertions.assertTrue(new Pipe(ends,cell).isAngular());
+
+        ends = new HashSet(List.of(new SimplePlumberProductEnd[]{ new SimplePlumberProductEnd(Direction.south()),  new SimplePlumberProductEnd(Direction.west())}));
+
+        Assertions.assertTrue(new Pipe(ends,cell).isAngular());
     }
 }
