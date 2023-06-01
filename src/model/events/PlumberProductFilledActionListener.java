@@ -6,7 +6,7 @@ public interface PlumberProductFilledActionListener extends EventListener {
 
     /** обрабатывает события остановки потока
      *
-     * @param event - евент
+     * @param  plumberProductFilledActionEvent - эвент
      */
     void plumberProductFilled(PlumberProductFilledActionEvent plumberProductFilledActionEvent);
 }

@@ -5,6 +5,10 @@ import model.plumber_product_end.PlumberProductEnd;
 
 public class MiniPlumberProductEndWidget extends AbstractPlumberProductEndWidget {
 
+    /**
+     * Конструктор
+     * @param plumberProductEnd - конец трубы
+     */
     public MiniPlumberProductEndWidget(AbstractPlumberProductEnd plumberProductEnd) {
         super(plumberProductEnd);
     }

@@ -14,8 +14,12 @@ import java.io.IOException;
 
 public class DrainWidget extends PlumberProductWidget{
 
+    /**
+     * Цвет слива
+     */
     private Color color = new Color(243, 44, 44);
-    Color waterColor = new Color(5, 225, 225);
+
+
     public DrainWidget(@NotNull Drain drain){
         super(drain);
     }

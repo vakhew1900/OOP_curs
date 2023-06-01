@@ -14,10 +14,25 @@ import java.awt.*;
 
 public class CellWidget extends JPanel {
 
+    /**
+     * Клетка игрового поля
+     */
     private Cell cell;
-    private static final int CELL_SIZE = 80;
+
+    /**
+     * Размер виджета клетки
+     */
+    public static final int CELL_SIZE = 80;
+
+    /**
+     *  Цвет клетки
+     */
     private Color CELL_COLOR = Color.decode("#70FE19");
 
+    /**
+     * Конструктор
+     * @param cell - клетка игрового поля
+     */
     public CellWidget(@NotNull Cell cell) {
         this.cell = cell;
         setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));

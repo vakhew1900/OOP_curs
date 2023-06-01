@@ -10,9 +10,15 @@ import java.awt.*;
 
 public class GameFieldWidget extends JPanel {
 
+    /**
+     *  игровое поле
+     */
     GameField gameField;
 
-
+    /**
+     * Конструктор
+     * @param gameField - игровое поле
+     */
     public GameFieldWidget(@NotNull GameField gameField){
         this.gameField = gameField;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -21,7 +27,9 @@ public class GameFieldWidget extends JPanel {
     }
 
 
-
+    /**
+     * Заполнить поле клетками и игровыми объектами
+     */
     private void fillField(){
 
         for(int i = 0; i < gameField.width(); i++){
@@ -31,6 +39,11 @@ public class GameFieldWidget extends JPanel {
         }
     }
 
+    /** Создать одну строку игрового поля
+     *
+     * @param rowIndex - индекс строки
+     * @return - виджет одной строки игрового поля
+     */
     private JPanel createRow(int rowIndex){
         JPanel row = new JPanel();
         row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
