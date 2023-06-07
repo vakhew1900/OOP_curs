@@ -54,10 +54,17 @@ public class PlumberTest {
                     PlumbingProduct neighbor = current.neighbor(direction);
                     System.out.println(neighbor);
 
+                    if (neighbor == null){
+                        continue;
+                    }
+
                     if(plumbingProducts.contains(neighbor) == true){
                         boolean tmp = current.isConnected(neighbor);
                         PlumbingProduct drain = drain();
                         System.out.println("fff");
+                    }
+                    else {
+                        boolean tmp = current.isConnected(neighbor);
                     }
                 }
             }
@@ -127,7 +134,7 @@ public class PlumberTest {
     @Test
     public void createPipeLine_BigField(){
 
-        gameField = new GameField(10, 10);
+        gameField = new GameField(50, 50);
         Plumber plumber = new Plumber(gameField);
         plumber.createPipeline();
 

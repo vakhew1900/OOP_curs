@@ -3,6 +3,7 @@ package view.cell;
 import model.plumber_product.Pipe;
 import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
+import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -20,9 +21,11 @@ public class PipeWidget extends PlumberProductWidget {
 
     @Override
     protected BufferedImage getImage() throws IOException {
+        PlumberProductEndWidgetFactory factory = new PlumberProductEndWidgetFactory();
+        BufferedImage img1 = factory.create(plumberProduct().getEndsList().get(0)).getImage(isFilled());
+        BufferedImage img2 = factory.create(plumberProduct().getEndsList().get(1)).getImage(isFilled());
 
-        BufferedImage img1 = new PlumberProductProductEndWidget(plumberProduct().getEndsList().get(0)).getImage(isFilled());
-        BufferedImage img2 = new PlumberProductProductEndWidget(plumberProduct().getEndsList().get(1)).getImage(isFilled());
+
 
         BufferedImage resultImg = ImageUtils.overlayImage(img1, img2);
         resultImg = ImageUtils.overlayImage(resultImg, super.getImage());

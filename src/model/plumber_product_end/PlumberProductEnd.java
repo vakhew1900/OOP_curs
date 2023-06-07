@@ -1,9 +1,11 @@
 package model.plumber_product_end;
 
 import model.Direction;
+import model.material.Materiable;
 import model.material.Material;
+import org.jetbrains.annotations.NotNull;
 
-public class PlumberProductEnd extends AbstractPlumberProductEnd {
+public class PlumberProductEnd extends AbstractPlumberProductEnd implements Materiable {
 
 
     private int diameter;
@@ -60,8 +62,17 @@ public class PlumberProductEnd extends AbstractPlumberProductEnd {
     }
 
     @Override
+    public boolean isCanConnected(@NotNull AbstractPlumberProductEnd abstractPlumberProductEnd) {
+        boolean res = this.equals(abstractPlumberProductEnd.opposite());
+        if (abstractPlumberProductEnd instanceof ExclusivePlumberProductEnd){
+            res = abstractPlumberProductEnd.isCanConnected(this);
+        }
+        return  res;
+    }
+
+    @Override
     public int hashCode() {
-        return material.hashCode() * 1000 * 1000 + diameter * 1000 + direction().hashCode();
+        return material.hashCode() * 1000*1000 + diameter * 1000 + direction().hashCode();
     }
 
     @Override

@@ -5,7 +5,12 @@ import model.Direction;
 import model.Water;
 import model.events.PlumberProductFilledActionEvent;
 import model.events.PlumberProductFilledActionListener;
+import model.material.Glass;
+import model.material.Metal;
+import model.material.Plastic;
+import model.material.Steel;
 import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.PlumberProductEnd;
 import model.plumber_product_end.SimplePlumberProductEnd;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -340,5 +345,95 @@ public class PlumbingProductTest {
         public void plumberProductFilled(PlumberProductFilledActionEvent plumberProductFilledActionEvent) {
             x++;
         }
+    }
+
+    @Test
+    public  void isConnectedWithExclusive_TypeTest(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(2, 1);
+
+        cell1.setNeighbor(Direction.north(), cell2);
+
+        Set<AbstractPlumberProductEnd> set1 = new HashSet<>();
+        Set<AbstractPlumberProductEnd> set2 = new HashSet<>();
+
+        PlumberProductEnd plumberProductEnd1 = new model.plumber_product_end.ExclusivePlumberProductEnd(Direction.west(), PlumberProductEnd.BIG_DIAMETER, new Glass(), new Metal());
+        PlumberProductEnd plumberProductEnd2 = new model.plumber_product_end.ExclusivePlumberProductEnd(Direction.north(), PlumberProductEnd.BIG_DIAMETER, new Glass(), new Metal());
+
+        set1.add(plumberProductEnd1);
+        set1.add(plumberProductEnd2);
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.south(), PlumberProductEnd.BIG_DIAMETER, new Plastic());
+        PlumberProductEnd plumbingProductEnd3 = new PlumberProductEnd(Direction.west(), PlumberProductEnd.BIG_DIAMETER, new Steel());
+
+        set2.add(plumbingProductEnd3);
+        set2.add(plumberProductEnd);
+
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+        PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Assertions.assertTrue(plumbingProduct1.isConnected(plumbingProduct2));
+        Assertions.assertTrue(plumbingProduct2.isConnected(plumbingProduct1));
+    }
+
+    @Test
+    public  void isConnectedWithExclusive_NotConnected_Test(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(2, 1);
+
+        cell1.setNeighbor(Direction.north(), cell2);
+
+        Set<AbstractPlumberProductEnd> set1 = new HashSet<>();
+        Set<AbstractPlumberProductEnd> set2 = new HashSet<>();
+
+        PlumberProductEnd plumberProductEnd1 = new model.plumber_product_end.ExclusivePlumberProductEnd(Direction.west(), PlumberProductEnd.BIG_DIAMETER, new Glass(), new Metal());
+        PlumberProductEnd plumberProductEnd2 = new model.plumber_product_end.ExclusivePlumberProductEnd(Direction.north(), PlumberProductEnd.BIG_DIAMETER, new Glass(), new Metal());
+
+        set1.add(plumberProductEnd1);
+        set1.add(plumberProductEnd2);
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.south(), PlumberProductEnd.BIG_DIAMETER, new Metal());
+        PlumberProductEnd plumbingProductEnd3 = new PlumberProductEnd(Direction.west(), PlumberProductEnd.BIG_DIAMETER, new Steel());
+
+        set2.add(plumbingProductEnd3);
+        set2.add(plumberProductEnd);
+
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+        PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
+        Assertions.assertFalse(plumbingProduct2.isConnected(plumbingProduct1));
+    }
+
+    @Test
+    public  void isConnectedWithExclusive_NotConnected2_TypeTest(){
+
+        Cell cell1 = new Cell(1, 1);
+        Cell cell2 = new Cell(2, 1);
+
+        cell1.setNeighbor(Direction.north(), cell2);
+
+        Set<AbstractPlumberProductEnd> set1 = new HashSet<>();
+        Set<AbstractPlumberProductEnd> set2 = new HashSet<>();
+
+        PlumberProductEnd plumberProductEnd1 = new model.plumber_product_end.ExclusivePlumberProductEnd(Direction.west(), PlumberProductEnd.BIG_DIAMETER, new Glass(), new Metal());
+        PlumberProductEnd plumberProductEnd2 = new model.plumber_product_end.ExclusivePlumberProductEnd(Direction.north(), PlumberProductEnd.BIG_DIAMETER, new Glass(), new Metal());
+
+        set1.add(plumberProductEnd1);
+        set1.add(plumberProductEnd2);
+
+        PlumberProductEnd plumberProductEnd = new PlumberProductEnd(Direction.south(), PlumberProductEnd.SMALL_DIAMETER, new Plastic());
+        PlumberProductEnd plumbingProductEnd3 = new PlumberProductEnd(Direction.west(), PlumberProductEnd.BIG_DIAMETER, new Steel());
+
+        set2.add(plumbingProductEnd3);
+        set2.add(plumberProductEnd);
+
+        PlumbingProduct plumbingProduct1 = new Pipe(set1, cell1);
+        PlumbingProduct plumbingProduct2 = new Pipe(set2, cell2);
+
+        Assertions.assertFalse(plumbingProduct1.isConnected(plumbingProduct2));
+        Assertions.assertFalse(plumbingProduct2.isConnected(plumbingProduct1));
     }
 }

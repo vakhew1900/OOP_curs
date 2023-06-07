@@ -56,7 +56,7 @@ public abstract class AbstractPlumberProductEnd implements Cloneable{
     }
 
 
-
+    public abstract boolean isCanConnected(AbstractPlumberProductEnd abstractPlumberProductEnd);
 
 
     @Override

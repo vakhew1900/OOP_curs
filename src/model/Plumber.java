@@ -1,10 +1,8 @@
 package model;
 
-import model.material.Material;
-import model.material.Metal;
-import model.material.Plastic;
-import model.material.Steel;
+import model.material.*;
 import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.ExclusivePlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
 import model.plumber_product_end.SimplePlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +17,7 @@ public class Plumber extends AbstractPlumber {
 
 
 
-    private List<Material> materials = new ArrayList<>(Arrays.<Material>asList(new Metal(), new Plastic(), new Steel()));
+    private List<Material> materials = new ArrayList<>(Arrays.<Material>asList(new Metal(), new Plastic(), new Steel(), new Glass()));
     private List<Integer> diameters = new ArrayList<>(Arrays.asList(Integer.valueOf(PlumberProductEnd.BIG_DIAMETER), Integer.valueOf(PlumberProductEnd.SMALL_DIAMETER)));
 
     /**
@@ -78,7 +76,35 @@ public class Plumber extends AbstractPlumber {
 
         }
 
+
         rightPlumberProductEnd = new PlumberProductEnd(direction, diameter, material);
+
+        if (random(tmp) == 1 && predPlumberProductEnd instanceof  ExclusivePlumberProductEnd == false) {
+
+
+
+            material = ((PlumberProductEnd) leftPlumberProductEnd).material();
+
+            Material exculiseMaterial;
+            do {
+                exculiseMaterial = materials.get(random(materials.size()));
+            }
+            while (exculiseMaterial.getClass().isAssignableFrom(material.getClass()));
+
+            rightPlumberProductEnd = new ExclusivePlumberProductEnd(direction, diameter, material, exculiseMaterial);
+
+            Material predMaterial = ((PlumberProductEnd) leftPlumberProductEnd).material();
+
+            do {
+                material = materials.get(random(materials.size()));
+            }
+            while (exculiseMaterial.getClass().isAssignableFrom(material.getClass())
+                   || exculiseMaterial.getClass().isAssignableFrom(predMaterial.getClass()));
+
+
+            leftPlumberProductEnd = new ExclusivePlumberProductEnd(leftPlumberProductEnd.direction(), ((PlumberProductEnd) leftPlumberProductEnd ).diameter(), predMaterial, exculiseMaterial);
+
+        }
 
 
         Set<AbstractPlumberProductEnd> directionSet = new HashSet<>(List.of(new AbstractPlumberProductEnd[]{leftPlumberProductEnd, rightPlumberProductEnd}));

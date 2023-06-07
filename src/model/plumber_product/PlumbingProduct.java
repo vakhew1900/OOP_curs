@@ -4,6 +4,7 @@ import model.events.PlumberProductFilledActionEvent;
 import model.events.PlumberProductFilledActionListener;
 import model.events.WaterStoppedActionListener;
 import model.plumber_product_end.AbstractPlumberProductEnd;
+import model.plumber_product_end.ExclusivePlumberProductEnd;
 import model.plumber_product_end.PlumberProductEnd;
 import org.jetbrains.annotations.NotNull;
 import model.Cell;
@@ -178,7 +179,10 @@ public abstract class PlumbingProduct {
             }
         }
 
-        return plumberProductEnd!= null && other.hasEnd(plumberProductEnd.opposite());
+
+
+        return plumberProductEnd!= null && other.hasEnd(plumberProductEnd.direction().opposite())
+                && plumberProductEnd.isCanConnected(other.getEnd(plumberProductEnd.direction().opposite()));
     }
 
 

@@ -30,6 +30,11 @@ public class SimplePlumberProductEnd extends AbstractPlumberProductEnd{
     }
 
     @Override
+    public boolean isCanConnected(AbstractPlumberProductEnd abstractPlumberProductEnd) {
+        return this.equals(abstractPlumberProductEnd.opposite());
+    }
+
+    @Override
     public int hashCode() {
         int hashCode = direction().hashCode();
         return hashCode;
