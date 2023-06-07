@@ -151,39 +151,7 @@ public class Game implements WaterStoppedActionListener {
         return status;
     }
 
-    /**
-     * Повернуть трубу в клетке с координатами (row; col)
-     * @param row - строка
-     * @param col - колонка
-     */
-//    public void rotate(int row, int col) {
-//
-//        if (row < 0 || col < 0 || gamefield().height() <= row || gamefield().width() <= col) {
-//            throw new IllegalArgumentException("Illegal row or col");
-//        }
-//
-//        PlumbingProduct plumbingProduct = gameField.cell(row, col).getPlumbingProduct();
-//
-//        if (plumbingProduct != null) {
-//            ((Pipe) plumbingProduct).rotate();
-//        }
-//
-//    }
 
-//    /**
-//     * Напечатать все обстановку на поле
-//     */
-//    public void printAllPipeline() {
-//
-//        for (int i = 0; i < this.gamefield().height(); i++) {
-//            for (int j = 0; j < this.gamefield().height(); j++) {
-//                PlumbingProduct plumbingProduct = this.gamefield().cell(i, j).getPlumbingProduct();
-//                if (plumbingProduct != null) {
-//                    System.out.println(plumbingProduct);
-//                }
-//            }
-//        }
-//    }
 
     /**
      * Обработка события течения воды
